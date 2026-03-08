@@ -92,7 +92,7 @@
 	[bg storage="&tf.img_path +'bg_config.png'" time="100"]
 
 ;	画面右上の「Back」ボタン
-	[button fix="true" graphic="&tf.img_path + 'c_btn_back.png'" enterimg="&tf.img_path + 'c_btn_back2.png'" target="*backtitle" x="1160" y="20"]
+	[button fix="true" graphic="&tf.img_path + 'c_btn_back.png'" enterimg="&tf.img_path + 'c_btn_back2.png'" target="*backtitle" clickse="sei_ge_bubble01.mp3" x="1160" y="20"]
 
 [jump target="*config_page"]
 
