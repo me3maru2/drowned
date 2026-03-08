@@ -76,8 +76,8 @@
 
 [pushlog text="[se:アラームの音]"]
 [fadeinse storage=alarm.mp3 loop=false time=2000]
-[bg storage="noon_room.png" time="2000" wait="false"]
 [p]
+[bg storage="noon_room.png" time="2000" wait="false"]
 [stopse]
 …………うるさい[p]
 @playbgm time="3000" storage=natuodayaka.mp3 loop=true
