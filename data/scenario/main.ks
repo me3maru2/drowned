@@ -6,7 +6,7 @@
 [start_keyconfig]
 
 
-[bg storage="01.png" time="100"]
+[bg storage="non.png" time="100"]
 
 ;メッセージウィンドウの設定
 [position layer="message0" left=0 top=520 width=1280 height=200 page=fore visible=true]
@@ -59,7 +59,7 @@
 
 [pushlog text="*--------------*"]
 
-[bg storage="noon_room.png" time="2000" wait="false"]
+[bg storage="00.png" time="2000" wait="false"]
 @playbgm storage=sakana_abk_loop.mp3 loop=true
 #
 口もきけぬ阿呆な女の話。[p]
