@@ -74,7 +74,7 @@
 
 [pushlog text="[se:アラームの音]"]
 [fadeinse storage=alarm.mp3 loop=false time=2000]
-[bg storage="room_1.png" time="2000" wait="false"]
+[bg storage="noon_room.png" time="2000" wait="false"]
 [p]
 [stopse]
 …………うるさい[p]
@@ -182,15 +182,15 @@
 #同居人
 ひでー！[p]
 
-[bg storage="laundry_1.png" time="1000" wait="false" method="slideInLeft"]
+[bg storage="noon_laundry.png" time="1000" wait="false" method="slideInLeft"]
 #
 これ以上相手をしてられない。[p]
 
-[bg storage="living1_1.png" time="1000" wait="false" method="slideInLeft"]
+[bg storage="noon_living1.png" time="1000" wait="false" method="slideInLeft"]
 #
 妙に今日は頭が痛いんだ。[l][r]
 
-[bg storage="room_1.png" time="1000" wait="false" method="slideInLeft"]
+[bg storage="noon_room.png" time="1000" wait="false" method="slideInLeft"]
 #
 早く寝よう…………[p]
 ……？[l][r]
