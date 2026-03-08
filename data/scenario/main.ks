@@ -58,7 +58,9 @@
 [init_var]
 
 [pushlog text="*--------------*"]
-@playbgm time="3000" storage=sakana_abk_loop.mp3 loop=true
+
+[bg storage="noon_room.png" time="2000" wait="false"]
+@playbgm storage=sakana_abk_loop.mp3 loop=true
 #
 口もきけぬ阿呆な女の話。[p]
 
