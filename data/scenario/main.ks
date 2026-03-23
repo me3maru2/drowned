@@ -203,7 +203,7 @@
 
 
 [refresh_ui config_visible="true"]
-
+[layopt layer=message0 clickthrough=true]
 ; --- day1 ---
 [sCntReset]
 *day1
@@ -215,7 +215,7 @@
 [next_time]
 [sCntReset]
 [if exp="f.currInfo.day == 1"]
-    [refresh_room]
+    @jump target="*day1"
 [endif]
 [if exp="f.currInfo.day == 2"]
     @jump target="*day2"
@@ -267,13 +267,13 @@ f.eventFlg[0][6] = 1; // 調理1
 ;就寝1（0.8）
 #
 就寝１
-[return]
+@jump storage="macro.ks" target="*back_from_event"
 
 *ev_day1_2
 ;就寝2（0.2）
 #
 就寝2
-[return]
+@jump storage="macro.ks" target="*back_from_event"
 
 *ev_day1_3
 ;空腹1
