@@ -30,9 +30,9 @@
 [p]その他世の中にあるたくさんの注意書きに含まれるもの、すべてが含まれるといっても過言ではありません。
 [p]この先については自己責任となります。製作者は一切の責任を負いません。
 
-[glink  color="noon_btn"  storage="main.ks"  x="360"  y="150"  text="大丈夫だ、問題ない"  target="*guroflgYes"  clickse="sei_ge_bubble01.mp3"]
-[glink  color="noon_btn"  storage="main.ks"  x="360"  y="250"  text="グロゴアなどの表現を控えめにする"  target="*guroflgNo"  clickse="sei_ge_bubble01.mp3"]
-[glink  color="noon_btn"  storage="main.ks"  x="360"  y="350"  text="ごめんちょっと無理"  target="*title"  clickse="sei_ge_bubble01.mp3"]
+[glink  color="noon_btn"  storage="main.ks"  x="410"  y="150"  text="大丈夫だ、問題ない"  target="*guroflgYes"  clickse="sei_ge_bubble01.mp3"]
+[glink  color="noon_btn"  storage="main.ks"  x="410"  y="250"  text="グロゴアなどの表現を控えめにする"  target="*guroflgNo"  clickse="sei_ge_bubble01.mp3"]
+[glink  color="noon_btn"  storage="main.ks"  x="410"  y="350"  text="ごめんちょっと無理"  target="*title"  clickse="sei_ge_bubble01.mp3"]
 [s]
 
 *guroflgYes
@@ -56,6 +56,7 @@
 [cm]
 
 [init_var]
+@call storage="../others/texts.ks"
 
 [pushlog text="*--------------*"]
 
@@ -121,8 +122,8 @@
 死んじゃったかと思ったわ[p]
 起きてたんなら返事くらいしろよな～
 
-[glink  color="noon_btn"  storage="main.ks"  x="360"  y="150"  text="水くらい出せただろ"  target="*mizu1"   clickse="sei_ge_bubble01.mp3"]
-[glink  color="noon_btn"  storage="main.ks"  x="360"  y="250"  text="悪かった"  target="*mizu2"   clickse="sei_ge_bubble01.mp3"]
+[glink  color="noon_btn"  storage="main.ks"  x="410"  y="150"  text="水くらい出せただろ"  target="*mizu1"   clickse="sei_ge_bubble01.mp3"]
+[glink  color="noon_btn"  storage="main.ks"  x="410"  y="250"  text="悪かった"  target="*mizu2"   clickse="sei_ge_bubble01.mp3"]
 [s]
 
 *mizu1
@@ -151,6 +152,7 @@
 #???
 ちぇ～…………[p]
 *mizuelse
+[cm]
 
 #
 この、人と魚の中間見たいな見た目をした男が俺の同居人だ。[p]
@@ -193,6 +195,7 @@
 妙に今日は頭が痛いんだ。[l][r]
 
 [bg storage="noon_room.png" time="1000" wait="false" method="slideInLeft"]
+[eval exp="f.currInfo.room = 6"]
 #
 早く寝よう…………[p]
 ……？[l][r]
@@ -201,12 +204,147 @@
 
 [refresh_ui config_visible="true"]
 
-; --- dey1 ---
-;[refresh_room]
+; --- day1 ---
+[sCntReset]
+*day1
+[refresh_room]
+[s]
+
+; --- next_phase（探索フェーズ終了後・時間帯を進める） ---
+*next_phase
+[next_time]
+[sCntReset]
+[if exp="f.currInfo.day == 1"]
+    [refresh_room]
+[endif]
+[if exp="f.currInfo.day == 2"]
+    @jump target="*day2"
+[endif]
+[if exp="f.currInfo.day == 3"]
+    @jump target="*day3"
+[endif]
+
+; --- day2 ---
+*day2
+[refresh_room]
+[s]
+
+; --- day3 ---
+*day3
+[refresh_room]
+[s]
+
+
 
 #
 いまはここまで。[p]
 
 
 @jump storage="title.ks"
+[s]
+
+
+; ===イベント定義===
+;day1
+
+*ev_day1_0
+;回想1
+#
+回想１
+彼と、アイスを食べた。[p]
+ソーダ味のアイスでバニラアイスを包んだだけの食べ進めるたびに頭が痛くなる兵器。[p]
+あれを貴方はさぞおいしそうにほおばって[l][r]
+案の定、頭が痛いと笑う。[p]
+俺は、あのとき何味を食べたんだっけ。[p]
+
+[iscript]
+f.eventFlg[0][6] = 1; // 調理1
+[endscript]
+
+[return]
+
+*ev_day1_1
+;就寝1（0.8）
+#
+就寝１
+[return]
+
+*ev_day1_2
+;就寝2（0.2）
+#
+就寝2
+[return]
+
+*ev_day1_3
+;空腹1
+#
+空腹1
+[return]
+
+*ev_day1_4
+;電話1(0.00504)
+#
+電話1
+[return]
+
+*ev_day1_5
+;ニュース1
+#
+ニュース1
+[return]
+
+
+*ev_day1_6
+;調理1
+#
+調理1
+[return]
+
+
+*ev_day1_7
+;冷蔵庫のおやつ1(0.1)
+#
+冷蔵庫のおやつ1
+[return]
+
+
+; === 会話定義 ===
+
+*show_topics
+[clearfix name="search_btn,move_btn"]
+
+[if exp="f.topicFlg[f.currInfo.day-1][0] == 1"]
+[glink color="&f.currInfo.time+'_btn'" x=360 y=100 text="話題0" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
+[endif]
+
+[if exp="f.topicFlg[f.currInfo.day-1][1] == 1"]
+[glink color="&f.currInfo.time+'_btn'" x=360 y=175 text="話題1" storage="main.ks" target="*talk_d1_1" clickse="sei_ge_bubble01.mp3"]
+[endif]
+
+[if exp="f.topicFlg[f.currInfo.day-1][2] == 1"]
+[glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話題2" storage="main.ks" target="*talk_d1_2" clickse="sei_ge_bubble01.mp3"]
+[endif]
+
+[glink color="&f.currInfo.time+'_btn'" x=360 y=400 text="やめる" storage="macro.ks" target="*change_room" clickse="sei_ge_bubble01.mp3"]
+[s]
+
+*talk_d1_0
+[cm]
+#同居人
+（話題0の会話テキスト）[p]
+[refresh_room]
+[s]
+
+*talk_d1_1
+[cm]
+#同居人
+（話題1の会話テキスト）[p]
+[refresh_room]
+[s]
+
+*talk_d1_2
+[cm]
+#同居人
+（話題2の会話テキスト）[p]
+[refresh_room]
 [s]
