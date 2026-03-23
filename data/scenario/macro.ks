@@ -16,79 +16,78 @@
 
 ;部屋の探索可否のフラグ変更
 [macro name="sFlgedit"]
-[iscript]
-// 引数で受け取った部屋と場所のフラグを1（探索済）にする
-var day  = f.currInfo.day;
-var room = f.currInfo.room;
-var place = mp.place;
-switch(day){
-    case 1:
-        f.searchFlg_day1[room][place] += 1;
-        break;
-    case 2:
-        f.searchFlg_day2[room][place] += 1;
-        break;
-    case 3:
-        f.searchFlg_day3[room][place] += 1;
-        break;
-    default:
-        break;
-}
-[endscript]
+    [iscript]
+    // 引数で受け取った部屋と場所のフラグを1（探索済）にする
+    var day  = f.currInfo.day;
+    var room = f.currInfo.room;
+    var place = mp.place;
+    switch(day){
+        case 1:
+            f.searchFlg_day1[room][place] += 1;
+            break;
+        case 2:
+            f.searchFlg_day2[room][place] += 1;
+            break;
+        case 3:
+            f.searchFlg_day3[room][place] += 1;
+            break;
+        default:
+            break;
+    }
+    [endscript]
 [endmacro]
-
 
 ;変数初期化
 [macro name="init_var"]
-[iscript]
-f.currInfo={day:1,time:'noon',room:0};
-f.eventFlg=[//day1
-            [1,1,1,1,1,1,0,1],          //回想1,就寝1,就寝2,空腹1,電話1,ニュース1,調理1,冷蔵庫1
-            //day2
-            [0,0,0,0,0,0,0,0,0,0,0,0],  //回想2,回想3,就寝3,就寝4,空腹2,空腹3,電話2,セイレーン,ニュース2,調理2,夕立,冷蔵庫2
-            //day3
-            [0,0,0,0,0,0,0,0]           //回想4,就寝5,就寝6,空腹4,空腹5,空腹6,ニュース3,冷蔵庫3
-            ];
-f.searchFlg_day1 = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 0.風呂（窓昼,窓夕,窓夜,浴槽昼,浴槽夕,浴槽夜,同居人昼,同居人夕,同居人夜,蛇口）
-    [0, 0, 0, 0, 0, 0],             // 1.玄関（扉昼,扉夕,扉夜,傘立て,ポスト夕,ポスト夜）
-    [0],                            // 2.キッチン（冷蔵庫）
-    [0, 0, 0],                      // 3.ランドリー（洗面台昼,洗面台夕,洗濯かご）
-    [0],                            // 4.リビング１（ソファ）
-    [0, 0, 0],                      // 5.リビング２（TV昼,TV夕,TV夜）
-    [0, 0, 0, 0, 0, 0, 0, 0, 0]    // 6.寝室（ベッド昼,ベッド夕,ベッド夜,本棚昼,本棚夕,本棚夜,写真立て昼,写真立て夕,写真立て夜）
-];
-f.searchFlg_day2 = [
-    [0, 0, 0, 0],   // 0.風呂（蛇口、窓、浴槽、同居人）
-    [0, 0, 0],      // 1.玄関（扉、傘立て、ポスト）
-    [0],            // 2.キッチン（冷蔵庫）
-    [0],            // 3.ランドリー
-    [0],            // 4.リビング１
-    [0],            // 5.リビング２
-    [0]             // 6.寝室
-];
-f.searchFlg_day3 = [
-    [0, 0, 0, 0],   // 0.風呂（蛇口、窓、浴槽、同居人）
-    [0, 0, 0],      // 1.玄関（扉、傘立て、ポスト）
-    [0],            // 2.キッチン（冷蔵庫）
-    [0],            // 3.ランドリー
-    [0],            // 4.リビング１
-    [0],            // 5.リビング２
-    [0]             // 6.寝室
-];
-// 話題フラグ（0:未取得, 1:取得済）
-f.topicFlg = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // day1
-    [0],                            // day2
-    [0]                             // day3
-];
-//霊也初期値
-f.reiya={san:45,memory:0};
-//新二
-f.shinji={san:60,lv:1};
-//探索回数
-f.searchCnt=0;
-[endscript]
+    [iscript]
+    f.currInfo={day:1,time:'noon',room:0};
+    f.eventFlg=[//day1
+                [1,1,1,1,1,1,0,1],          //回想1,就寝1,就寝2,空腹1,電話1,ニュース1,調理1,冷蔵庫1
+                //day2
+                [0,0,0,0,0,0,0,0,0,0,0,0],  //回想2,回想3,就寝3,就寝4,空腹2,空腹3,電話2,セイレーン,ニュース2,調理2,夕立,冷蔵庫2
+                //day3
+                [0,0,0,0,0,0,0,0]           //回想4,就寝5,就寝6,空腹4,空腹5,空腹6,ニュース3,冷蔵庫3
+                ];
+    f.searchFlg_day1 = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 0.風呂（窓昼,窓夕,窓夜,浴槽昼,浴槽夕,浴槽夜,同居人昼,同居人夕,同居人夜,蛇口）
+        [0, 0, 0, 0, 0, 0],             // 1.玄関（扉昼,扉夕,扉夜,傘立て,ポスト夕,ポスト夜）
+        [0],                            // 2.キッチン（冷蔵庫）
+        [0, 0, 0],                      // 3.ランドリー（洗面台昼,洗面台夕,洗濯かご）
+        [0],                            // 4.リビング１（ソファ）
+        [0, 0, 0],                      // 5.リビング２（TV昼,TV夕,TV夜）
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]    // 6.寝室（ベッド昼,ベッド夕,ベッド夜,本棚昼,本棚夕,本棚夜,写真立て昼,写真立て夕,写真立て夜）
+    ];
+    f.searchFlg_day2 = [
+        [0, 0, 0, 0],   // 0.風呂（蛇口、窓、浴槽、同居人）
+        [0, 0, 0],      // 1.玄関（扉、傘立て、ポスト）
+        [0],            // 2.キッチン（冷蔵庫）
+        [0],            // 3.ランドリー
+        [0],            // 4.リビング１
+        [0],            // 5.リビング２
+        [0]             // 6.寝室
+    ];
+    f.searchFlg_day3 = [
+        [0, 0, 0, 0],   // 0.風呂（蛇口、窓、浴槽、同居人）
+        [0, 0, 0],      // 1.玄関（扉、傘立て、ポスト）
+        [0],            // 2.キッチン（冷蔵庫）
+        [0],            // 3.ランドリー
+        [0],            // 4.リビング１
+        [0],            // 5.リビング２
+        [0]             // 6.寝室
+    ];
+    // 話題フラグ（0:未取得, 1:取得済）
+    f.topicFlg = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // day1
+        [0],                            // day2
+        [0]                             // day3
+    ];
+    //霊也初期値
+    f.reiya={san:45,memory:0};
+    //新二
+    f.shinji={san:60,lv:1};
+    //探索回数
+    f.searchCnt=0;
+    [endscript]
 [endmacro]
 
 
@@ -120,8 +119,8 @@ f.searchCnt=0;
     [endscript]
     [if exp="mp.config_visible == 'true' || mp.config_visible == true"]
     [image layer="0" storage="&tf.dayfile" x=980 y=10 width=300 visible="true"]
-  [ptext layer="0" name="day_text" text="&f.currInfo.day" x=1135 y=12 size=70 color="#06222d" edge="#06222d"]
-[endif]
+    [ptext layer="0" name="day_text" text="&f.currInfo.day" x=1135 y=12 size=70 color="#06222d" edge="#06222d"]
+    [endif]
 [endmacro]
 
 
@@ -134,8 +133,6 @@ f.searchCnt=0;
   ; 背景変更 (例: room_noon.png)
   [iscript]
   tf.roomname = ['bath','foyer','kitchen','laundry','living1','living2','room'];
-  [endscript]
-  [iscript]
   tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
   [endscript]
   [bg storage="&tf.bgfile" time="500" wait="true"]
@@ -158,78 +155,62 @@ f.searchCnt=0;
 
   [jump storage="macro.ks" target=&tf.rpTarget]
 
-*refresh_room_end
+    *refresh_room_end
   ; UI（ボタン系）の再表示
   [refresh_ui config_visible="true"]
 [endmacro]
 
 
-
 [macro name="rand_flavor"]
-[iscript]
-var sanKey;
-if (f.reiya.san > 30) {
-    sanKey = "high";
-} else if (f.reiya.san > 20) {
-    sanKey = "mid";
-} else {
-    sanKey = "low";
-}
-
-var day   = "day" + mp.day;
-var room  = parseInt(mp.room);
-var place = parseInt(mp.place);
-
-var pool = tf.texts[day][sanKey][room][place];
-
-if (!pool || pool.length === 0) {
-    tf.flavorText = "";
-} else {
-    var idx = Math.floor(Math.random() * pool.length);
-    if (pool[idx] === tf.lastFlavor && pool.length > 1) {
-        idx = Math.floor(Math.random() * pool.length);
+    [iscript]
+    var sanKey;
+    if (f.reiya.san > 30) {
+        sanKey = "high";
+    } else if (f.reiya.san > 20) {
+        sanKey = "mid";
+    } else {
+        sanKey = "low";
     }
-    tf.lastFlavor = pool[idx];
-    tf.flavorText = pool[idx];
-}
-[endscript]
-[if exp="tf.flavorText != ''"]
-[emb exp="tf.flavorText"]
-[p]
-[cm]
-[endif]
-[endmacro]
 
+    var day   = "day" + mp.day;
+    var room  = parseInt(mp.room);
+    var place = parseInt(mp.place);
+
+    var pool = tf.texts[day][sanKey][room][place];
+
+    if (!pool || pool.length === 0) {
+        tf.flavorText = "";
+    } else {
+        var idx = Math.floor(Math.random() * pool.length);
+        if (pool[idx] === tf.lastFlavor && pool.length > 1) {
+            idx = Math.floor(Math.random() * pool.length);
+        }
+        tf.lastFlavor = pool[idx];
+        tf.flavorText = pool[idx];
+    }
+    [endscript]
+    [if exp="tf.flavorText != ''"]
+    [emb exp="tf.flavorText"]
+    [p]
+    [cm]
+    [endif]
+[endmacro]
 
 
 [macro name="event_rnd"]
-[iscript]
-var day  = parseInt(mp.day) - 1;
-var idx  = parseInt(mp.idx);
-var prob = mp.prob ? parseFloat(mp.prob) : 1;
-tf.doEvent = (f.eventFlg[day][idx] == 1 && Math.random() < prob);
-tf.eventTarget = '*ev_day' + mp.day + '_' + mp.idx;
-[endscript]
-[if exp="tf.doEvent"]
     [iscript]
-        f.eventFlg[parseInt(mp.day)-1][parseInt(mp.idx)] = 2;
+    var day  = parseInt(mp.day) - 1;
+    var idx  = parseInt(mp.idx);
+    var prob = mp.prob ? parseFloat(mp.prob) : 1;
+    tf.doEvent = (f.eventFlg[day][idx] == 1 && Math.random() < prob);
+    tf.eventTarget = '*ev_day' + mp.day + '_' + mp.idx;
     [endscript]
-    [call storage="main.ks" target="&tf.eventTarget"]
-[endif]
-[endmacro]
-
-
-[macro name="next_time"]
-[iscript]
-if (f.currInfo.time == 'noon') {
-    f.currInfo.time = 'evening';
-} else if (f.currInfo.time == 'evening') {
-    f.currInfo.time = 'night';
-} else {
-    f.currInfo.day += 1;
-    f.currInfo.time = 'noon';
-}
-[endscript]
+    [if exp="tf.doEvent"]
+        [iscript]
+            f.eventFlg[parseInt(mp.day)-1][parseInt(mp.idx)] = 2;
+        [endscript]
+        [call storage="main.ks" target="&tf.eventTarget"]
+    [endif]
 [endmacro]
 
 ; イベント名表示マクロ
@@ -337,14 +318,11 @@ $("#event_layer").hide();
 [cm][er]
 [clearfix]
 [clearstack]
-[layopt layer="message0" visible="false"]
+; レイヤーを掃除して暗転
 [freeimage layer="0"]
 [freeimage layer="1"]
-
-; 暗転させてから main.ks の時間進行処理へ
 [mask time="500" color="black"]
-    @jump storage="main.ks" target="*next_phase"
-[mask_off]
+    [jump storage="main.ks" target="*next_phase"]
 [s]
 
 
