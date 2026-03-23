@@ -126,8 +126,9 @@ f.searchCnt=0;
 
 
 [macro name="refresh_room"]
+  [clearfix name="search_btn"]
+  [clearfix name="move_btn"]
   [cm]
-  [clearfix name="move_btn,search_btn"]
   [freeimage layer="0"]
 
   ; 背景変更 (例: room_noon.png)
@@ -231,6 +232,29 @@ if (f.currInfo.time == 'noon') {
 [endscript]
 [endmacro]
 
+; イベント名表示マクロ
+[macro name="show_ev_name"]
+    [layopt layer="0" visible="true"]
+    [iscript]
+    tf.storage = "ev_bg_"+f.currInfo.time+".png";
+    if(f.currInfo.time == 'noon'){
+        tf.color= "0x337686";
+    }else if (f.currInfo.time == 'evening') {
+        tf.color= "0x06222D";
+    }else{
+        tf.color= "0xB5C7C8";
+    } 
+    [endscript]
+    [free name="ev_parts" layer="0"]
+    [image name="ev_parts" layer="0" storage=&tf.storage x=930 y=10 visible=true zindex=998]
+    [ptext name="ev_parts" layer="0" text=%title x=930 y=32 size=26 color=&tf.color width=350 align="center" zindex=999 opacity=255 edge=&tf.color]
+[endmacro]
+
+; 消去マクロ
+[macro name="hide_ev_name"]
+    [free name="ev_parts" layer="0"]
+[endmacro]
+
 [return]
 
 *talk_or_search
@@ -268,7 +292,7 @@ for (var i = 0; i < f.topicFlg[f.currInfo.day-1].length; i++) {
 
 *change_room
 [refresh_room]
-[s]
+[return]
 
 *do_search
 [iscript]
@@ -288,14 +312,21 @@ tf.evTarget = '*ev_d' + f.currInfo.day + '_r' + f.currInfo.room + '_p' + tf.poin
 ; 戻ってきたらUI更新
 [clearstack]
 [trace exp="'残り回数:' + f.searchCnt"]
-
-    [if exp="f.searchCnt <= 0"]
-        @jump storage="macro.ks" target="*phase_end"
+[layopt layer="message0" visible="false"]
+[iscript]
+// 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
+TYRANO.kag.stat.is_waiting_click = false;
+$(".message0_fore").css("pointer-events", "none");
+$("#event_layer").hide(); 
+[endscript]
+[layopt layer="message0" visible="true"]
+[if exp="f.searchCnt <= 0"]
+    @jump storage="macro.ks" target="*phase_end"
     [endif]
     [refresh_room]
-    [wait time=10]
+    [s]
 [else]
-    …………疲れたな[l][r]
+    [clearstack]
     [cm]
     @jump storage="macro.ks" target="*phase_end"
 [endif]
@@ -303,10 +334,18 @@ tf.evTarget = '*ev_d' + f.currInfo.day + '_r' + f.currInfo.room + '_p' + tf.poin
 
 
 *phase_end
-[mask time=1000]
-[freeimage layer="0"]
+[cm][er]
 [clearfix]
-@jump storage="main.ks" target="*next_phase"
+[clearstack]
+[layopt layer="message0" visible="false"]
+[freeimage layer="0"]
+[freeimage layer="1"]
+
+; 暗転させてから main.ks の時間進行処理へ
+[mask time="500" color="black"]
+    @jump storage="main.ks" target="*next_phase"
+[mask_off]
+[s]
 
 
 ; ======================================================
