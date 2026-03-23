@@ -210,18 +210,18 @@
 [refresh_room]
 [s]
 
-; --- next_phase（探索フェーズ終了後・時間帯を進める） ---
+
 *next_phase
 [next_time]
 [sCntReset]
 [if exp="f.currInfo.day == 1"]
-    @jump target="*day1"
+    @jump storage="main.ks" target="*day1"
 [endif]
 [if exp="f.currInfo.day == 2"]
-    @jump target="*day2"
+    @jump storage="main.ks" target="*day2"
 [endif]
 [if exp="f.currInfo.day == 3"]
-    @jump target="*day3"
+    @jump storage="main.ks" target="*day3"
 [endif]
 
 ; --- day2 ---
@@ -249,8 +249,8 @@
 
 *ev_day1_0
 ;回想1
+[show_ev_name title="00.ソーダ味"]
 #
-回想１
 彼と、アイスを食べた。[p]
 ソーダ味のアイスでバニラアイスを包んだだけの食べ進めるたびに頭が痛くなる兵器。[p]
 あれを貴方はさぞおいしそうにほおばって[l][r]
@@ -260,51 +260,65 @@
 [iscript]
 f.eventFlg[0][6] = 1; // 調理1
 [endscript]
-
+[hide_ev_name]
 [return]
 
 *ev_day1_1
 ;就寝1（0.8）
+[show_ev_name title="01.おやすみ！"]
 #
-就寝１
+就寝1[p]
+[hide_ev_name]
 @jump storage="macro.ks" target="*back_from_event"
 
 *ev_day1_2
 ;就寝2（0.2）
+[show_ev_name title="02.おやすみなさい…"]
 #
-就寝2
+就寝2[p]
+[hide_ev_name]
 @jump storage="macro.ks" target="*back_from_event"
 
 *ev_day1_3
 ;空腹1
+[show_ev_name title="03.おなかすいた"]
 #
-空腹1
+空腹1[p]
+[hide_ev_name]
 [return]
 
 *ev_day1_4
 ;電話1(0.00504)
+[show_ev_name title="04.通信障害？"]
 #
-電話1
+電話1[p]
+[hide_ev_name]
 [return]
 
 *ev_day1_5
 ;ニュース1
+[show_ev_name title="05.ニュースだ"]
 #
-ニュース1
+ニュース1[p]
+[hide_ev_name]
 [return]
 
 
 *ev_day1_6
 ;調理1
+[show_ev_name title="06.たまには自炊してね"]
 #
-調理1
+調理1[p]
+[hide_ev_name]
 [return]
 
 
 *ev_day1_7
 ;冷蔵庫のおやつ1(0.1)
+[show_ev_name title="07.おやつ発見！"]
 #
-冷蔵庫のおやつ1
+冷蔵庫のおやつ1[p]
+[hide_ev_name]
 [return]
 
 
