@@ -210,30 +210,38 @@
 [refresh_room]
 [s]
 
+; --- day2 ---
+;*day2
+;[refresh_room]
+;[s]
+
+; --- day3 ---
+;*day3
+;[refresh_room]
+;[s]
 
 *next_phase
-[next_time]
+ [iscript]
+if (f.currInfo.time == 'noon') {
+    f.currInfo.time = 'evening';
+} else if (f.currInfo.time == 'evening') {
+    f.currInfo.time = 'night';
+} else {
+    f.currInfo.day += 1;
+    f.currInfo.time = 'noon';
+}
+[endscript]
 [sCntReset]
+[mask_off]
 [if exp="f.currInfo.day == 1"]
     @jump storage="main.ks" target="*day1"
 [endif]
-[if exp="f.currInfo.day == 2"]
-    @jump storage="main.ks" target="*day2"
-[endif]
-[if exp="f.currInfo.day == 3"]
-    @jump storage="main.ks" target="*day3"
-[endif]
-
-; --- day2 ---
-*day2
-[refresh_room]
-[s]
-
-; --- day3 ---
-*day3
-[refresh_room]
-[s]
-
+;[if exp="f.currInfo.day == 2"]
+;    @jump storage="main.ks" target="*day2"
+;[endif]
+;[if exp="f.currInfo.day == 3"]
+;    @jump storage="main.ks" target="*day3"
+;[endif]
 
 
 #
