@@ -3,13 +3,13 @@
     [iscript]
     // SAN値に応じて回数を計算
     if (f.reiya.san > 40) {
-        f.searchCnt = 30;
+        f.searchCnt += 30;
     } else if (f.reiya.san > 30){
-        f.searchCnt = 21;
+        f.searchCnt += 21;
     } else if (f.reiya.san > 20){
-        f.searchCnt = 15;
+        f.searchCnt += 15;
     } else {
-        f.searchCnt = 12;
+        f.searchCnt += 12;
     }
     [endscript]
 [endmacro]
@@ -77,7 +77,7 @@
     ];
     // 話題フラグ（0:未取得, 1:取得済）
     f.topicFlg = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // day1
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0], // day1
         [0],                            // day2
         [0]                             // day3
     ];
@@ -89,7 +89,6 @@
     f.searchCnt=0;
     [endscript]
 [endmacro]
-
 
 [macro name="refresh_ui"]
   ; --- 1. 古いUIを一旦掃除 ---
@@ -147,6 +146,9 @@
   [if exp="f.currInfo.day == 1"]
     [event_rnd day="1" idx="4" prob="0.00504"]
   [endif]
+  [if exp="f.currInfo.day == 2"]
+    [event_rnd day="2" idx="6" prob="0.00504"]
+  [endif]
   ; 探索ポイントの表示（roomごとに分岐）
   [iscript]
     tf._t = f.currInfo.time;
@@ -159,7 +161,6 @@
   ; UI（ボタン系）の再表示
   [refresh_ui config_visible="true"]
 [endmacro]
-
 
 [macro name="rand_flavor"]
     [iscript]
@@ -236,35 +237,74 @@
     [free name="ev_parts" layer="0"]
 [endmacro]
 
+;lastday用
+[macro name="sleepORnextday"]
+    [glink  color="noon_btn"  storage="macro.ks"  x="200"  y="270"  text="次の日へ"  target="*sleepORnextday_1"   clickse="sei_ge_bubble01.mp3"]
+    [glink  color="noon_btn"  storage="macro.ks"  x="200"  y="370"  text="今朝から"  target="*sleepORnextday_2"   clickse="sei_ge_bubble01.mp3"]
+    [s]
+    *sleepORnextday_1
+    [cm]
+    [iscript]
+        tf.lastdayFlg = true;
+    [endscript]
+    @jump target="*sleepORnextdayelse"
+    *sleepORnextday_2
+    [iscript]
+        f.currInfo.day -= 1;
+        f.currInfo.room = 6;
+        tf.lastdayFlg = false;
+    [endscript]
+    [cm]
+    *sleepORnextdayelse
+    [cm]
+[endmacro]
+
 [return]
 
 *talk_or_search
-[clearfix name="search_btn,move_btn"]
-[glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="調べる"    storage="macro.ks" target="*do_search" zindex="999" fix="true"  clickse="sei_ge_bubble01.mp3"]
-[glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話しかける" storage="macro.ks" target="*do_talk"   clickse="sei_ge_bubble01.mp3"]
-[s]
+    [clearfix name="search_btn,move_btn"]
+    [cm]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="調べる"    storage="macro.ks" target="*do_search"]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話しかける" storage="macro.ks" target="*do_talk"]
+    [s]
+
+*talk_stop_return
+    [iscript]
+    tf.stop_talk = true;
+    [endscript]
+    [cm]
+    [return]
 
 *do_talk
-[clearfix name="search_btn,move_btn"]
-[iscript]
-tf.hasTopic = false;
-for (var i = 0; i < f.topicFlg[f.currInfo.day-1].length; i++) {
-    if (f.topicFlg[f.currInfo.day-1][i] == 1) {
-        tf.hasTopic = true;
-        break;
+    [clearfix name="search_btn,move_btn"]
+    *talk_loop
+    [cm]
+    [iscript]
+    tf.hasTopic = false;
+    for (var i = 0; i < f.topicFlg[f.currInfo.day-1].length; i++) {
+        if (f.topicFlg[f.currInfo.day-1][i] == 1) {
+            tf.hasTopic = true;
+            break;
+        }
     }
-}
-[endscript]
-[if exp="tf.hasTopic == false"]
-    #
-    ……。[l][r]
-    [refresh_room]
-    [s]
-[else]
-    [call storage="main.ks" target="*show_topics"]
-    [s]
-[endif]
-[s]
+    [endscript]
+    [if exp="tf.hasTopic == false"]
+        #
+        今は特に話すこともないな[p]
+        [refresh_room]
+        [return]
+    [else]
+        [call storage="main.ks" target="*show_topics"]
+        [if exp="tf.stop_talk == true"]
+            [iscript]
+                tf.stop_talk = false;
+            [endscript]
+            [refresh_room]
+            [return]
+        [endif]
+
+        @jump target="*talk_loop"
+    [endif]
 
 
 ; ======================================================
@@ -331,97 +371,98 @@ $("#event_layer").hide();
 ; ======================================================
 
 *rp_d1_r0
-; day1・風呂
-[if exp="tf._t == 'noon'"]
-[button name="search_btn" graphic="button/noon_search.png"    x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/noon_search.png"    x=500 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/noon_search.png"    x=300 y=200 storage="macro.ks" target="*talk_or_search"  exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'evening'"]
-[button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/evening_search.png" x=500 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/evening_search.png" x=400 y=200 storage="macro.ks" target="*talk_or_search"  exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'night'"]
-[button name="search_btn" graphic="button/night_search.png"   x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/night_search.png"   x=500 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/night_search.png"   x=400 y=200 storage="macro.ks" target="*talk_or_search"  exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・風呂
+    [if exp="tf._t == 'noon'"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=500 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=300 y=200 storage="macro.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'evening'"]
+        [event_rnd day="1" idx="3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=500 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=400 y=200 storage="macro.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'night'"]
+        [button name="search_btn" graphic="button/night_search.png"   x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/night_search.png"   x=500 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/night_search.png"   x=400 y=200 storage="macro.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r1
-; day1・玄関
-[if exp="tf._t == 'noon'"]
-[button name="search_btn" graphic="button/noon_search.png"    x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'evening'"]
-[button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/evening_search.png" x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'night'"]
-[button name="search_btn" graphic="button/night_search.png"   x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/night_search.png"   x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・玄関
+    [if exp="tf._t == 'noon'"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'evening'"]
+        [button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'night'"]
+        [button name="search_btn" graphic="button/night_search.png"   x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/night_search.png"   x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r2
-; day1・キッチン
-[iscript]
-tf.canCook = (tf._t == 'noon' && f.eventFlg[0][0] == 2);
-[endscript]
-[if exp="tf.canCook"]
-[event_rnd day="1" idx="6"]
-[endif]
-[button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[event_rnd day="1" idx="0"]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・キッチン
+    [iscript]
+        tf.canCook = (tf._t == 'noon' && f.eventFlg[0][6] == 1);
+    [endscript]
+    [if exp="tf.canCook"]
+        [event_rnd day="1" idx="6"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [event_rnd day="1" idx="0"]
+    [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r3
-; day1・ランドリー
-[if exp="tf._t == 'noon'"]
-[button name="search_btn" graphic="button/noon_search.png"    x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'evening'"]
-[button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・ランドリー
+    [if exp="tf._t == 'noon'"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=400 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'evening'"]
+    [button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=400 y=300 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r4
-; day1・リビング1
-[button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=600 y=400 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・リビング1
+    [button name="search_btn" graphic="&'button/'+tf._t+'_search.png'" x=600 y=400 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
+    [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r5
-; day1・リビング2
-[if exp="tf._t == 'noon'"]
-[button name="search_btn" graphic="button/noon_search.png"    x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'evening'"]
-[button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'night'"]
-[button name="search_btn" graphic="button/night_search.png"   x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・リビング2
+    [if exp="tf._t == 'noon'"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'evening'"]
+    [button name="search_btn" graphic="button/evening_search.png" x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'night'"]
+    [button name="search_btn" graphic="button/night_search.png"   x=600 y=200 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r6
-; day1・寝室
-[if exp="tf._t == 'noon'"]
-[button name="search_btn" graphic="button/noon_search.png"    x=1060 y=370 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/noon_search.png"    x=125  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/noon_search.png"    x=95   y=410 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'evening'"]
-[button name="search_btn" graphic="button/evening_search.png" x=1060 y=370 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/evening_search.png" x=125  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/evening_search.png" x=95   y=410 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[if exp="tf._t == 'night'"]
-[button name="search_btn" graphic="button/night_search.png"   x=1060 y=370 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/night_search.png"   x=125  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[button name="search_btn" graphic="button/night_search.png"   x=95   y=410 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-[endif]
-[jump storage="macro.ks" target="*refresh_room_end"]
+    ; day1・寝室
+    [if exp="tf._t == 'noon'"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=1060 y=370 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=125  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=95   y=410 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'evening'"]
+    [button name="search_btn" graphic="button/evening_search.png" x=1060 y=370 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/evening_search.png" x=125  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/evening_search.png" x=95   y=410 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="tf._t == 'night'"]
+    [button name="search_btn" graphic="button/night_search.png"   x=1060 y=370 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/night_search.png"   x=125  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/night_search.png"   x=95   y=410 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [jump storage="macro.ks" target="*refresh_room_end"]
