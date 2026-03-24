@@ -131,8 +131,8 @@
 
   ; 背景変更 (例: room_noon.png)
   [iscript]
-  tf.roomname = ['bath','foyer','kitchen','laundry','living1','living2','room'];
-  tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
+    tf.roomname = ['bath','foyer','kitchen','laundry','living1','living2','room'];
+    tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
   [endscript]
   [bg storage="&tf.bgfile" time="500" wait="true"]
 
@@ -322,28 +322,28 @@
     [endscript]
 
     [if exp="tf.can_action == true"]
-        [eval exp="f.searchCnt -= tf.cost"]
-        [sFlgedit place=&tf.point]
-        
-    [clearstack]
-    ; イベント呼び出し
-    [clearfix name="search_btn"]
-    @jump storage="event.ks" target="&tf.evTarget"
+            [eval exp="f.searchCnt -= tf.cost"]
+            [sFlgedit place=&tf.point]
+            
+        [clearstack]
+        ; イベント呼び出し
+        [clearfix name="search_btn"]
+        @jump storage="event.ks" target="&tf.evTarget"
 
-    *back_from_event
-    ; 戻ってきたらUI更新
-    [clearstack]
-    [trace exp="'残り回数:' + f.searchCnt"]
-    [layopt layer="message0" visible="false"]
-    [iscript]
-    // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
-    TYRANO.kag.stat.is_waiting_click = false;
-    $(".message0_fore").css("pointer-events", "none");
-    $("#event_layer").hide(); 
-    [endscript]
-    [layopt layer="message0" visible="true"]
-    [if exp="f.searchCnt <= 0"]
-        @jump storage="macro.ks" target="*phase_end"
+        *back_from_event
+        ; 戻ってきたらUI更新
+        [clearstack]
+        [trace exp="'残り回数:' + f.searchCnt"]
+        [layopt layer="message0" visible="false"]
+        [iscript]
+        // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
+        TYRANO.kag.stat.is_waiting_click = false;
+        $(".message0_fore").css("pointer-events", "none");
+        $("#event_layer").hide(); 
+        [endscript]
+        [layopt layer="message0" visible="true"]
+        [if exp="f.searchCnt <= 0"]
+            @jump storage="macro.ks" target="*phase_end"
         [endif]
         [refresh_room]
         [s]
