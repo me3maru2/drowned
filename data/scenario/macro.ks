@@ -94,6 +94,8 @@
   ; --- 1. 古いUIを一旦掃除 ---
   [freeimage layer="0"]
   [clearfix name="role_button"]
+  [clearfix name="vol_btn"]
+  [freeimage layer="0" name="vol_bg"]
   ; --- 2. 土台となるUI画像を「ぺたっ」と貼る ---
     ; オートボタン
     [button name="role_button" role="auto" graphic="&'button/'+f.currInfo.time+'_auto.png'" enterimg="&'button/'+f.currInfo.time+'_auto2.png'" clickse="sei_ge_bubble01.mp3" x="1010" y="480"]
@@ -108,8 +110,9 @@
     [button name="role_button" role="load" graphic="&'button/'+f.currInfo.time+'_load.png'" enterimg="&'button/'+f.currInfo.time+'_load2.png'" clickse="sei_ge_bubble01.mp3" x="10" y="105"]
     ;バックログボタン
     [button name="role_button" role="backlog" graphic="&'button/'+f.currInfo.time+'_log.png'" enterimg="&'button/'+f.currInfo.time+'_log2.png'" clickse="sei_ge_bubble01.mp3" x="10" y="190"]
-    ;コンフィグボタン
-    [button name="role_button" role="sleepgame" graphic="&'button/'+f.currInfo.time+'_config.png'" enterimg="&'button/'+f.currInfo.time+'_config2.png'" storage="config.ks" clickse="sei_ge_bubble01.mp3" x="10" y="275"]
+    ;volボタン
+    [refresh_vol_btn x="10" y="275"]
+    ;x="10" y="275"
 
   ; --- 3. その上に「day」の数値を置く ---
   ; f.day の中身を文字として表示
@@ -143,12 +146,6 @@
   [endscript]
   [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_left.png'" enterimg="&'button/'+f.currInfo.time+'_left2.png'" zindex="999" fix="true" x=0 y=380 storage="macro.ks" target="*change_room" exp="f.currInfo.room = tf.prev"]
   [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_right.png'" enterimg="&'button/'+f.currInfo.time+'_right2.png'" zindex="999" fix="true" x=1220 y=380 storage="macro.ks" target="*change_room" exp="f.currInfo.room = tf.next"]
-  [if exp="f.currInfo.day == 1"]
-    [event_rnd day="1" idx="4" prob="0.00504"]
-  [endif]
-  [if exp="f.currInfo.day == 2"]
-    [event_rnd day="2" idx="6" prob="0.00504"]
-  [endif]
   ; 探索ポイントの表示（roomごとに分岐）
   [iscript]
     tf._t = f.currInfo.time;
@@ -156,7 +153,12 @@
   [endscript]
 
   [jump storage="macro.ks" target=&tf.rpTarget]
-
+  [if exp="f.currInfo.day == 1"]
+    [event_rnd day="1" idx="4" prob="0.00504"]
+  [endif]
+  [if exp="f.currInfo.day == 2"]
+    [event_rnd day="2" idx="6" prob="0.00504"]
+  [endif]
     *refresh_room_end
   ; UI（ボタン系）の再表示
   [refresh_ui config_visible="true"]
@@ -177,7 +179,7 @@
     var room  = parseInt(mp.room);
     var place = parseInt(mp.place);
 
-    var pool = tf.texts[day][sanKey][room][place];
+    var pool = sf.texts[day][sanKey][room][place];
 
     if (!pool || pool.length === 0) {
         tf.flavorText = "";
