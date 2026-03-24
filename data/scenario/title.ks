@@ -10,6 +10,7 @@
 [stopse]
 
 @bg storage ="title_1.png" time=100
+[mask_off]
 [layopt layer="0" visible="true"]
 [ptext layer="0" text="Ver 0.demo" x=10 y=680 size=30 color="#BB2626" edge="#BB2626" time="1200"]
 @playbgm storage=HMB.mp3 loop=true
