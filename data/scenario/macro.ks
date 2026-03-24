@@ -95,7 +95,7 @@
   [freeimage layer="0"]
   [clearfix name="role_button"]
   [clearfix name="vol_btn"]
-  [freeimage layer="0" name="vol_bg"]
+  [freeimage layer="2"]
   ; --- 2. 土台となるUI画像を「ぺたっ」と貼る ---
     ; オートボタン
     [button name="role_button" role="auto" graphic="&'button/'+f.currInfo.time+'_auto.png'" enterimg="&'button/'+f.currInfo.time+'_auto2.png'" clickse="sei_ge_bubble01.mp3" x="1010" y="480"]
@@ -117,11 +117,11 @@
   ; --- 3. その上に「day」の数値を置く ---
   ; f.day の中身を文字として表示
     [iscript]
-    tf.dayfile = 'day_' + f.currInfo.time + '.png';
+        tf.dayfile = 'day_' + f.currInfo.time + '.png';
     [endscript]
     [if exp="mp.config_visible == 'true' || mp.config_visible == true"]
-    [image layer="0" storage="&tf.dayfile" x=980 y=10 width=300 visible="true"]
-    [ptext layer="0" name="day_text" text="&f.currInfo.day" x=1135 y=12 size=70 color="#06222d" edge="#06222d"]
+        [image layer="0" storage="&tf.dayfile" x=980 y=10 width=300 visible="true"]
+        [ptext layer="0" name="day_text" text="&f.currInfo.day" x=1135 y=12 size=70 color="#06222d" edge="#06222d"]
     [endif]
 [endmacro]
 
@@ -271,6 +271,7 @@
     [s]
 
 *talk_stop_return
+#
     [iscript]
     tf.stop_talk = true;
     [endscript]
@@ -364,6 +365,7 @@
 ; レイヤーを掃除して暗転
 [freeimage layer="0"]
 [freeimage layer="1"]
+[freeimage layer="2"]
 [mask time="500" color="black"]
     [jump storage="main.ks" target="*next_phase"]
 [s]
