@@ -211,13 +211,13 @@
 ;==============================================================================
 
 
-[refresh_ui config_visible="true"]
-[layopt layer=message0 clickthrough=true]
+;[refresh_ui config_visible="true"]
+;[layopt layer=message0 clickthrough=true]
 ; --- day1 ---
-[sCntReset]
-*day1
-[refresh_room]
-[s]
+;[sCntReset]
+;*day1
+;[refresh_room]
+;[s]
 
 ; --- day2 ---
 ;*day2
@@ -229,25 +229,25 @@
 ;[refresh_room]
 ;[s]
 
-*next_phase
-    [if exp="f.currInfo.time == 'night'"]
-        [call storage="main.ks" target="*last_day"]
-    [endif]
-    [iscript]
-    if (f.currInfo.time == 'noon') {
-        f.currInfo.time = 'evening';
-    } else if (f.currInfo.time == 'evening') {
-        f.currInfo.time = 'night';
-    } else {
-        f.currInfo.day += 1;
-        f.currInfo.time = 'noon';
-    }
-    [endscript]
-    [sCntReset]
-    [mask_off]
-    [if exp="f.currInfo.day == 1"]
-        @jump storage="main.ks" target="*day1"
-    [endif]
+;*next_phase
+;   [if exp="f.currInfo.time == 'night'"]
+;        [call storage="main.ks" target="*last_day"]
+;    [endif]
+;    [iscript]
+;    if (f.currInfo.time == 'noon') {
+;        f.currInfo.time = 'evening';
+;    } else if (f.currInfo.time == 'evening') {
+;        f.currInfo.time = 'night';
+;    } else {
+;        f.currInfo.day += 1;
+;        f.currInfo.time = 'noon';
+;    }
+;    [endscript]
+;    [sCntReset]
+;    [mask_off]
+;    [if exp="f.currInfo.day == 1"]
+;        @jump storage="main.ks" target="*day1"
+;    [endif]
     ;[if exp="f.currInfo.day == 2"]
     ;    @jump storage="main.ks" target="*day2"
     ;[endif]
