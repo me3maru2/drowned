@@ -312,45 +312,46 @@
 ; ======================================================
 
 *change_room
-[refresh_room]
-[return]
+    [refresh_room]
+    [return]
 
 *do_search
-[iscript]
-tf.can_action = (f.searchCnt >= tf.cost);
-tf.evTarget = '*ev_d' + f.currInfo.day + '_r' + f.currInfo.room + '_p' + tf.point;
-[endscript]
+    [iscript]
+    tf.can_action = (f.searchCnt >= tf.cost);
+    tf.evTarget = '*ev_d' + f.currInfo.day + '_r' + f.currInfo.room + '_p' + tf.point;
+    [endscript]
 
-[if exp="tf.can_action == true"]
-    [eval exp="f.searchCnt -= tf.cost"]
-    [sFlgedit place=&tf.point]
-    
-[clearstack]
-; イベント呼び出し
-@jump storage="event.ks" target="&tf.evTarget"
-
-*back_from_event
-; 戻ってきたらUI更新
-[clearstack]
-[trace exp="'残り回数:' + f.searchCnt"]
-[layopt layer="message0" visible="false"]
-[iscript]
-// 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
-TYRANO.kag.stat.is_waiting_click = false;
-$(".message0_fore").css("pointer-events", "none");
-$("#event_layer").hide(); 
-[endscript]
-[layopt layer="message0" visible="true"]
-[if exp="f.searchCnt <= 0"]
-    @jump storage="macro.ks" target="*phase_end"
-    [endif]
-    [refresh_room]
-    [s]
-[else]
+    [if exp="tf.can_action == true"]
+        [eval exp="f.searchCnt -= tf.cost"]
+        [sFlgedit place=&tf.point]
+        
     [clearstack]
-    [cm]
-    @jump storage="macro.ks" target="*phase_end"
-[endif]
+    ; イベント呼び出し
+    [clearfix name="search_btn"]
+    @jump storage="event.ks" target="&tf.evTarget"
+
+    *back_from_event
+    ; 戻ってきたらUI更新
+    [clearstack]
+    [trace exp="'残り回数:' + f.searchCnt"]
+    [layopt layer="message0" visible="false"]
+    [iscript]
+    // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
+    TYRANO.kag.stat.is_waiting_click = false;
+    $(".message0_fore").css("pointer-events", "none");
+    $("#event_layer").hide(); 
+    [endscript]
+    [layopt layer="message0" visible="true"]
+    [if exp="f.searchCnt <= 0"]
+        @jump storage="macro.ks" target="*phase_end"
+        [endif]
+        [refresh_room]
+        [s]
+    [else]
+        [clearstack]
+        [cm]
+        @jump storage="macro.ks" target="*phase_end"
+    [endif]
 
 
 
