@@ -340,18 +340,8 @@ tf.isFirst = (f.searchFlg_day1[6][1] <= 1);
 tf.isFirst = (f.searchFlg_day1[6][2] <= 1);
 [endscript]
 [if exp="tf.isFirst"]
-    [iscript]
-tf.bedtime = (Math.random() < 0.8) ? 1 : 2;
-[endscript]
-    [if exp="tf.bedtime == 1"]
-        [iscript]f.eventFlg[0][1] = 2;
-[endscript]
-        @jump storage="main.ks" target="*ev_day1_1"
-    [else]
-        [iscript]f.eventFlg[0][2] = 2;
-[endscript]
-        @jump storage="main.ks" target="*ev_day1_2"
-    [endif]
+#
+ベッド（夜）初回テキスト。[p][cm]
 [else]
     [rand_flavor day="1" room="6" place="2"]
 [endif]
