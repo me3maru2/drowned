@@ -26,9 +26,10 @@
 
 ;このゲームで登場するキャラクターを宣言
 
-本作品には、r15程度のグロゴア表現、死ネタ、キャラクターの異形化、精神汚染、幻覚、能力やキャラクターの自己解釈、複数END、救いのない物語設定が含まれます。
+精神汚染、幻覚、能力やキャラクターの自己解釈、複数END、救いのない物語設定が含まれます。本作品には、r15程度のグロゴア表現、死ネタ、キャラクターの異形化、
+[p]また、本作は「デモ版」であるため演出、画像、文章、UI、などが本編では変更される可能性があります。
 [p]その他世の中にあるたくさんの注意書きに含まれるもの、すべてが含まれるといっても過言ではありません。
-[p]この先については自己責任となります。製作者は一切の責任を負いません。
+[l][r]この先については自己責任となります。製作者は一切の責任を負いません。
 
 [glink  color="noon_btn"  storage="main.ks"  x="410"  y="150"  text="大丈夫だ、問題ない"  target="*guroflgYes"  clickse="sei_ge_bubble01.mp3"]
 [glink  color="noon_btn"  storage="main.ks"  x="410"  y="250"  text="グロゴアなどの表現を控えめにする"  target="*guroflgNo"  clickse="sei_ge_bubble01.mp3"]
@@ -65,7 +66,7 @@
 ;==============================================================================
 
 [bg storage="00.png" time="2000" wait="false"]
-@playbgm storage=sakana_abk_loop.mp3 loop=true
+[play_bgm_title storage="sakana_abk_loop.mp3" title="魚たちの夢"]
 #
 口もきけぬ阿呆な女の話。[p]
 
@@ -85,7 +86,7 @@
 [bg storage="noon_room.png" time="2000" wait="false"]
 [stopse]
 …………うるさい[p]
-@playbgm time="3000" storage=natuodayaka.mp3 loop=true
+[play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
 また変な夢を見た気がする[p]
 どうやら最近夢見が悪いのだ[p]
 
@@ -211,13 +212,35 @@
 ;==============================================================================
 
 
-;[refresh_ui config_visible="true"]
-;[layopt layer=message0 clickthrough=true]
+[refresh_ui config_visible="true"]
+[layopt layer="message0" clickthrough=true]
 ; --- day1 ---
-;[sCntReset]
-;*day1
-;[refresh_room]
-;[s]
+[sCntReset]
+[refresh_room]
+[s]
+
+*day1
+[if exp="f.currInfo.time == 'noon'"]
+    [pushlog text="[se:アラームの音]"]
+    [fadeinse storage="alarm.mp3" loop=false time="2000"]
+    [p]
+    [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
+    [eval exp="f.currInfo.room = 6"]
+    [bg storage="noon_room.png" time="2000" wait="false"]
+    [stopse]
+    …………うるさい[p]
+    また変な夢を見た気がする[p]
+[endif]
+[refresh_room]
+[if exp="f.currInfo.time == 'evening'"]
+    …………もう日が落ちている[p]
+[endif]
+[if exp="f.currInfo.time == 'night'"]
+    [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+    …………ねむたい[p]
+    最近夢見が悪いからか、寝不足気味な気がする[p]
+[endif]
+[s]
 
 ; --- day2 ---
 ;*day2
@@ -229,25 +252,25 @@
 ;[refresh_room]
 ;[s]
 
-;*next_phase
-;   [if exp="f.currInfo.time == 'night'"]
-;        [call storage="main.ks" target="*last_day"]
-;    [endif]
-;    [iscript]
-;    if (f.currInfo.time == 'noon') {
-;        f.currInfo.time = 'evening';
-;    } else if (f.currInfo.time == 'evening') {
-;        f.currInfo.time = 'night';
-;    } else {
-;        f.currInfo.day += 1;
-;        f.currInfo.time = 'noon';
-;    }
-;    [endscript]
-;    [sCntReset]
-;    [mask_off]
-;    [if exp="f.currInfo.day == 1"]
-;        @jump storage="main.ks" target="*day1"
-;    [endif]
+*next_phase
+    [if exp="f.currInfo.time == 'night'"]
+        [call storage="main.ks" target="*last_day"]
+    [endif]
+    [iscript]
+    if (f.currInfo.time == 'noon') {
+        f.currInfo.time = 'evening';
+    } else if (f.currInfo.time == 'evening') {
+        f.currInfo.time = 'night';
+    } else {
+        f.currInfo.day += 1;
+        f.currInfo.time = 'noon';
+    }
+    [endscript]
+    [sCntReset]
+    [mask_off]
+    [if exp="f.currInfo.day == 1"]
+        @jump storage="main.ks" target="*day1"
+    [endif]
     ;[if exp="f.currInfo.day == 2"]
     ;    @jump storage="main.ks" target="*day2"
     ;[endif]
@@ -260,6 +283,7 @@
 [show_ev_name title="デモエンディング"]
 #
 デモ版をプレイいただきありがとうございます。[p]
+完成版はこれより画像やテキストを増やしてお届けできると思います。[p]
 夏ごろに完成予定ですので、（何年のとは言わない）[l][r]
 気が向きましたら、その時にも遊んでいただけると嬉しいです[p]
 なにかバグや問題がありましたら、Twitter(X)の方へご連絡ください[p]
@@ -348,6 +372,7 @@
 
 *ev_day1_0
 ;回想1
+[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
 [refresh_ui config_visible="false"]
 [show_ev_name title="01.ソーダ味"]
 #
@@ -365,9 +390,15 @@
 あれを綺麗に折れる人間なんて要るんだろうか。[p]
 気付けばそれを手に取っていた。[l][r]
 手が冷えていく………[p]
-
-
-
+#ヤナギ
+っあ…………[p]
+#
+二つに割ろうとしたそれは不格好に片方に偏って割れた。[p]
+分ける相手も居ないのに。何をしていたんだろう。[p]
+大して好きでもないアイスを口に含んだ。[p]
+#ヤナギ
+頭が、痛いな………[p]
+#
 [iscript]
     f.eventFlg[0][6] = 1; // 調理1
 [endscript]
@@ -376,10 +407,12 @@
 
 *ev_day1_1
 ;就寝1（0.8）
+[SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
 [bg storage="daylast.png" time="1000" wait="false"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="02.おやすみ！"]
+[play_bgm_title storage="matenrou.mp3" title="摩天楼を見下ろして"]
 [sleepORnextday]
 [if exp="tf.lastdayFlg == true"]
 #
@@ -396,10 +429,12 @@
 
 *ev_day1_2
 ;就寝2（0.2）
+[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
 [bg storage="daylast.png" time="1000" wait="false"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="03.おやすみなさい…"]
+[play_bgm_title storage="matenrou.mp3" title="摩天楼を見下ろして"]
 [sleepORnextday]
 [if exp="tf.lastdayFlg == true"]
 #
@@ -419,7 +454,17 @@
 [refresh_ui config_visible="false"]
 [show_ev_name title="04.おなかすいた"]
 #
-空腹1[p]
+ぐう。[p]
+同居人の腹が鳴った。[p]
+#同居人
+やべ、腹減ってきたかも…………[l][r]
+ヤナギ、ごは
+#ヤナギ
+ご飯は3日前に食べたでしょう。[p]
+#同居人
+おおそうじゃったかのぉ…………じゃなくて！[p]
+いいの！？オレ死んじゃうよ[p]
+＜＜途中＞＞[p]
 [hide_ev_name]
 [return]
 
@@ -427,17 +472,78 @@
 ;電話1(0.00504)
 [refresh_ui config_visible="false"]
 [show_ev_name title="05.通信障害？"]
+[pushlog text="[se:着信音]"]
+[playse storage=tyakusin.mp3]
+[p]
+[stopse]
+[image storage="23.png" layer="0" name="ev_img" x=160 y=0 width=960 visible=true]
+#誠
+あ、よかった。[p]
+生きてるみたいですね。[p]
+[anim name="target_img" left="+=240" time=100]
+[glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="用事は？"    storage="main.ks" target="*ev_day1_4_1"]
+[glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="いきなり何" storage="main.ks" target="*ev_day1_4_2"]
+[s]
+*ev_day1_4_1
+[anim name="target_img" left="-=240" time=100]
+[if exp="Math.random() < 0.3"]
+[SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
+#誠
+先輩ちゃんと食べてますか？[p]
+死なれたりしたら夢見が悪いのでちゃんと食べてくださいね。[p]
+あ！それと、人魚はっ__
+[endif]
+@jump target="*ev_day1_4_else"
+*ev_day1_4_2
+[anim name="target_img" left="-=240" time=100]
+[if exp="Math.random() < 0.3"]
+[SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
+#誠
+最近全然顔見てないから心配だったんですよ[p]
+そうだ！今度ご飯行きませんか[l][r]
+そんなところにずっと籠ってたら参っちゃうでしょ[p]
+あ！本題忘れてました[p]
+＿＿の事ですけど、人＿＿食＿＿と、人＿＿[p]
+[endif]
+*ev_day1_4_else
+#誠
+っあれ、聞こ＿な＿＿[p]
+なん＿＿＿う＿＿[p]
+ま＿＿＿＿＿＿＿＿＿！[p]
+[free name="ev_img" layer="0"]
 #
-電話1[p]
+…………結局、何を伝えたかったんだろう。[p]
+こんど調べてみよう[p]
+人魚？とか、言ってた気がする。[l][r]
+もしかして家で飼ってるあいつのことがバレたのだろうか[p]
+だとしたら…………[p]
 [hide_ev_name]
 [return]
 
 *ev_day1_5
 ;ニュース1
+[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=3]
 [refresh_ui config_visible="false"]
+[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
 [show_ev_name title="06.ニュースだ"]
 #
-ニュース1[p]
+テレビのリモコンはどこにいったんだろう…………。[p]
+@bg storage ="&'ev_day1_5_' + f.currInfo.time + '.png'" time=0
+#ニュースキャスター
+『……続いてのニュースです。先月、■■市■■海岸で発生した大学生の水難事故について、専門家にお話を伺います』[p]
+『スタジオには、海難事故の調査に詳しい水難救助専門家の＿＿さんにお越しいただきました』[p]
+#専門家
+『よろしくお願いします。……ええ、今回の現場ですが、非常に潮の流れが複雑な場所です。一度引き込まれると、自力での浮上はまず困難でしょう』[p]
+『特にこの時期の海水温は、人間の体温を奪うには十分すぎるほど低いです。……数分もすれば意識を失い、呼吸器系に致命的なダメージを受けます』[p]
+『……最悪の場合、遺体は岩場に打ち付けられ……あるいは、海洋生物による欠損が激しく、発見が遅れるケースも珍しくありません』[p]
+#ニュースキャスター
+『依然として行方不明となっている……■■さんの捜索は、今日も難航しているとのことですが……』[p]
+@bg storage ="&f.currInfo.time + '_living2.png'" time=0
+#
+……胸が、ムカムカする。[p]
+[iscript]
+    f.topikFlg[3] = 1; // 海について1
+[endscript]
 [hide_ev_name]
 [return]
 
@@ -447,17 +553,27 @@
 [refresh_ui config_visible="false"]
 [show_ev_name title="07.たまには自炊してね"]
 #
-調理1[p]
+<イベントテキスト未実装>[p]
 [hide_ev_name]
 [return]
 
 
 *ev_day1_7
 ;冷蔵庫のおやつ1(0.1)
+[SANc sDCnt=1 sDSiz=2 fDCnt=1 fDSiz=6]
 [refresh_ui config_visible="false"]
 [show_ev_name title="08.おやつ発見！"]
 #
-冷蔵庫のおやつ1[p]
+冷蔵庫の底にプリンを発見した。[p]
+ケーキ屋に売ってるようなプチンとできないタイプ。[l][r]
+スプーンじゃうまく掬えなくて底の隅に残ってしまうのがかなり悔しい…………なんて彼が言っていたのを覚えている。[p]
+そもそもプリンのカラメルは型から外れやすくするためのものらしい。[p]
+…………カラメルのないプリンは、どうやってはがすんだろう。[p]
+#ヤナギ
+カラメル、後入れのタイプだコレ…………[p]
+#
+きっと一緒についてた小さなスプーンが庫内に落ちていた気がする。[p]
+…………いま食べる気はない。戻しておこう。[p]
 [hide_ev_name]
 [return]
 
@@ -711,6 +827,7 @@
     [show_ev_name title="28.消費期限"]
     #
     …………貴方が好きなプリンの消費期限が切れていた。[p]
+    #
     [hide_ev_name]
     [return]
 
@@ -725,25 +842,143 @@
     [endscript]
 
     [if exp="f.topicFlg[tf.day][0] >= 1"]
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=100 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
+        [glink color="&f.currInfo.time+'_btn'" x=360 y=100 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
     [if exp="f.topicFlg[tf.day][1] >= 1"]
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=175 text="名前について" storage="main.ks" target="*talk_d1_1" clickse="sei_ge_bubble01.mp3"]
+        [glink color="&f.currInfo.time+'_btn'" x=360 y=175 text="名前について" storage="main.ks" target="*talk_d1_1" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
     [if exp="f.topicFlg[tf.day][2] >= 1"]
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="水の温度" storage="main.ks" target="*talk_d1_2" clickse="sei_ge_bubble01.mp3"]
+        [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="水の温度" storage="main.ks" target="*talk_d1_2" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
     [glink color="&f.currInfo.time+'_btn'" x=360 y=400 text="やめる" storage="macro.ks" target="*talk_stop_return" clickse="sei_ge_bubble01.mp3"]
+    [eval exp="tf.is_waiting = true"]
+    
+    [iscript]
+    tf.is_waiting = true;
+    f.wait_timer = setTimeout(function(){
+        if(TYRANO.kag.variable.tf.is_waiting == true){
+            TYRANO.kag.ftag.startTag("jump", {target: "*hochi_event", storage: "main.ks"});
+        }
+    }, 20000);
+    [endscript]
     [s]
+
+*hochi_event
+    [cm]
+    [iscript]
+        if (!f.hochi_pool_high) {
+            f.hochi_pool_high = [0, 1, 2, 3, 4,5,6,7]; // 高SAN用ID
+            f.hochi_pool_low = [0, 1, 2, 3, 4,5,6,7];  // 低SAN用ID
+        }
+        var pool = (f.reiya.san > 30) ? f.hochi_pool_high : f.hochi_pool_low;
+
+        if (pool.length == 0) {
+            tf.hochi_idx = -1;
+
+        } else {
+            var randomIndex = Math.floor(Math.random() * pool.length);
+            tf.hochi_idx = pool.splice(randomIndex, 1)[0];
+        }
+        tf.hochi_target = (f.reiya.san > 30) ? "*hochi_high_san" : "*hochi_low_san";
+    [endscript]
+    @jump target="&tf.hochi_target"
+
+    *hochi_high_san
+        [if exp="tf.hochi_idx == 0"]
+            #同居人
+            ………………おい。何ボーッとしてんだよ。[p]
+            ……え？寝るのはないんじゃなーい？[p]
+            あ。[l][r]起きてたよかった～。[p]
+            #
+        [elsif exp="tf.hochi_idx == 1"]
+            #同居人
+            なあ、さっきから、何見てんの。[l][r]
+            ……オレなんか見て楽しい？[p]
+            #
+        [elsif exp="tf.hochi_idx == 2"]
+            #同居人
+            あ、耳掃除してやろっか。……って、オレの爪じゃ痛いか。はは[p]
+            #
+        [elsif exp="tf.hochi_idx == 3"]
+            #同居人
+            ………………外、救急車の音うるさくねー？[p]
+            #
+        [elsif exp="tf.hochi_idx == 4"]
+            #同居人
+            この水、お前も入ってみる？ ……あったかいぞ[l][r]
+            ……冗談だよ、そんな顔すんなって[p]
+            #
+        [elsif exp="tf.hochi_idx == 5"]
+            #同居人
+            昨日雨が降ったってさ。[l][r]
+            雨のあとって何て言うか、こう……独特なにおいがするよな～[p]
+            あ、洗濯物！[l][r]
+            ちゃんと取り込んだか？[p]
+            #
+        [elsif exp="tf.hochi_idx == 6"]
+            #同居人
+            なあヤナギ。なんでそんな怖い顔してんの？[p]
+            #
+        [elsif exp="tf.hochi_idx == 7"]
+            #同居人
+            えいっ！[p]
+            #
+            彼が救い上げた水が重力に反して宙を舞い、こちらに降りかかる。[l][r]
+            服を着たままの人間にこんな仕打ちはあんまりだろう。[p]
+            服が濡れて気持ちわるい………[p]
+            #同居人
+            どお？少しは涼しくなっただろ～[p]
+            #        
+        [else]
+            #同居人
+            ……………………おい、ヤナギ。……返事くらいしろよ。寂しいだろ[p]
+            #
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        @jump target="*hochi_end"
+
+    *hochi_low_san
+        [if exp="tf.hochi_idx == 0"]
+            #同居人
+            ふふ、お前の寝顔、見てるの好きだよ。……昔から変わんないな[p]
+            #
+        [elsif exp="tf.hochi_idx == 1"]
+            #同居人
+            …なあ、ずっとここにいろよ。……外は水浸しで、息もできないぞ[p]
+            #
+        [elsif exp="tf.hochi_idx == 2"]
+            #同居人
+            「……喉乾いた？ 水、出してやろっか。……。……あ、オレ、ここから動けないんだった[p]
+            #
+        [elsif exp="tf.hochi_idx == 3"]
+            #同居人
+            どこにも行かないで……オレの事おいてくの？[p]
+            一人にしないで[p]
+            って[l][r]言ったら怒る？[p]
+            #
+        [else]
+            #同居人
+            なぁ放置？[p]
+            放置なのー？[p]
+            #
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        @jump target="*hochi_end"
+
+    *hochi_end
+        [eval exp="tf.is_waiting = false"]
+        [refresh_ui config_visible="true"]
+        @jump storage="main.ks" target="*show_topics"
 
 *talk_d1_0
     [iscript]
         f.searchCnt -= 1; 
         f.topicFlg[f.currInfo.day-1][0] += 1;
         tf.sflg =f.topicFlg[f.currInfo.day-1][0];
+        clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
     [show_ev_name title="冷凍庫のアイス"]
@@ -756,9 +991,10 @@
         [if exp="tf.sflg == 4"]
             #同居人
             いや悪かったって！[p]
-            でも俺食べてねーよ！？[p]
+            でもオレ食べてねーよ！？[p]
             だってここから出られないんだからさぁ……[l][r]
             食べれるわけないじゃ～ん[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
             #同居人
@@ -769,8 +1005,29 @@
             初見のはんのう[p]
         [endif]
     [else]
-        （狂気の会話）[p]
+        [if exp="tf.sflg > 5"]
+            #同居人
+            なーこれで何回目？[p]
+            わかんないか。何でもない。[p]
+        [endif]
+        [if exp="tf.sflg == 4"]
+            #同居人
+            いや悪かったって！[p]
+            でもオレ食べてねーよ！？[p]
+            だってここから出られないんだからさぁ……[l][r]
+            食べれるわけないじゃ～ん[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        [if exp="tf.sflg == 3"]
+            #同居人
+            あれ、いや何でもない…………[p]
+        [endif]
+        [if exp="tf.sflg <=4 "]
+            #同居人
+            初見のはんのう[p]
+        [endif]
     [endif]
+    #
     [hide_ev_name]
     [return]
 
@@ -779,6 +1036,7 @@
         f.searchCnt -= 1; 
         f.topicFlg[f.currInfo.day-1][1] += 1;
         tf.sflg =f.topicFlg[f.currInfo.day-1][1];
+        clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
     [show_ev_name title="名前について"]
@@ -791,6 +1049,7 @@
         [if exp="tf.sflg == 4"]
             #同居人
             またこの話題～？飽きたんだけどぉ…………[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
             #同居人
@@ -801,8 +1060,29 @@
             初見のはんのう[p]
         [endif]
     [else]
-        （狂気の会話）[p]
+        [if exp="tf.sflg > 5"]
+            #同居人
+            なーこれで何回目？[p]
+            わかんないか。何でもない。[p]
+        [endif]
+        [if exp="tf.sflg == 4"]
+            #同居人
+            いや悪かったって！[p]
+            でもオレ食べてねーよ！？[p]
+            だってここから出られないんだからさぁ……[l][r]
+            食べれるわけないじゃ～ん[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        [if exp="tf.sflg == 3"]
+            #同居人
+            あれ、いや何でもない…………[p]
+        [endif]
+        [if exp="tf.sflg <=4 "]
+            #同居人
+            初見のはんのう[p]
+        [endif]
     [endif]
+    #
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
 
@@ -811,6 +1091,7 @@
         f.searchCnt -= 1; 
         f.topicFlg[f.currInfo.day-1][2] += 1;
         tf.sflg =f.topicFlg[f.currInfo.day-1][2];
+        clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
     [show_ev_name title="水の温度"]
@@ -823,6 +1104,7 @@
         [if exp="tf.sflg == 4"]
             #同居人
             またこの話題～？飽きたんだけどぉ…………[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
             #同居人
@@ -833,8 +1115,29 @@
             初見のはんのう[p]
         [endif]
     [else]
-        （狂気の会話）[p]
+        [if exp="tf.sflg > 5"]
+            #同居人
+            なーこれで何回目？[p]
+            わかんないか。何でもない。[p]
+        [endif]
+        [if exp="tf.sflg == 4"]
+            #同居人
+            いや悪かったって！[p]
+            でもオレ食べてねーよ！？[p]
+            だってここから出られないんだからさぁ……[l][r]
+            食べれるわけないじゃ～ん[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        [if exp="tf.sflg == 3"]
+            #同居人
+            あれ、いや何でもない…………[p]
+        [endif]
+        [if exp="tf.sflg <=4 "]
+            #同居人
+            初見のはんのう[p]
+        [endif]
     [endif]
+    #
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
 
@@ -850,5 +1153,18 @@
     [show_ev_name title="END1 好い慕い"]
     #
     好い慕い[p]
+    #
     [hide_ev_name]
     [return]
+
+*end2
+    ;水死体
+
+*end3
+    ;すいしたい
+
+*end4
+    ;人魚姫
+
+*end5
+    ;水鏡
