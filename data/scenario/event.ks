@@ -87,7 +87,7 @@ tf.isFirst = (f.searchFlg_day1[0][5] <= 1);
 [if exp="tf.isFirst"]
 #
 浴槽の半分くらいまで入っている水が少し温くなってきた気がする。[p]
-…………水を変えてやろう。[cm]
+…………水を変えてやろう。[p][cm]
 [else]
 [rand_flavor day="1" room="0" place="5"]
 [endif]
@@ -102,7 +102,7 @@ tf.isFirst = (f.searchFlg_day1[0][6] <= 1);
 #
 青色の鱗。足の代わりに体の半分を占めるのは魚の見た目のようなヒレ。[p]
 水はしかし、こいつは淡水魚なのだろうか海水魚なのだろうか。[p]
-人魚と言えば海のイメージだが…………淡水にこいつを入れててもいい物なのだろうか[cm]
+人魚と言えば海のイメージだが…………淡水にこいつを入れててもいい物なのだろうか[p][cm]
 [else]
 [rand_flavor day="1" room="0" place="6"]
 [endif]
@@ -271,7 +271,7 @@ tf.isFirst = (f.searchFlg_day1[3][1] <= 1);
 [if exp="tf.isFirst"]
 #
 鏡が割れているように見えた。[p]
-…………幻覚だといい。[cm]
+…………幻覚だといい。[p][cm]
 [else]
 [rand_flavor day="1" room="3" place="1"]
 [endif]
@@ -284,7 +284,7 @@ tf.isFirst = (f.searchFlg_day1[3][2] <= 1);
 [if exp="tf.isFirst"]
 #
 洗濯ものが溜まっている。[p]
-明日の天気は…………[cm]
+明日の天気は…………[p][cm]
 [else]
 [rand_flavor day="1" room="3" place="2"]
 [endif]
@@ -416,7 +416,7 @@ tf.isFirst = (f.searchFlg_day1[6][3] <= 1);
 [if exp="tf.isFirst"]
 #
 本棚だ。[p]
-もう使わないだろうけれど一応取っておいている教科書が、名残のように並んでいる。[cm]
+もう使わないだろうけれど一応取っておいている教科書が、名残のように並んでいる。[p][cm]
 [else]
 [rand_flavor day="1" room="6" place="3"]
 [endif]
@@ -483,7 +483,7 @@ tf.isFirst = (f.searchFlg_day1[6][8] <= 1);
 #
 写真立てが倒れている。[p]
 次は倒れないように、消しゴムで押さえて立てかけなおした。[p]
-……割れたりして無くて良かった。[cm]
+……割れたりして無くて良かった。[p][cm]
 [else]
 [rand_flavor day="1" room="6" place="8"]
 [endif]
