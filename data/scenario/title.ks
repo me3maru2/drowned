@@ -2,7 +2,7 @@
 window.changeMyVolume = function() {
     // 1. レベル更新と音量反映
     f.vol_level = (f.vol_level === undefined) ? 2 : (f.vol_level + 1) % 4;
-    var v = [0, 15, 35, 70][f.vol_level];
+    var v = [0, 25, 50, 75][f.vol_level];
     TYRANO.kag.ftag.startTag("bgmopt", { volume: v });
     TYRANO.kag.ftag.startTag("seopt", { volume: v });
 
@@ -44,7 +44,7 @@ window.changeMyVolume = function() {
     [endscript]
 
     ; 1. 背後に現在の音量画像を表示（これが本体）
-    [image name="vol_bg" layer="0" storage="&tf.vol_img_bg" x="&f.last_vol_x" y="&f.last_vol_y" visible="true"]
+    [image name="vol_bg" layer="2" storage="&tf.vol_img_bg" x="&f.last_vol_x" y="&f.last_vol_y" visible="true"]
     
     ; 2. その上に「透明なボタン」を置く
     ; graphicには「透明な画像」か、ホバー時に少し明るくなる共通画像を指定
@@ -59,6 +59,7 @@ window.changeMyVolume = function() {
 [clearfix]
 [freeimage layer="0"]
 [freeimage layer="1"]
+[freeimage layer="2"]
 [layopt layer="message0" visible=false]
 [hidemenubutton]
 [stopbgm]
@@ -80,7 +81,6 @@ window.changeMyVolume = function() {
 
 *gamestart
 ;一番最初のシナリオファイルへジャンプする
-[anim name="vol_btn" opacity=0 time=300]
-[anim name="vol_bg" opacity=0 time=300]
+[freeimage layer="2"]
 [freeimage layer="0"]
 @jump storage="main.ks"
