@@ -385,7 +385,7 @@ window.__tyrano_key_config = {
     mouse: {
         
         "right"      : "hidemessage",
-        "center"     : "menu",
+        //"center"     : "menu",
         "wheel_up"   : "backlog",
         "wheel_down" : "next",
         "next"       : "holdskip",
@@ -443,7 +443,7 @@ window.__tyrano_key_config = {
             LT      : "load",
             RB      : "skip",
             RT      : "holdskip",
-            START   : "menu",
+            //START   : "menu",
             SELECT  : "",
             HOME    : "title",
             LS      : "",
