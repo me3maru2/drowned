@@ -1142,6 +1142,9 @@
         f.wait_timer = null;
         }
     [endscript]
+    [if exp="f.searchCnt <= 0"]
+            @jump target="*next_phase"
+    [endif]
 
     [if exp="f.topicFlg[0][0] >= 1"]
         [glink color="&f.currInfo.time+'_btn'" x=200 y=100 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
