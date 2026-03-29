@@ -484,12 +484,12 @@
 #誠
 あ、よかった。[p]
 生きてるみたいですね。[p]
-[anim name="target_img" left="+=240" time=100]
-[glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="用事は？"    storage="main.ks" target="*ev_day1_4_1"]
-[glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="いきなり何" storage="main.ks" target="*ev_day1_4_2"]
+[anim name="ev_img" left="+=240" time=100]
+[glink color="&f.currInfo.time+'_btn'" x=200 y=150 text="用事は？"    storage="main.ks" target="*ev_day1_4_1"]
+[glink color="&f.currInfo.time+'_btn'" x=200 y=250 text="いきなり何" storage="main.ks" target="*ev_day1_4_2"]
 [s]
 *ev_day1_4_1
-[anim name="target_img" left="-=240" time=100]
+[anim name="ev_img" left="-=240" time=100]
 [if exp="Math.random() < 0.3"]
 [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
 #誠
@@ -499,7 +499,7 @@
 [endif]
 @jump target="*ev_day1_4_else"
 *ev_day1_4_2
-[anim name="target_img" left="-=240" time=100]
+[anim name="ev_img" left="-=240" time=100]
 [if exp="Math.random() < 0.3"]
 [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
 #誠
