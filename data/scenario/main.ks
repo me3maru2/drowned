@@ -257,14 +257,14 @@
         [call storage="main.ks" target="*last_day"]
     [endif]
     [iscript]
-    if (f.currInfo.time == 'noon') {
-        f.currInfo.time = 'evening';
-    } else if (f.currInfo.time == 'evening') {
-        f.currInfo.time = 'night';
-    } else {
-        f.currInfo.day += 1;
-        f.currInfo.time = 'noon';
-    }
+        if (f.currInfo.time == 'noon') {
+            f.currInfo.time = 'evening';
+        } else if (f.currInfo.time == 'evening') {
+            f.currInfo.time = 'night';
+        } else {
+            f.currInfo.day += 1;
+            f.currInfo.time = 'noon';
+        }
     [endscript]
     [sCntReset]
     [mask_off]
@@ -490,7 +490,7 @@
 [s]
 *ev_day1_4_1
 [anim name="ev_img" left="-=240" time=100]
-[if exp="Math.random() < 0.3"]
+[if exp="Math.random() < 0.8"]
 [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
 #誠
 先輩ちゃんと食べてますか？[p]
@@ -864,7 +864,7 @@
     [endif]
     
     [if exp="f.topicFlg[0][3] >= 1"]
-        [glink color="&f.currInfo.time+'_btn'" x=200 y=325 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
+        [glink color="&f.currInfo.time+'_btn'" x=200 y=325 text="海について1" storage="main.ks" target="*talk_d1_3" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
     [glink color="&f.currInfo.time+'_btn'" x=850 y=420 text="やめる" storage="macro.ks" target="*talk_stop_return" clickse="sei_ge_bubble01.mp3"]
@@ -1154,6 +1154,60 @@
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
 
+
+*talk_d1_3
+    [iscript]
+        f.searchCnt -= 1; 
+        f.topicFlg[0][3] += 1;
+        tf.sflg =f.topicFlg[0][2];
+        clearTimeout(f.wait_timer);
+    [endscript]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="海について1"]
+    [if exp="f.reiya.san > 30"]
+        [if exp="tf.sflg > 5"]
+            #同居人
+            なーこれで何回目？[p]
+            わかんないか。何でもない。[p]
+        [endif]
+        [if exp="tf.sflg == 4"]
+            #同居人
+            またこの話題～？飽きたんだけどぉ…………[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        [if exp="tf.sflg == 3"]
+            #同居人
+            あれいや何でもない…………[p]
+        [endif]
+        [if exp="tf.sflg <=4 "]
+            #同居人
+            初見のはんのう[p]
+        [endif]
+    [else]
+        [if exp="tf.sflg > 5"]
+            #同居人
+            なーこれで何回目？[p]
+            わかんないか。何でもない。[p]
+        [endif]
+        [if exp="tf.sflg == 4"]
+            #同居人
+            大丈夫だって！[p]
+            そんな簡単に死んだりなんか、しないからさ！[p]
+            あと、そんな心配するくらいなら俺にジュース奢ってよ[p]
+            [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
+        [endif]
+        [if exp="tf.sflg == 3"]
+            #同居人
+            あれ、いや何でもない…………[p]
+        [endif]
+        [if exp="tf.sflg <=4 "]
+            #同居人
+            初見のはんのう[p]
+        [endif]
+    [endif]
+    #
+    [hide_ev_name]
+    @jump storage="main.ks" target="*show_topics"
 
 
 ;==============================================================================
