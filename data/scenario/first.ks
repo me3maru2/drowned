@@ -46,7 +46,7 @@ window.changeMyVolume = function() {
 
 [macro name="refresh_vol_btn"]
     [clearfix name="vol_btn"]
-    [free name="vol_bg" layer="0"]
+    [free name="vol_bg" layer="2"]
     
     [iscript]
         f.vol_level = (f.vol_level === undefined) ? 2 : parseInt(f.vol_level);
@@ -75,27 +75,27 @@ window.changeMyVolume = function() {
 ; メッセージウィンドウ
 [position layer=message0 x=20 y=500 width=1240 height=200 color="0x06222D"]
 ; スマホ画面
-[position layer=message1 x=100 y=20 width=300 height=680 color="0xB5C7C8"]
+;[position layer=message1 x=100 y=20 width=300 height=680 color="0xB5C7C8"]
 
 
 
 [iscript]
-if (sf.endFlg == undefined) {
-    sf.endFlg=[0,0,0,0,0];
-}
+    if (sf.endFlg == undefined) {
+        sf.endFlg=[0,0,0,0,0];
+    }
 [endscript]
 
 
 
 ;メッセージボックスは非表示
-@layopt layer="message" visible=false
+@layopt layer="message0" visible=false
 
 ;最初は右下のメニューボタンを非表示にする
 [hidemenubutton]
 
 ;マクロファイル読み込み
 [call storage="macro.ks"]
-;
+
 
 ;タイトル画面へ移動
 @jump storage="title.ks"
