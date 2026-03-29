@@ -224,7 +224,6 @@
 
 *day1
 [if exp="f.currInfo.time == 'noon'"]
-    [rebuild_tf_vars]
     [mask_off]
     [pushlog text="[se:アラームの音]"]
     [fadeinse storage="alarm.mp3" loop=false time="2000"]
@@ -238,7 +237,7 @@
 [endif]
 [refresh_room]
 [if exp="f.currInfo.time == 'evening'"]
-[pushlog text="---時間帯：夕---"]
+    [pushlog text="---時間帯：夕---"]
     …………もう日が落ちている[p]
 [endif]
 [if exp="f.currInfo.time == 'night'"]
