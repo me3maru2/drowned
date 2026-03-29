@@ -510,6 +510,9 @@
     [freeimage layer="1"]
     [freeimage layer="2"]
     [mask time="500" color="black"]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
         [jump storage="main.ks" target="*next_phase"]
     [s]
 
