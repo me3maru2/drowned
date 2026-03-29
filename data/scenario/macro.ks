@@ -224,7 +224,9 @@
         [iscript]
             f.eventFlg[parseInt(mp.day)-1][parseInt(mp.idx)] = 2;
         [endscript]
+        [refresh_ui config_visible="false"]
         [call storage="main.ks" target="&tf.eventTarget"]
+        [refresh_ui config_visible="true"]
     [endif]
 [endmacro]
 
@@ -266,6 +268,7 @@
     [iscript]
         f.currInfo.day -= 1;
         f.currInfo.room = 6;
+        f.currInfo.time = 'noon';
         tf.lastdayFlg = false;
     [endscript]
     [cm]
