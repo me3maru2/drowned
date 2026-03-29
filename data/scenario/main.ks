@@ -416,7 +416,7 @@
         ; イベント呼び出し
         @call storage="event.ks" target="&tf.evTarget"
         [if exp="f.last_day_Flg==true"]
-            @jump storage="main.ks" target="*last_day"
+            @jump storage="main.ks" target="*phase_end"
         [endif]
         [if exp="f.last_day_Flg==false"]
             @jump storage="main.ks" target="*phase_end"
@@ -1286,7 +1286,7 @@
     *hochi_end
         [eval exp="tf.is_waiting = false"]
         [refresh_ui config_visible="true"]
-        @jump storage="main.ks" target="*show_topics"
+        [return]
 
 *talk_d1_0
     [iscript]
@@ -1399,7 +1399,7 @@
     [endif]
     #
     [hide_ev_name]
-    @jump storage="main.ks" target="*show_topics"
+    [return]
 
 *talk_d1_2
     [iscript]
@@ -1453,7 +1453,7 @@
     [endif]
     #
     [hide_ev_name]
-    @jump storage="main.ks" target="*show_topics"
+    [return]
 
 
 *talk_d1_3
@@ -1510,7 +1510,7 @@
     [endif]
     #
     [hide_ev_name]
-    @jump storage="main.ks" target="*show_topics"
+    [return]
 
 
 ;==============================================================================
