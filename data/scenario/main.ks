@@ -223,11 +223,7 @@
 [s]
 
 *day1
-[iscript]
-    TYRANO.kag.stat.is_skip = false;
-[endscript]
 [if exp="f.currInfo.time == 'noon'"]
-    [mask_off]
     [pushlog text="[se:アラームの音]"]
     [fadeinse storage="alarm.mp3" loop=false time="2000"]
     [p]
@@ -240,12 +236,10 @@
 [endif]
 [refresh_room]
 [if exp="f.currInfo.time == 'evening'"]
-    [mask_off]
     [pushlog text="---時間帯：夕---"]
     …………もう日が落ちている[p]
 [endif]
 [if exp="f.currInfo.time == 'night'"]
-    [mask_off]
     [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
     [pushlog text="---時間帯：夜---"]
     …………ねむたい[p]
@@ -300,6 +294,9 @@
         }
     [endscript]
     [sCntReset]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
     [mask_off]
     [if exp="f.currInfo.day == 1"]
         @jump storage="main.ks" target="*day1"
