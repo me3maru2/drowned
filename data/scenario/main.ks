@@ -250,7 +250,29 @@
 [s]
 
 ; --- day2 ---
-;*day2
+*day2
+[refresh_ui config_visible="false"]
+[show_ev_name title="デモエンディング"]
+#
+デモ版をプレイいただきありがとうございます。[p]
+完成版はこれより画像やテキストを増やしてお届けできると思います。[p]
+夏ごろに完成予定ですので、（何年のとは言わない）[l][r]
+気が向きましたら、その時にも遊んでいただけると嬉しいです[p]
+なにかバグや問題がありましたら、Twitter(X)の方へご連絡ください[p]
+なお、ソースコードの開示などをするつもりは有りません[l][r]
+できるだけ見ないでください[l][r]
+えっち！[p]
+
+…[l]……[l]………[l]
+あと、余談ですが[p]
+霊新なのかなこれ。[l][r]
+新霊なのかなこれ。[l][r]
+教えて誰か。[p]
+
+[mask time="500" color="black"]
+[disable_click_effect]
+@jump storage="title.ks"
+[s]
 ;[refresh_room]
 ;[s]
 
@@ -278,35 +300,13 @@
     [if exp="f.currInfo.day == 1"]
         @jump storage="main.ks" target="*day1"
     [endif]
-    ;[if exp="f.currInfo.day == 2"]
-    ;    @jump storage="main.ks" target="*day2"
-    ;[endif]
+    [if exp="f.currInfo.day == 2"]
+        @jump storage="main.ks" target="*day2"
+    [endif]
     ;[if exp="f.currInfo.day == 3"]
     ;    @jump storage="main.ks" target="*day3"
     ;[endif]
 
-
-[refresh_ui config_visible="false"]
-[show_ev_name title="デモエンディング"]
-#
-デモ版をプレイいただきありがとうございます。[p]
-完成版はこれより画像やテキストを増やしてお届けできると思います。[p]
-夏ごろに完成予定ですので、（何年のとは言わない）[l][r]
-気が向きましたら、その時にも遊んでいただけると嬉しいです[p]
-なにかバグや問題がありましたら、Twitter(X)の方へご連絡ください[p]
-なお、ソースコードの開示などをするつもりは有りません[l][r]
-できるだけ見ないでください[l][r]
-えっち！[p]
-
-…[l]……[l]………[l]
-あと、余談ですが[p]
-霊新なのかなこれ。[l][r]
-新霊なのかなこれ。[l][r]
-教えて誰か。[p]
-
-[mask time="500" color="black"]
-[disable_click_effect]
-@jump storage="title.ks"
 [s]
 
 
