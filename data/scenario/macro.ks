@@ -381,6 +381,18 @@
     [endscript]
 [endmacro]
 
+[macro name="rebuild_tf_vars"]
+    [iscript]
+    // これを忘れると tf.bgfile の組み立てに失敗します
+    tf.roomname = ['bath','foyer','kitchen','laundry','living1','living2','room'];
+    
+    if (f.currInfo) {
+        // noon + _ + living2 + .png = noon_living2.png
+        tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
+    }
+    [endscript]
+[endmacro]
+
 [return]
 
 *talk_or_search
