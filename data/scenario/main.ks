@@ -238,8 +238,9 @@
     
     [refresh_ui config_visible="true"]
 [endif]
+
 [refresh_room]
-[call storage="main.ks" target=&tf.rpTarget]
+
 [if exp="f.currInfo.time == 'evening'"]
     [pushlog text="---時間帯：夕---"]
     …………もう日が落ちている[p]
@@ -250,6 +251,7 @@
     …………ねむたい[p]
     最近夢見が悪いからか、寝不足気味な気がする[p]
 [endif]
+[call storage="main.ks" target=&tf.rpTarget]
 [s]
 
 ; --- day2 ---
@@ -304,7 +306,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
     [mask_off]
     [if exp="f.currInfo.day == 1"]
         @jump storage="main.ks" target="*day1"
@@ -449,7 +451,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
     [mask time="500" color="black"]
         [jump storage="main.ks" target="*next_phase"]
     [s]
@@ -676,7 +678,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="02.おやすみ！"]
@@ -695,7 +697,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask time="500" color="black"]
 [return]
 
@@ -706,7 +708,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="03.おやすみなさい…"]
@@ -725,7 +727,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask time="500" color="black"]
 [return]
 
@@ -897,7 +899,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="11.おやすみ"]
@@ -913,7 +915,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask time="500" color="black"]
 [hide_ev_name]
 @jump storage="main.ks" target="*back_from_event"
@@ -924,7 +926,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
-    [wait time="200"]
+    [wait time="300"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="12.いい夢みろよ"]
