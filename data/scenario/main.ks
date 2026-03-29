@@ -57,6 +57,7 @@
 [cm]
 
 [init_var]
+[enable_click_effect]
 @call storage="../others/texts.ks"
 
 [pushlog text="*--------------*"]
@@ -304,6 +305,7 @@
 教えて誰か。[p]
 
 [mask time="500" color="black"]
+[disable_click_effect]
 @jump storage="title.ks"
 [s]
 
@@ -1179,7 +1181,9 @@
         [endif]
         [if exp="tf.sflg == 4"]
             #同居人
-            またこの話題～？飽きたんだけどぉ…………[p]
+            大丈夫だって！[p]
+            そんな簡単に死んだりなんか、しないからさ！[p]
+            あと、そんな心配するくらいならジュース奢れよ～[p]
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
@@ -1200,7 +1204,7 @@
             #同居人
             大丈夫だって！[p]
             そんな簡単に死んだりなんか、しないからさ！[p]
-            あと、そんな心配するくらいなら俺にジュース奢ってよ[p]
+            あと、そんな心配するくらいならジュース奢れよ～[p]
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
