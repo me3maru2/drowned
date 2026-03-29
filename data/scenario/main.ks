@@ -330,7 +330,7 @@
     [clearfix name="search_btn,move_btn"]
     [cm]
     [glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="調べる"    storage="main.ks" target="*do_search"]
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話しかける" storage="macro.ks" target="*do_talk"]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話しかける" storage="main.ks" target="*do_talk"]
     [s]
 
 *talk_stop_return
@@ -673,6 +673,10 @@
 ;就寝1（0.8）
 [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
 [bg storage="daylast.png" time="1000" wait="false"]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="02.おやすみ！"]
@@ -688,6 +692,10 @@
 [endif]
 
 [hide_ev_name]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask time="500" color="black"]
 [return]
 
@@ -695,6 +703,10 @@
 ;就寝2（0.2）
 [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
 [bg storage="daylast.png" time="1000" wait="false"]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="03.おやすみなさい…"]
@@ -710,6 +722,10 @@
 [endif]
 
 [hide_ev_name]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask time="500" color="black"]
 [return]
 
@@ -878,6 +894,10 @@
 *ev_day2_2
 ;就寝3（0.9）
 [bg storage="daylast.png" time="1000" wait="false"]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="11.おやすみ"]
@@ -890,6 +910,10 @@
 こんなの夢だ…………目が覚めたら。[p]
 目が、[r]さめたら…………[p]
 [endif]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask time="500" color="black"]
 [hide_ev_name]
 @jump storage="main.ks" target="*back_from_event"
@@ -897,6 +921,10 @@
 *ev_day2_3
 ;就寝4(0.1)
 [bg storage="daylast.png" time="1000" wait="false"]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
 [mask_off]
 [refresh_ui config_visible="false"]
 [show_ev_name title="12.いい夢みろよ"]
