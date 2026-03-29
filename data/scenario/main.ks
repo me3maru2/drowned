@@ -220,10 +220,12 @@
 ; --- day1 ---
 [sCntReset]
 [refresh_room]
+[call storage="main.ks" target=&tf.rpTarget]
 [s]
 
 *day1
 [if exp="f.currInfo.time == 'noon'"]
+    [refresh_ui config_visible="false"]
     [pushlog text="[se:アラームの音]"]
     [fadeinse storage="alarm.mp3" loop=false time="2000"]
     [p]
@@ -233,8 +235,11 @@
     [stopse]
     …………うるさい[p]
     また変な夢を見た気がする[p]
+    
+    [refresh_ui config_visible="true"]
 [endif]
 [refresh_room]
+[call storage="main.ks" target=&tf.rpTarget]
 [if exp="f.currInfo.time == 'evening'"]
     [pushlog text="---時間帯：夕---"]
     …………もう日が落ちている[p]
@@ -272,11 +277,13 @@
 @jump storage="title.ks"
 [s]
 ;[refresh_room]
+;[call storage="main.ks" target=&tf.rpTarget]
 ;[s]
 
 ; --- day3 ---
 ;*day3
 ;[refresh_room]
+;[call storage="main.ks" target=&tf.rpTarget]
 ;[s]
 
 *next_phase
@@ -297,6 +304,7 @@
     [iscript]
         TYRANO.kag.stat.is_skip = false;
     [endscript]
+    [wait time="100"]
     [mask_off]
     [if exp="f.currInfo.day == 1"]
         @jump storage="main.ks" target="*day1"
@@ -314,9 +322,253 @@
 
 
 ;==============================================================================
+;       ===  挙動用ラベル ===
+;==============================================================================
+
+
+*talk_or_search
+    [clearfix name="search_btn,move_btn"]
+    [cm]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="調べる"    storage="main.ks" target="*do_search"]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話しかける" storage="macro.ks" target="*do_talk"]
+    [s]
+
+*talk_stop_return
+    [iscript]
+        clearTimeout(f.wait_timer);
+        tf.is_waiting = false;
+    [endscript]
+    [if exp="f.currInfo.time == 'night'"]
+        [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+    [else]
+        [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
+    [endif]
+    #
+    [iscript]
+    tf.stop_talk = true;
+    [endscript]
+    [cm]
+    [return]
+
+*do_talk
+    [clearfix name="search_btn,move_btn"]
+    [play_bgm_title storage="musin.mp3" title="無心になれる作業"]
+    *talk_loop
+    [cm]
+    [iscript]
+    tf.hasTopic = false;
+    for (var i = 0; i < f.topicFlg[f.currInfo.day-1].length; i++) {
+        if (f.topicFlg[f.currInfo.day-1][i] == 1) {
+            tf.hasTopic = true;
+            break;
+        }
+    }
+    [endscript]
+    [if exp="tf.hasTopic == false"]
+        [if exp="f.currInfo.time == 'night'"]
+            [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+        [else]
+            [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
+        [endif]
+        #
+        今は特に話すこともないな[p]
+        [refresh_room]
+        [call storage="main.ks" target=&tf.rpTarget]
+        [return]
+    [else]
+        [call storage="main.ks" target="*show_topics"]
+        [if exp="tf.stop_talk == true"]
+            [iscript]
+                tf.stop_talk = false;
+            [endscript]
+            [refresh_room]
+            [call storage="main.ks" target=&tf.rpTarget]
+            [return]
+        [endif]
+
+        @jump target="*talk_loop"
+    [endif]
+
+
+; ======================================================
+; 探索ロジック
+; ======================================================
+
+*change_room
+    [refresh_room]
+    [call storage="main.ks" target=&tf.rpTarget]
+    [return]
+
+*do_search
+    [clearfix name="search_btn"]
+    [iscript]
+    tf.can_action = (f.searchCnt >= tf.cost);
+    tf.evTarget = '*ev_d' + f.currInfo.day + '_r' + f.currInfo.room + '_p' + tf.point;
+    [endscript]
+
+    [if exp="tf.can_action == true"]
+            [eval exp="f.searchCnt -= tf.cost"]
+            [sFlgedit place=&tf.point]
+            
+        [clearstack]
+        ; イベント呼び出し
+        @jump storage="event.ks" target="&tf.evTarget"
+
+        *back_from_event
+        ; 戻ってきたらUI更新
+        [trace exp="'残り回数:' + f.searchCnt"]
+        [layopt layer="message0" visible="false"]
+        [iscript]
+        // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
+        TYRANO.kag.stat.is_waiting_click = false;
+        $(".message0_fore").css("pointer-events", "none");
+        $("#event_layer").hide(); 
+        [endscript]
+        [layopt layer="message0" visible="true"]
+        [if exp="f.searchCnt <= 0"]
+            @jump storage="main.ks" target="*phase_end"
+        [endif]
+        [refresh_room]
+        [call storage="main.ks" target=&tf.rpTarget]
+        [s]
+    [else]
+        [cm]
+        @jump storage="main.ks" target="*phase_end"
+    [endif]
+
+
+
+*phase_end
+    [cm][er]
+    [clearfix]
+    [clearstack]
+    ; レイヤーを掃除して暗転
+    [freeimage layer="0"]
+    [freeimage layer="1"]
+    [freeimage layer="2"]
+    [iscript]
+        TYRANO.kag.stat.is_skip = false;
+    [endscript]
+    [wait time="100"]
+    [mask time="500" color="black"]
+        [jump storage="main.ks" target="*next_phase"]
+    [s]
+
+
+; ======================================================
+; 探索ポイントボタン（ラベル形式）
+; ======================================================
+
+*rp_d1_r0
+    ; day1・風呂
+    [if exp="f.currInfo.time== 'noon'"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'evening'"]
+        [event_rnd day="1" idx="3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'night'"]
+        [button name="search_btn" graphic="button/night_search.png"   x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/night_search.png"   x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/night_search.png"   x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=270 y=322 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [return]
+
+*rp_d1_r1
+    ; day1・玄関
+    [event_rnd day="1" idx="4" prob="0.00504"]
+    [if exp="f.currInfo.time== 'noon'"]
+        [button name="search_btn" graphic="button/noon_search.png"    x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'evening'"]
+        [button name="search_btn" graphic="button/evening_search.png" x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/evening_search.png" x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'night'"]
+        [button name="search_btn" graphic="button/night_search.png"   x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn" graphic="button/night_search.png"   x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=821 y=248 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [return]
+
+*rp_d1_r2
+    ; day1・キッチン
+    [event_rnd day="1" idx="0"]
+    [event_rnd day="1" idx="4" prob="0.00504"]
+    [iscript]
+        tf.canCook = (f.currInfo.time== 'noon' && f.eventFlg[0][6] == 1);
+    [endscript]
+    [if exp="tf.canCook"]
+        [event_rnd day="1" idx="6"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=300 y=210 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [return]
+
+*rp_d1_r3
+    ; day1・ランドリー
+    [if exp="f.currInfo.time== 'noon'"]
+    [event_rnd day="1" idx="4" prob="0.00504"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=500 y=95 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'evening'"]
+    [button name="search_btn" graphic="button/evening_search.png" x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=390 y=415 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [return]
+
+*rp_d1_r4
+    ; day1・リビング1
+    [event_rnd day="1" idx="4" prob="0.00504"]
+    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=815 y=380 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
+    [return]
+
+*rp_d1_r5
+    ; day1・リビング2
+    [event_rnd day="1" idx="4" prob="0.00504"]
+    [if exp="f.currInfo.time== 'noon'"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'evening'"]
+    [button name="search_btn" graphic="button/evening_search.png" x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'night'"]
+    [button name="search_btn" graphic="button/night_search.png"   x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [return]
+
+*rp_d1_r6
+    ; day1・寝室
+    [event_rnd day="1" idx="4" prob="0.00504"]
+    [if exp="f.currInfo.time== 'noon'"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/noon_search.png"    x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'evening'"]
+    [button name="search_btn" graphic="button/evening_search.png" x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/evening_search.png" x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/evening_search.png" x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [if exp="f.currInfo.time== 'night'"]
+    [button name="search_btn" graphic="button/night_search.png"   x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/night_search.png"   x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn" graphic="button/night_search.png"   x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    [return]
+
+
+;==============================================================================
 ;       ===  イベント分岐 ===
 ;==============================================================================
 *last_day
+    [refresh_ui config_visible="false"]
     [if exp="f.currInfo.day == 1"]
         [iscript]
             tf.bedtime = (Math.random() < 0.8) ? 1 : 2;
@@ -640,7 +892,7 @@
 [endif]
 [mask time="500" color="black"]
 [hide_ev_name]
-@jump storage="macro.ks" target="*back_from_event"
+@jump storage="main.ks" target="*back_from_event"
 
 *ev_day2_3
 ;就寝4(0.1)
@@ -795,7 +1047,7 @@
 [endif]
 [mask time="500" color="black"]
 [hide_ev_name]
-@jump storage="macro.ks" target="*back_from_event"
+@jump storage="main.ks" target="*back_from_event"
 
 *ev_day3_3
 ;空腹4(0.616)
