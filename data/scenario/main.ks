@@ -120,7 +120,7 @@
 (自分で何とかできるだろ…………)[p]
 はいはい分かった。[p]
 
-[bg storage="01.png" time="1000" wait="false"]
+[bg storage="01.png" time="1000" wait="true"]
 
 #???
 あ。よかった～[p]
@@ -139,7 +139,7 @@
 だって水とか勝手に出したらお前おこるじゃん[p]
 #ヤナギ？
 べつに怒ったことはない。[p]
-[bg storage="01_2.png" time="1000" wait="false"]
+[bg storage="01_2.png" time="0" wait="true"]
 #???
 あれ～？そうだっけ………[p]
 @jump target="*mizuelse"
@@ -147,13 +147,13 @@
 [cm]
 #ヤナギ？
 …………[l]次からは気を付ける[p]
-[bg storage="01_3.png" time="1000" wait="false"]
+[bg storage="01_3.png" time="0" wait="true"]
 #???
 これで何度目だよ～。疲れてんじゃない？[p]
 肩もんでやろっか！[cm]
 #ヤナギ？
 爪が刺さる。[p]
-[bg storage="01_4.png" time="1000" wait="false"]
+[bg storage="01_4.png" time="0" wait="true"]
 #???
 ちぇ～…………[p]
 *mizuelse
@@ -168,18 +168,18 @@
 それだけはなぜか感じるし。覚えている。[p]
 
 
-[bg storage="01.png" time="1000" wait="false"]
+[bg storage="01.png" time="0" wait="true"]
 
 #同居人
 今日は外出んの～？[p]
-[bg storage="01_5.png" time="1000" wait="false"]
+[bg storage="01_5.png" time="0" wait="true"]
 #同居人
 オレこの前くった甘いのがいい！[p]
 
 #ヤナギ？
 甘いのなんかあげたか？[p]
 
-[bg storage="01_6.png" time="1000" wait="false"]
+[bg storage="01_6.png" time="0" wait="true"]
 #同居人
 あれ？まあいいじゃん！[p]
 ちょっと！ちょっとだけ！[p]
@@ -187,21 +187,21 @@
 #ヤナギ？
 …………[l]駄目です。[p]
 
-[bg storage="01_7.png" time="1000" wait="false"]
+[bg storage="01_7.png" time="0" wait="true"]
 #同居人
 ひでー！[p]
 
-[bg storage="noon_laundry.png" time="1000" wait="false" method="slideInLeft"]
+[bg storage="noon_laundry.png" time="1000" wait="true" method="slideInLeft"]
 [eval exp="f.currInfo.room = 3"]
 #
 これ以上相手をしてられない。[p]
 
-[bg storage="noon_living1.png" time="1000" wait="false" method="slideInLeft"]
+[bg storage="noon_living1.png" time="1000" wait="true" method="slideInLeft"]
 [eval exp="f.currInfo.room = 4"]
 #
 妙に今日は頭が痛いんだ。[l][r]
 
-[bg storage="noon_room.png" time="1000" wait="false" method="slideInLeft"]
+[bg storage="noon_room.png" time="1000" wait="true"method="slideInLeft"]
 [eval exp="f.currInfo.room = 6"]
 #
 早く寝よう…………[p]
@@ -237,10 +237,12 @@
 [endif]
 [refresh_room]
 [if exp="f.currInfo.time == 'evening'"]
+[pushlog text="---時間帯：夕---"]
     …………もう日が落ちている[p]
 [endif]
 [if exp="f.currInfo.time == 'night'"]
     [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+    [pushlog text="---時間帯：夜---"]
     …………ねむたい[p]
     最近夢見が悪いからか、寝不足気味な気がする[p]
 [endif]
