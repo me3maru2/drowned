@@ -414,7 +414,7 @@
             
         [clearstack]
         ; イベント呼び出し
-        @jump storage="event.ks" target="&tf.evTarget"
+        @call storage="event.ks" target="&tf.evTarget"
 
         *back_from_event
         ; 戻ってきたらUI更新
@@ -1342,7 +1342,7 @@
 
 *talk_d1_1
     [iscript]
-        f.searchCnt -= 1; 
+        f.searchCnt -= 1;
         f.topicFlg[0][1] += 1;
         tf.sflg =f.topicFlg[0][1];
         clearTimeout(f.wait_timer);
