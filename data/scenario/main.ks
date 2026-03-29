@@ -415,6 +415,12 @@
         [clearstack]
         ; イベント呼び出し
         @call storage="event.ks" target="&tf.evTarget"
+        [if exp="f.last_day_Flg==true"]
+            @jump storage="main.ks" target="*last_day"
+        [endif]
+        [if exp="f.last_day_Flg==false"]
+            @jump storage="main.ks" target="*phase_end"
+        [endif]
 
         *back_from_event
         ; 戻ってきたらUI更新
