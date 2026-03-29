@@ -268,7 +268,6 @@
     [iscript]
         f.currInfo.day -= 1;
         f.currInfo.room = 6;
-        f.currInfo.time = 'noon';
         tf.lastdayFlg = false;
     [endscript]
     [cm]
