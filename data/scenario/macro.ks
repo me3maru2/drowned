@@ -172,12 +172,6 @@
   [endscript]
 
   [jump storage="macro.ks" target=&tf.rpTarget]
-  [if exp="f.currInfo.day == 1"]
-    [event_rnd day="1" idx="4" prob="0.00504"]
-  [endif]
-  [if exp="f.currInfo.day == 2"]
-    [event_rnd day="2" idx="6" prob="0.0504"]
-  [endif]
     *refresh_room_end
   ; UI（ボタン系）の再表示
   [refresh_ui config_visible="true"]
@@ -501,6 +495,7 @@
 
 *rp_d1_r1
     ; day1・玄関
+    [event_rnd day="1" idx="4" prob="0.00504"]
     [if exp="f.currInfo.time== 'noon'"]
         [button name="search_btn" graphic="button/noon_search.png"    x=610 y=141 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
@@ -517,6 +512,8 @@
 
 *rp_d1_r2
     ; day1・キッチン
+    [event_rnd day="1" idx="0"]
+    [event_rnd day="1" idx="4" prob="0.00504"]
     [iscript]
         tf.canCook = (f.currInfo.time== 'noon' && f.eventFlg[0][6] == 1);
     [endscript]
@@ -524,12 +521,12 @@
         [event_rnd day="1" idx="6"]
     [endif]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=300 y=210 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [event_rnd day="1" idx="0"]
     [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r3
     ; day1・ランドリー
     [if exp="f.currInfo.time== 'noon'"]
+    [event_rnd day="1" idx="4" prob="0.00504"]
     [button name="search_btn" graphic="button/noon_search.png"    x=70 y=405 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [button name="search_btn" graphic="button/noon_search.png"    x=500 y=95 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
@@ -541,11 +538,13 @@
 
 *rp_d1_r4
     ; day1・リビング1
+    [event_rnd day="1" idx="4" prob="0.00504"]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=815 y=380 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
     [jump storage="macro.ks" target="*refresh_room_end"]
 
 *rp_d1_r5
     ; day1・リビング2
+    [event_rnd day="1" idx="4" prob="0.00504"]
     [if exp="f.currInfo.time== 'noon'"]
     [button name="search_btn" graphic="button/noon_search.png"    x=600 y=140 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
@@ -559,6 +558,7 @@
 
 *rp_d1_r6
     ; day1・寝室
+    [event_rnd day="1" idx="4" prob="0.00504"]
     [if exp="f.currInfo.time== 'noon'"]
     [button name="search_btn" graphic="button/noon_search.png"    x=455 y=420  storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [button name="search_btn" graphic="button/noon_search.png"    x=890  y=170 storage="macro.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
