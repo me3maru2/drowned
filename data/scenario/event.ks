@@ -23,7 +23,7 @@ tf.isFirst = (f.searchFlg_day1[0][0] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p1
 [iscript]
@@ -39,7 +39,7 @@ tf.isFirst = (f.searchFlg_day1[0][1] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="1"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p2
 [iscript]
@@ -52,7 +52,7 @@ tf.isFirst = (f.searchFlg_day1[0][2] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="2"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p3
 [iscript]
@@ -65,7 +65,7 @@ tf.isFirst = (f.searchFlg_day1[0][3] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="3"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p4
 [iscript]
@@ -78,7 +78,7 @@ tf.isFirst = (f.searchFlg_day1[0][4] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="4"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p5
 [iscript]
@@ -91,7 +91,7 @@ tf.isFirst = (f.searchFlg_day1[0][5] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="5"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p6
 ; 同居人（昼）→「調べる」選択時
@@ -106,7 +106,7 @@ tf.isFirst = (f.searchFlg_day1[0][6] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="6"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p7
 ; 同居人（夕）→「調べる」選択時
@@ -120,7 +120,7 @@ tf.isFirst = (f.searchFlg_day1[0][7] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="7"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p8
 ; 同居人（夜）→「調べる」選択時
@@ -139,7 +139,7 @@ tf.isFirst = (f.searchFlg_day1[0][8] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="8"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r0_p9
 [iscript]
@@ -152,7 +152,7 @@ tf.isFirst = (f.searchFlg_day1[0][9] <= 1);
 [else]
 [rand_flavor day="1" room="0" place="9"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 ;  --- 玄関 ---
 
@@ -167,7 +167,7 @@ tf.isFirst = (f.searchFlg_day1[1][0] <= 1);
 [else]
 [rand_flavor day="1" room="1" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r1_p1
 [iscript]
@@ -182,7 +182,7 @@ tf.isFirst = (f.searchFlg_day1[1][1] <= 1);
 [else]
 [rand_flavor day="1" room="1" place="1"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r1_p2
 [iscript]
@@ -195,7 +195,7 @@ tf.isFirst = (f.searchFlg_day1[1][2] <= 1);
 [else]
 [rand_flavor day="1" room="1" place="2"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r1_p3
 [iscript]
@@ -209,7 +209,7 @@ tf.isFirst = (f.searchFlg_day1[1][3] <= 1);
 [else]
 [rand_flavor day="1" room="1" place="3"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r1_p4
 [iscript]
@@ -222,7 +222,7 @@ tf.isFirst = (f.searchFlg_day1[1][4] <= 1);
 [else]
 [rand_flavor day="1" room="1" place="4"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r1_p5
 [iscript]
@@ -234,7 +234,7 @@ tf.isFirst = (f.searchFlg_day1[1][5] <= 1);
 [else]
 [rand_flavor day="1" room="1" place="5"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 ;  --- キッチン ---
 
@@ -248,7 +248,7 @@ tf.isFirst = (f.searchFlg_day1[2][0] <= 1);
 [else]
     [rand_flavor day="1" room="2" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 ;  --- ランドリー ---
 
@@ -262,7 +262,7 @@ tf.isFirst = (f.searchFlg_day1[3][0] <= 1);
 [else]
 [rand_flavor day="1" room="3" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r3_p1
 [iscript]
@@ -275,7 +275,7 @@ tf.isFirst = (f.searchFlg_day1[3][1] <= 1);
 [else]
 [rand_flavor day="1" room="3" place="1"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r3_p2
 [iscript]
@@ -288,7 +288,7 @@ tf.isFirst = (f.searchFlg_day1[3][2] <= 1);
 [else]
 [rand_flavor day="1" room="3" place="2"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r3_p3
 [iscript]
@@ -305,7 +305,7 @@ tf.isFirst = (f.searchFlg_day1[3][3] <= 1);
 [else]
 [rand_flavor day="1" room="3" place="3"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 ;  --- リビング1 ---
 
@@ -319,7 +319,7 @@ tf.isFirst = (f.searchFlg_day1[4][0] <= 1);
 [else]
 [rand_flavor day="1" room="4" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 ; --- リビング2 ---
 
@@ -332,7 +332,7 @@ tf.isFirst = (f.searchFlg_day1[5][0] <= 1);
 [else]
     [rand_flavor day="1" room="5" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r5_p1
 [iscript]
@@ -343,7 +343,7 @@ tf.isFirst = (f.searchFlg_day1[5][1] <= 1);
 [else]
     [rand_flavor day="1" room="5" place="1"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r5_p2
 [iscript]
@@ -354,7 +354,7 @@ tf.isFirst = (f.searchFlg_day1[5][2] <= 1);
 [else]
     [rand_flavor day="1" room="5" place="2"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 ;  --- 寝室 ---
 
@@ -367,9 +367,9 @@ tf.isFirst = (f.searchFlg_day1[6][0] <= 1);
 さっきまで寝ていた場所。[p]
 ベッドメイクでもしてみるか…………[p][cm]
 [else]
-[rand_flavor day="1" room="6" place="0"]
+    [rand_flavor day="1" room="6" place="0"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p1
 [iscript]
@@ -382,7 +382,7 @@ tf.isFirst = (f.searchFlg_day1[6][1] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="1"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p2
 ; day1・寝室・ベッド（夜）→就寝イベント
@@ -402,7 +402,7 @@ tf.isFirst = (f.searchFlg_day1[6][2] <= 1);
 [else]
     [rand_flavor day="1" room="6" place="2"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 *ev_d1_r6_p2_2
 #
 今日を終わりますか？
@@ -421,7 +421,7 @@ tf.isFirst = (f.searchFlg_day1[6][3] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="3"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p4
 [iscript]
@@ -435,7 +435,7 @@ tf.isFirst = (f.searchFlg_day1[6][4] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="4"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p5
 [iscript]
@@ -447,7 +447,7 @@ tf.isFirst = (f.searchFlg_day1[6][5] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="5"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p6
 [iscript]
@@ -461,7 +461,7 @@ tf.isFirst = (f.searchFlg_day1[6][6] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="6"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p7
 [iscript]
@@ -474,7 +474,7 @@ tf.isFirst = (f.searchFlg_day1[6][7] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="7"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_d1_r6_p8
 [iscript]
@@ -488,4 +488,4 @@ tf.isFirst = (f.searchFlg_day1[6][8] <= 1);
 [else]
 [rand_flavor day="1" room="6" place="8"]
 [endif]
-@jump storage="main.ks" target="*back_from_event"
+[return]
