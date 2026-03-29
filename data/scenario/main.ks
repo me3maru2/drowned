@@ -192,10 +192,12 @@
 ひでー！[p]
 
 [bg storage="noon_laundry.png" time="1000" wait="false" method="slideInLeft"]
+[eval exp="f.currInfo.room = 3"]
 #
 これ以上相手をしてられない。[p]
 
 [bg storage="noon_living1.png" time="1000" wait="false" method="slideInLeft"]
+[eval exp="f.currInfo.room = 4"]
 #
 妙に今日は頭が痛いんだ。[l][r]
 
