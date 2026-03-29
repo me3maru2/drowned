@@ -1157,7 +1157,7 @@
         [glink color="&f.currInfo.time+'_btn'" x=200 y=325 text="海について1" storage="main.ks" target="*talk_d1_3" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
-    [glink color="&f.currInfo.time+'_btn'" x=850 y=420 text="やめる" storage="macro.ks" target="*talk_stop_return" clickse="sei_ge_bubble01.mp3"]
+    [glink color="&f.currInfo.time+'_btn'" x=850 y=420 text="やめる" storage="main.ks" target="*talk_stop_return" clickse="sei_ge_bubble01.mp3"]
     [eval exp="tf.is_waiting = true"]
     
     [iscript]
