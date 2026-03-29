@@ -401,6 +401,9 @@
 #
 [iscript]
     f.eventFlg[0][6] = 1; // 調理1
+    if(f.topicFlg[0][0] < 1){
+        f.topicFlg[0][0] = 1; // 冷蔵庫のアイス
+    }
 [endscript]
 [hide_ev_name]
 [return]
@@ -465,6 +468,7 @@
 おおそうじゃったかのぉ…………じゃなくて！[p]
 いいの！？オレ死んじゃうよ[p]
 ＜＜途中＞＞[p]
+#
 [hide_ev_name]
 [return]
 
@@ -542,7 +546,9 @@
 #
 ……胸が、ムカムカする。[p]
 [iscript]
-    f.topikFlg[3] = 1; // 海について1
+    if(f.topicFlg[0][3]<1){
+        f.topicFlg[0][3] = 1; // 海について1
+    }
 [endscript]
 [hide_ev_name]
 [return]
@@ -836,24 +842,32 @@
 ;==============================================================================
 
 *show_topics
+
     [clearfix name="search_btn,move_btn"]
     [iscript]
-        tf.day =f.currInfo.day-1;
+        if (f.wait_timer) {
+        clearTimeout(f.wait_timer);
+        f.wait_timer = null;
+        }
     [endscript]
 
-    [if exp="f.topicFlg[tf.day][0] >= 1"]
-        [glink color="&f.currInfo.time+'_btn'" x=360 y=100 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
+    [if exp="f.topicFlg[0][0] >= 1"]
+        [glink color="&f.currInfo.time+'_btn'" x=200 y=100 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
-    [if exp="f.topicFlg[tf.day][1] >= 1"]
-        [glink color="&f.currInfo.time+'_btn'" x=360 y=175 text="名前について" storage="main.ks" target="*talk_d1_1" clickse="sei_ge_bubble01.mp3"]
+    [if exp="f.topicFlg[0][1] >= 1"]
+        [glink color="&f.currInfo.time+'_btn'" x=200 y=175 text="名前について" storage="main.ks" target="*talk_d1_1" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
-    [if exp="f.topicFlg[tf.day][2] >= 1"]
-        [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="水の温度" storage="main.ks" target="*talk_d1_2" clickse="sei_ge_bubble01.mp3"]
+    [if exp="f.topicFlg[0][2] >= 1"]
+        [glink color="&f.currInfo.time+'_btn'" x=200 y=250 text="水の温度" storage="main.ks" target="*talk_d1_2" clickse="sei_ge_bubble01.mp3"]
+    [endif]
+    
+    [if exp="f.topicFlg[0][3] >= 1"]
+        [glink color="&f.currInfo.time+'_btn'" x=200 y=325 text="冷凍庫のアイス" storage="main.ks" target="*talk_d1_0" clickse="sei_ge_bubble01.mp3"]
     [endif]
 
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=400 text="やめる" storage="macro.ks" target="*talk_stop_return" clickse="sei_ge_bubble01.mp3"]
+    [glink color="&f.currInfo.time+'_btn'" x=850 y=420 text="やめる" storage="macro.ks" target="*talk_stop_return" clickse="sei_ge_bubble01.mp3"]
     [eval exp="tf.is_waiting = true"]
     
     [iscript]
@@ -976,8 +990,8 @@
 *talk_d1_0
     [iscript]
         f.searchCnt -= 1; 
-        f.topicFlg[f.currInfo.day-1][0] += 1;
-        tf.sflg =f.topicFlg[f.currInfo.day-1][0];
+        f.topicFlg[0][0] += 1;
+        tf.sflg =f.topicFlg[0][0];
         clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
@@ -1034,8 +1048,8 @@
 *talk_d1_1
     [iscript]
         f.searchCnt -= 1; 
-        f.topicFlg[f.currInfo.day-1][1] += 1;
-        tf.sflg =f.topicFlg[f.currInfo.day-1][1];
+        f.topicFlg[0][1] += 1;
+        tf.sflg =f.topicFlg[0][1];
         clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
@@ -1089,8 +1103,8 @@
 *talk_d1_2
     [iscript]
         f.searchCnt -= 1; 
-        f.topicFlg[f.currInfo.day-1][2] += 1;
-        tf.sflg =f.topicFlg[f.currInfo.day-1][2];
+        f.topicFlg[0][2] += 1;
+        tf.sflg =f.topicFlg[0][2];
         clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
@@ -1122,10 +1136,9 @@
         [endif]
         [if exp="tf.sflg == 4"]
             #同居人
-            いや悪かったって！[p]
-            でもオレ食べてねーよ！？[p]
-            だってここから出られないんだからさぁ……[l][r]
-            食べれるわけないじゃ～ん[p]
+            大丈夫だって！[p]
+            そんな簡単に死んだりなんか、しないからさ！[p]
+            あと、そんな心配するくらいなら俺にジュース奢ってよ[p]
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
