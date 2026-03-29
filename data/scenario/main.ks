@@ -221,6 +221,8 @@
 
 *day1
 [if exp="f.currInfo.time == 'noon'"]
+    [rebuild_tf_vars]
+    [mask_off]
     [pushlog text="[se:アラームの音]"]
     [fadeinse storage="alarm.mp3" loop=false time="2000"]
     [p]
