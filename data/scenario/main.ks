@@ -404,6 +404,7 @@
 *do_search
     [clearfix name="search_btn"]
     [iscript]
+    tf.cost = tf.cost || 3;
     tf.can_action = (f.searchCnt >= tf.cost);
     tf.evTarget = '*ev_d' + f.currInfo.day + '_r' + f.currInfo.room + '_p' + tf.point;
     [endscript]
