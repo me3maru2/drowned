@@ -331,54 +331,54 @@
 [endmacro]
 
 [macro name="enable_click_effect"]
-[iscript]
-var event_layer = $(".tyrano_base");
-event_layer.off("click.effect");
+    [iscript]
+    var event_layer = $(".tyrano_base");
+    event_layer.off("click.effect");
 
-event_layer.on("click.effect", function(e) {
-    // --- 1. 座標の変換処理 ---
-    // ゲーム画面の拡大率を取得
-    var scale = TYRANO.kag.tmp.base_scale || 1;
-    
-    // 画面の左上端からの距離を取得
-    var offset = event_layer.offset();
-    
-    // ブラウザの座標から、拡大率を考慮したゲーム内座標に変換
-    var x = (e.pageX - offset.left) / scale;
-    var y = (e.pageY - offset.top) / scale;
+    event_layer.on("click.effect", function(e) {
+        // --- 1. 座標の変換処理 ---
+        // ゲーム画面の拡大率を取得
+        var scale = TYRANO.kag.tmp.base_scale || 1;
+        
+        // 画面の左上端からの距離を取得
+        var offset = event_layer.offset();
+        
+        // ブラウザの座標から、拡大率を考慮したゲーム内座標に変換
+        var x = (e.pageX - offset.left) / scale;
+        var y = (e.pageY - offset.top) / scale;
 
-    // --- 2. 中心点の調整 ---
-    // 画像サイズ 60x60 の半分（30）を引いて中心をクリック位置に合わせる
-    var final_x = x - 30;
-    var final_y = y - 30;
+        // --- 2. 中心点の調整 ---
+        // 画像サイズ 60x60 の半分（30）を引いて中心をクリック位置に合わせる
+        var final_x = x - 30;
+        var final_y = y - 30;
 
-    var storage = "click_effect.png";
-    var name = "click_anim_" + new Date().getTime();
-    
-    TYRANO.kag.ftag.startTag("image", {
-        layer: "0",
-        page: "fore",
-        storage: storage,
-        x: Math.floor(final_x),
-        y: Math.floor(final_y),
-        name: name,
-        visible: "true",
-        zindex: "9999"
-    });
-
-    setTimeout(function() {
-        $("." + name).fadeOut(300, function() {
-            $(this).remove();
+        var storage = "click_effect.png";
+        var name = "click_anim_" + new Date().getTime();
+        
+        TYRANO.kag.ftag.startTag("image", {
+            layer: "0",
+            page: "fore",
+            storage: storage,
+            x: Math.floor(final_x),
+            y: Math.floor(final_y),
+            name: name,
+            visible: "true",
+            zindex: "9999"
         });
-    }, 200);
-});
-[endscript]
+
+        setTimeout(function() {
+            $("." + name).fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 200);
+    });
+    [endscript]
 [endmacro]
 
 [macro name="disable_click_effect"]
     [iscript]
-    $(".tyrano_base").off("click.effect");
-[endscript]
+        $(".tyrano_base").off("click.effect");
+    [endscript]
 [endmacro]
 
 [return]
