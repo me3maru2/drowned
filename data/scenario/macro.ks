@@ -158,6 +158,7 @@
     tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
   [endscript]
   [bg storage="&tf.bgfile" time="500" wait="true"]
+  [layopt layer="0" visible="true"]
 
   ; 左右移動ボタン
   [iscript]
