@@ -343,7 +343,7 @@ window.__tyrano_key_config = {
         " "          : "hidemessage",
         "Meta"       : "holdskip", // Mac の Command キーのこと
         "Control"    : "holdskip",
-        "m"          : "menu",
+        //"m"          : "menu",
         
         // w, a, s, d で仮想マウスカーソルを操作できるようにします
         "w"          : "vmouse_up    -a -h",
@@ -416,7 +416,7 @@ window.__tyrano_key_config = {
         "swipe_up_1"    : "backlog",
         "swipe_down_1"  : "load",
         "swipe_left_1"  : "auto",
-        "swipe_right_1" : "menu",
+        //"swipe_right_1" : "menu",
         "hold"          : "holdskip",
         
         // 画面右端のダブルタップ・トリプルタップ
