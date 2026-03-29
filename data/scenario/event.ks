@@ -406,9 +406,15 @@ tf.isFirst = (f.searchFlg_day1[6][2] <= 1);
 *ev_d1_r6_p2_2
 #
 今日を終わりますか？
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="終わる"    storage="main.ks" target="*next_phase"]
-    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="まだ続ける" storage="main.ks" target="*back_from_event"]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=150 text="終わる"    storage="main.ks" target="*ev_d1_r6_p2_2_1"]
+    [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="まだ続ける" storage="main.ks" target="*ev_d1_r6_p2_2_2"]
     [s]
+*ev_d1_r6_p2_2_1
+[eval exp="f.last_day_Flg = true"]
+[return]
+*ev_d1_r6_p2_2_2
+[eval exp="f.last_day_Flg = false"]
+[return]
 
 *ev_d1_r6_p3
 [iscript]
