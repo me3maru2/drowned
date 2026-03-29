@@ -4,19 +4,36 @@
 ;Fixレイヤーの初期化など、ロード時点で再構築したい処理をこちらに記述してください。
 ;
 ;
+
 [iscript]
-// スキップ開始・停止を監視
-$(window).on('keydown mousedown', function(){
+$(window).on('loadstart', function() {
+    if (f.wait_timer) {
+        clearTimeout(f.wait_timer);
+        f.wait_timer = null;
+    }
+    tf.is_waiting = false;
+});
+
+// スキップ監視の修正
+/*
+$(window).off('keydown.skipcheck mousedown.skipcheck');
+$(window).on('keydown.skipcheck mousedown.skipcheck', function(){
     setTimeout(function(){
-        if(TYRANO.kag.stat.is_skip == true){
-            TYRANO.kag.ftag.startTag("start_skip_effect", {});
-        } else {
-            TYRANO.kag.ftag.startTag("stop_skip_effect", {});
+        // TYRANO やそのプロパティが存在するか厳密にチェック
+        if (typeof TYRANO !== 'undefined' && TYRANO.kag && TYRANO.kag.ftag) {
+            if(TYRANO.kag.stat.is_skip == true){
+                // タグが存在する場合のみ実行（存在しないカスタムタグを呼んでいないか確認）
+                TYRANO.kag.ftag.startTag("start_skip_effect", {});
+            } else {
+                TYRANO.kag.ftag.startTag("stop_skip_effect", {});
+            }
         }
     }, 10);
 });
+*/
 [endscript]
 
-;make.ks はロード時にcallとして呼ばれるため、return必須です。
+[rebuild_tf_vars]
+
 [return]
 
