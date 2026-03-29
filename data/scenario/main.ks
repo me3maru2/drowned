@@ -378,7 +378,7 @@
         [call storage="main.ks" target=&tf.rpTarget]
         [return]
     [else]
-        [call storage="main.ks" target="*show_topics"]
+        [jump storage="main.ks" target="*show_topics"]
         [if exp="tf.stop_talk == true"]
             [iscript]
                 tf.stop_talk = false;
@@ -1286,7 +1286,7 @@
     *hochi_end
         [eval exp="tf.is_waiting = false"]
         [refresh_ui config_visible="true"]
-        [return]
+        @jump storage="main.ks" target="*show_topics"
 
 *talk_d1_0
     [iscript]
@@ -1399,7 +1399,7 @@
     [endif]
     #
     [hide_ev_name]
-    [return]
+    @jump storage="main.ks" target="*show_topics"
 
 *talk_d1_2
     [iscript]
@@ -1453,14 +1453,14 @@
     [endif]
     #
     [hide_ev_name]
-    [return]
+    @jump storage="main.ks" target="*show_topics"
 
 
 *talk_d1_3
     [iscript]
         f.searchCnt -= 1; 
         f.topicFlg[0][3] += 1;
-        tf.sflg =f.topicFlg[0][2];
+        tf.sflg =f.topicFlg[0][3];
         clearTimeout(f.wait_timer);
     [endscript]
     [refresh_ui config_visible="false"]
@@ -1510,7 +1510,7 @@
     [endif]
     #
     [hide_ev_name]
-    [return]
+    @jump storage="main.ks" target="*show_topics"
 
 
 ;==============================================================================
