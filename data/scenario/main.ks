@@ -250,7 +250,6 @@
         …………ねむたい[p]
         最近夢見が悪いからか、寝不足気味な気がする[p]
     [endif]
-    [call storage="main.ks" target=&tf.rpTarget]
     [s]
 
 ; --- day2 ---
