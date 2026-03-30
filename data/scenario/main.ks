@@ -219,7 +219,7 @@
 [layopt layer="message0" clickthrough=true]
 ; --- day1 ---
 [sCntReset]
-[call storage="main.ks" target="*refresh_room]
+[call storage="main.ks" target="*refresh_room"]
 [s]
 
 *day1
@@ -238,7 +238,7 @@
     [refresh_ui config_visible="true"]
 [endif]
 
-[call storage="main.ks" target="*refresh_room]
+[call storage="main.ks" target="*refresh_room"]
 
 [if exp="f.currInfo.time == 'evening'"]
     [pushlog text="---時間帯：夕---"]
@@ -277,12 +277,12 @@
 [disable_click_effect]
 @jump storage="title.ks"
 [s]
-;[call storage="main.ks" target="*refresh_room]
+;[call storage="main.ks" target="*refresh_room"]
 ;[s]
 
 ; --- day3 ---
 ;*day3
-;[call storage="main.ks" target="*refresh_room]
+;[call storage="main.ks" target="*refresh_room"]
 ;[s]
 
 *next_phase
@@ -354,34 +354,21 @@
         [endif]
         #
         今は特に話すこともないな[p]
-        [call storage="main.ks" target="*refresh_room]
+        [call storage="main.ks" target="*refresh_room"]
         [s]
     [else]
         [jump storage="main.ks" target="*show_topics"]
     [endif]
 
 *talk_stop_return
-    [iscript]
-        clearTimeout(f.wait_timer);
-        tf.is_waiting = false;
-    [endscript]
-    [if exp="f.currInfo.time == 'night'"]
-        [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
-    [else]
-        [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
-    [endif]
-    #
-    [cm]
-    [call storage="main.ks" target="*refresh_room]
-    [s]
+    [return]
 
 ; ======================================================
 ; 探索ロジック
 ; ======================================================
 
 *change_room
-    [call storage="main.ks" target="*refresh_room]
-    [return]
+    @jump target="*refresh_room"
 
 *do_search
     [clearfix name="search_btn"]
@@ -417,7 +404,7 @@
         [if exp="f.searchCnt <= 0"]
             @jump storage="main.ks" target="*phase_end"
         [endif]
-        [call storage="main.ks" target="*refresh_room]
+        [call storage="main.ks" target="*refresh_room"]
         [s]
     [else]
         [cm]
@@ -471,7 +458,11 @@
   [call storage="main.ks" target=&tf.rpTarget]
   ; UI（ボタン系）の再表示
   [refresh_ui config_visible="true"]
-[return]
+  [if exp="TYRANO.kag.stat.stack.call.length > 0"]
+    [return]
+  [else]
+    [s]
+  [endif]
 
 ; ======================================================
 ; 探索ポイントボタン（ラベル形式）
