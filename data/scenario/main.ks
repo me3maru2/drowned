@@ -1176,12 +1176,12 @@
     [eval exp="tf.is_waiting = true"]
     
     [iscript]
-    tf.is_waiting = true;
-    f.wait_timer = setTimeout(function(){
-        if(TYRANO.kag.variable.tf.is_waiting == true){
-            TYRANO.kag.ftag.startTag("jump", {target: "*hochi_event", storage: "main.ks"});
-        }
-    }, 20000);
+        tf.is_waiting = true;
+        f.wait_timer = setTimeout(function(){
+            if(TYRANO.kag.variable.tf.is_waiting == true){
+                TYRANO.kag.ftag.startTag("jump", {target: "*hochi_event", storage: "main.ks"});
+            }
+        }, 20000);
     [endscript]
     [s]
 
@@ -1292,6 +1292,7 @@
         [eval exp="tf.is_waiting = false"]
         [refresh_ui config_visible="true"]
         @jump storage="main.ks" target="*show_topics"
+    [s]
 
 *talk_d1_0
     [iscript]
@@ -1350,6 +1351,7 @@
     #
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
+    [s]
 
 *talk_d1_1
     [iscript]
@@ -1405,6 +1407,7 @@
     #
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
+    [s]
 
 *talk_d1_2
     [iscript]
@@ -1459,7 +1462,7 @@
     #
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
-
+    [s]
 
 *talk_d1_3
     [iscript]
@@ -1516,6 +1519,7 @@
     #
     [hide_ev_name]
     @jump storage="main.ks" target="*show_topics"
+    [s]
 
 
 ;==============================================================================
