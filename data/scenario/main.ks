@@ -335,25 +335,6 @@
     [glink color="&f.currInfo.time+'_btn'" x=360 y=250 text="話しかける" storage="main.ks" target="*do_talk"]
     [s]
 
-*talk_stop_return
-    [iscript]
-        clearTimeout(f.wait_timer);
-        tf.is_waiting = false;
-    [endscript]
-    [if exp="f.currInfo.time == 'night'"]
-        [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
-    [else]
-        [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
-    [endif]
-    #
-    [iscript]
-        tf.stop_talk = true;
-    [endscript]
-    [cm]
-    [refresh_room]
-    [call storage="main.ks" target=&tf.rpTarget]
-    [s]
-
 *do_talk
     [clearfix name="search_btn,move_btn"]
     [play_bgm_title storage="musin.mp3" title="無心になれる作業"]
@@ -378,21 +359,26 @@
         今は特に話すこともないな[p]
         [refresh_room]
         [call storage="main.ks" target=&tf.rpTarget]
-        [return]
+        [s]
     [else]
         [jump storage="main.ks" target="*show_topics"]
-        [if exp="tf.stop_talk == true"]
-            [iscript]
-                tf.stop_talk = false;
-            [endscript]
-            [refresh_room]
-            [call storage="main.ks" target=&tf.rpTarget]
-            [return]
-        [endif]
-
-        @jump target="*talk_loop"
     [endif]
 
+*talk_stop_return
+    [iscript]
+        clearTimeout(f.wait_timer);
+        tf.is_waiting = false;
+    [endscript]
+    [if exp="f.currInfo.time == 'night'"]
+        [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+    [else]
+        [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
+    [endif]
+    #
+    [cm]
+    [refresh_room]
+    [call storage="main.ks" target=&tf.rpTarget]
+    [s]
 
 ; ======================================================
 ; 探索ロジック
