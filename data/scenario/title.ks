@@ -17,7 +17,7 @@
 @bg storage ="title_1.png" time=100
 [mask_off]
 [layopt layer="0" visible="true"]
-[ptext layer="0" text="Ver demo.3.31.4:17(話過ぎて疲れて固まるヤナギさん)" x=10 y=680 size=30 color="#BB2626" edge="#BB2626" time="1200"]
+[ptext layer="0" text="Ver demo.3.31.4:23(探索箇所増殖)" x=10 y=680 size=30 color="#BB2626" edge="#BB2626" time="1200"]
 @playbgm storage=HMB.mp3 loop=true
 [image layer="0" storage="logo.png" x=770 y=150 width=400 visible="true" time="1200"]
 [button name="my_btn" x=880 y=380 graphic="title/button_start.png" enterimg="title/button_start2.png" target="gamestart" keyfocus="1" clickse="sei_ge_mizu_dobon01.mp3" enterse="chapon2.mp3"]
