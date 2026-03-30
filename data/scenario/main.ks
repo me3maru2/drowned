@@ -372,8 +372,19 @@
 ; 探索ロジック
 ; ======================================================
 
-*change_room
-    @jump target="*refresh_room"
+*move_left
+[iscript]
+    // 左移動：0なら6へ、それ以外は-1
+    f.currInfo.room = (f.currInfo.room == 0) ? 6 : f.currInfo.room - 1;
+[endscript]
+@jump target="*refresh_room"
+
+*move_right
+[iscript]
+    // 右移動：6なら0へ、それ以外は+1
+    f.currInfo.room = (f.currInfo.room == 6) ? 0 : f.currInfo.room + 1;
+[endscript]
+@jump target="*refresh_room"
 
 *do_search
     [clearfix name="search_btn,move_btn"]
@@ -454,8 +465,8 @@
     tf.prev = (f.currInfo.room == 0) ? 6 : f.currInfo.room - 1;
     tf.next = (f.currInfo.room == 6) ? 0 : f.currInfo.room + 1;
   [endscript]
-  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_left.png'" enterimg="&'button/'+f.currInfo.time+'_left2.png'" zindex="999" fix="true" x=0 y=380 storage="main.ks" target="*change_room" exp="f.currInfo.room = tf.prev"]
-  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_right.png'" enterimg="&'button/'+f.currInfo.time+'_right2.png'" zindex="999" fix="true" x=1220 y=380 storage="main.ks" target="*change_room" exp="f.currInfo.room = tf.next"]
+  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_left.png'" enterimg="&'button/'+f.currInfo.time+'_left2.png'" zindex="999" fix="true" x=0 y=380 storage="main.ks" target="*move_left"]
+  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_right.png'" enterimg="&'button/'+f.currInfo.time+'_right2.png'" zindex="999" fix="true" x=1220 y=380 storage="main.ks" target="*move_right"]
   ; 探索ポイントの表示（roomごとに分岐）
   [iscript]
     tf.rpTarget = '*rp_d' + f.currInfo.day + '_r' + f.currInfo.room;
