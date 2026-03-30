@@ -413,7 +413,6 @@ tf.isFirst = (f.searchFlg_day1[6][2] <= 1);
 [eval exp="f.last_day_Flg = true"]
 [return]
 *ev_d1_r6_p2_2_2
-[eval exp="f.last_day_Flg = false"]
 [return]
 
 *ev_d1_r6_p3
