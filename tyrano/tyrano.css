@@ -187,6 +187,7 @@ body {
     padding: 20px;
     border: 1px solid #798993;
     border-radius: 0;
+    font-family: "KH-Dot-Kagurazaka", sans-serif !important;
     color: #798993;
     background: rgba(251, 250, 249, 0.5);
     font-weight: normal;
@@ -239,6 +240,7 @@ body {
     -webkit-overflow-scrolling: touch;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    font-family: "KH-Dot-Kagurazaka", sans-serif !important;
 }
 
 /* スクロールバー */
@@ -333,7 +335,8 @@ body {
     margin: 0;
     padding: 0 0 0 20px;
     line-height: 1;
-    color: #02abe6;
+    font-family: "KH-Dot-Kagurazaka", sans-serif !important;
+    color: #337586;
     font-weight: bold;
     box-sizing: border-box;
 }
@@ -345,7 +348,8 @@ body {
     margin: 0;
     padding: 5px 0 0 20px;
     line-height: 1.3;
-    color: #666;
+    font-family: "KH-Dot-Kagurazaka", sans-serif !important;
+    color: #06222d;
     overflow: hidden;
     box-sizing: border-box;
 }
