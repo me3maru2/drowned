@@ -508,7 +508,7 @@
     [endif]
     [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=270 y=322 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 *rp_d1_r1
     ; day1・玄関
     [event_rnd day="1" idx="4" prob="0.00504"]
@@ -525,7 +525,7 @@
     [endif]
     [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=821 y=248 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 *rp_d1_r2
     ; day1・キッチン
     [event_rnd day="1" idx="0"]
@@ -538,7 +538,7 @@
     [endif]
     [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=300 y=210 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 *rp_d1_r3
     ; day1・ランドリー
     [if exp="f.currInfo.time== 'noon'"]
@@ -551,13 +551,13 @@
     [endif]
     [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=390 y=415 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 *rp_d1_r4
     ; day1・リビング1
     [event_rnd day="1" idx="4" prob="0.00504"]
     [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=815 y=380 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 *rp_d1_r5
     ; day1・リビング2
     [event_rnd day="1" idx="4" prob="0.00504"]
@@ -571,7 +571,7 @@
     [button name="search_btn,move_btn" graphic="button/night_search.png"   x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 *rp_d1_r6
     ; day1・寝室
     [event_rnd day="1" idx="4" prob="0.00504"]
@@ -591,7 +591,7 @@
     [button name="search_btn,move_btn" graphic="button/night_search.png"   x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
-
+    [s]
 
 ;==============================================================================
 ;       ===  イベント分岐 ===
