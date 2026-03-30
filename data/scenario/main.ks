@@ -1266,11 +1266,12 @@
             #
         [elsif exp="tf.hochi_idx == 1"]
             #同居人
-            …なあ、ずっとここにいろよ。……外は水浸しで、息もできないぞ[p]
+            …なあ、ずっとここにいてって言ったら[l][r]
+            冗談だって！[p]そんな怖い顔すんなよ～[p]
             #
         [elsif exp="tf.hochi_idx == 2"]
             #同居人
-            「……喉乾いた？ 水、出してやろっか。……。……あ、オレ、ここから動けないんだった[p]
+            ……喉乾いた？ 水、出してやろっか。……。[l][r]……あ、オレ、ここから動けないんだった[p]
             #
         [elsif exp="tf.hochi_idx == 3"]
             #同居人
@@ -1348,7 +1349,7 @@
     [endif]
     #
     [hide_ev_name]
-    [return]
+    @jump storage="main.ks" target="*show_topics"
 
 *talk_d1_1
     [iscript]
