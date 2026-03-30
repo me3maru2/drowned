@@ -362,6 +362,9 @@
 
 *talk_stop_return
     [cm]
+    [iscript]
+        tf.is_waiting = false;
+    [endscript]
     @jump target="*refresh_room"
     [s]
 
