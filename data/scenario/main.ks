@@ -223,60 +223,60 @@
 [s]
 
 *day1
-[if exp="f.currInfo.time == 'noon'"]
-    [refresh_ui config_visible="false"]
-    [pushlog text="[se:アラームの音]"]
-    [fadeinse storage="alarm.mp3" loop=false time="2000"]
-    [p]
-    [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
-    [eval exp="f.currInfo.room = 6"]
-    [bg storage="noon_room.png" time="2000" wait="false"]
-    [stopse]
-    …………うるさい[p]
-    また変な夢を見た気がする[p]
-    
-    [refresh_ui config_visible="true"]
-[endif]
+    [if exp="f.currInfo.time == 'noon'"]
+        [refresh_ui config_visible="false"]
+        [pushlog text="[se:アラームの音]"]
+        [fadeinse storage="alarm.mp3" loop=false time="2000"]
+        [p]
+        [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
+        [eval exp="f.currInfo.room = 6"]
+        [bg storage="noon_room.png" time="2000" wait="false"]
+        [stopse]
+        …………うるさい[p]
+        また変な夢を見た気がする[p]
+        
+        [refresh_ui config_visible="true"]
+    [endif]
 
-[call storage="main.ks" target="*refresh_room"]
+    [call storage="main.ks" target="*refresh_room"]
 
-[if exp="f.currInfo.time == 'evening'"]
-    [pushlog text="---時間帯：夕---"]
-    …………もう日が落ちている[p]
-[endif]
-[if exp="f.currInfo.time == 'night'"]
-    [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
-    [pushlog text="---時間帯：夜---"]
-    …………ねむたい[p]
-    最近夢見が悪いからか、寝不足気味な気がする[p]
-[endif]
-[call storage="main.ks" target=&tf.rpTarget]
-[s]
+    [if exp="f.currInfo.time == 'evening'"]
+        [pushlog text="---時間帯：夕---"]
+        …………もう日が落ちている[p]
+    [endif]
+    [if exp="f.currInfo.time == 'night'"]
+        [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+        [pushlog text="---時間帯：夜---"]
+        …………ねむたい[p]
+        最近夢見が悪いからか、寝不足気味な気がする[p]
+    [endif]
+    [call storage="main.ks" target=&tf.rpTarget]
+    [s]
 
 ; --- day2 ---
 *day2
-[refresh_ui config_visible="false"]
-[show_ev_name title="デモエンディング"]
-#
-デモ版をプレイいただきありがとうございます。[p]
-完成版はこれより画像やテキストを増やしてお届けできると思います。[p]
-夏ごろに完成予定ですので、（何年のとは言わない）[l][r]
-気が向きましたら、その時にも遊んでいただけると嬉しいです[p]
-なにかバグや問題がありましたら、Twitter(X)の方へご連絡ください[p]
-なお、ソースコードの開示などをするつもりは有りません[l][r]
-できるだけ見ないでください[l][r]
-えっち！[p]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="デモエンディング"]
+    #
+    デモ版をプレイいただきありがとうございます。[p]
+    完成版はこれより画像やテキストを増やしてお届けできると思います。[p]
+    夏ごろに完成予定ですので、（何年のとは言わない）[l][r]
+    気が向きましたら、その時にも遊んでいただけると嬉しいです[p]
+    なにかバグや問題がありましたら、Twitter(X)の方へご連絡ください[p]
+    なお、ソースコードの開示などをするつもりは有りません[l][r]
+    できるだけ見ないでください[l][r]
+    えっち！[p]
 
-…[l]……[l]………[l]
-あと、余談ですが[p]
-霊新なのかなこれ。[l][r]
-新霊なのかなこれ。[l][r]
-教えて誰か。[p]
+    …[l]……[l]………[l]
+    あと、余談ですが[p]
+    霊新なのかなこれ。[l][r]
+    新霊なのかなこれ。[l][r]
+    教えて誰か。[p]
 
-[mask time="500" color="black"]
-[disable_click_effect]
-@jump storage="title.ks"
-[s]
+    [mask time="500" color="black"]
+    [disable_click_effect]
+    @jump storage="title.ks"
+    [s]
 ;[call storage="main.ks" target="*refresh_room"]
 ;[s]
 
@@ -373,18 +373,18 @@
 ; ======================================================
 
 *move_left
-[iscript]
-    // 左移動：0なら6へ、それ以外は-1
-    f.currInfo.room = (f.currInfo.room == 0) ? 6 : f.currInfo.room - 1;
-[endscript]
-@jump target="*refresh_room"
+    [iscript]
+        // 左移動：0なら6へ、それ以外は-1
+        f.currInfo.room = (f.currInfo.room == 0) ? 6 : f.currInfo.room - 1;
+    [endscript]
+    @jump target="*refresh_room"
 
 *move_right
-[iscript]
-    // 右移動：6なら0へ、それ以外は+1
-    f.currInfo.room = (f.currInfo.room == 6) ? 0 : f.currInfo.room + 1;
-[endscript]
-@jump target="*refresh_room"
+    [iscript]
+        // 右移動：6なら0へ、それ以外は+1
+        f.currInfo.room = (f.currInfo.room == 6) ? 0 : f.currInfo.room + 1;
+    [endscript]
+    @jump target="*refresh_room"
 
 *do_search
     [clearfix name="search_btn,move_btn"]
@@ -430,6 +430,9 @@
 
 
 *phase_end
+    [iscript]
+        tf.is_waiting = false;
+    [endscript]
     [cm][er]
     [clearfix]
     [clearstack]
@@ -658,234 +661,234 @@
 ;==============
 
 *ev_day1_0
-;回想1
-[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
-[refresh_ui config_visible="false"]
-[show_ev_name title="01.ソーダ味"]
-#
-彼と、アイスを食べた。[p]
-ソーダ味のアイスでバニラアイスを包んだだけの食べ進めるたびに頭が痛くなる兵器。[p]
-あれを貴方はさぞおいしそうにほおばって[l][r]
-案の定、頭が痛いと笑う。[p]
+    ;回想1
+    [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="01.ソーダ味"]
+    #
+    彼と、アイスを食べた。[p]
+    ソーダ味のアイスでバニラアイスを包んだだけの食べ進めるたびに頭が痛くなる兵器。[p]
+    あれを貴方はさぞおいしそうにほおばって[l][r]
+    案の定、頭が痛いと笑う。[p]
 
-#ヤナギ
-俺は、あのとき何味を食べたんだっけ。[p]
+    #ヤナギ
+    俺は、あのとき何味を食べたんだっけ。[p]
 
-#
-冷蔵庫の中にアイスが１本入っていた。[p]
-真ん中に溝があって、２本に割れるアイス。[l][r]
-あれを綺麗に折れる人間なんて要るんだろうか。[p]
-気付けばそれを手に取っていた。[l][r]
-手が冷えていく………[p]
-#ヤナギ
-っあ…………[p]
-#
-二つに割ろうとしたそれは不格好に片方に偏って割れた。[p]
-分ける相手も居ないのに。何をしていたんだろう。[p]
-大して好きでもないアイスを口に含んだ。[p]
-#ヤナギ
-頭が、痛いな………[p]
-#
-[iscript]
-    f.eventFlg[0][6] = 1; // 調理1
-    if(f.topicFlg[0][0] < 1){
-        f.topicFlg[0][0] = 1; // 冷蔵庫のアイス
-    }
-[endscript]
-[hide_ev_name]
-[return]
+    #
+    冷蔵庫の中にアイスが１本入っていた。[p]
+    真ん中に溝があって、２本に割れるアイス。[l][r]
+    あれを綺麗に折れる人間なんて要るんだろうか。[p]
+    気付けばそれを手に取っていた。[l][r]
+    手が冷えていく………[p]
+    #ヤナギ
+    っあ…………[p]
+    #
+    二つに割ろうとしたそれは不格好に片方に偏って割れた。[p]
+    分ける相手も居ないのに。何をしていたんだろう。[p]
+    大して好きでもないアイスを口に含んだ。[p]
+    #ヤナギ
+    頭が、痛いな………[p]
+    #
+    [iscript]
+        f.eventFlg[0][6] = 1; // 調理1
+        if(f.topicFlg[0][0] < 1){
+            f.topicFlg[0][0] = 1; // 冷蔵庫のアイス
+        }
+    [endscript]
+    [hide_ev_name]
+    [return]
 
 *ev_day1_1
-;就寝1（0.8）
-[SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
-[bg storage="daylast.png" time="1000" wait="false"]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask_off]
-[refresh_ui config_visible="false"]
-[show_ev_name title="02.おやすみ！"]
-[play_bgm_title storage="matenrou.mp3" title="摩天楼を見下ろして"]
-[sleepORnextday]
-[if exp="tf.lastdayFlg == true"]
-#
-きょうは、もう寝よう[p]
-[else]
-#
-こんなの夢だ…………目が覚めたら。[p]
-目が、[r]さめたら…………[p]
-[endif]
+    ;就寝1（0.8）
+    [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
+    [bg storage="daylast.png" time="1000" wait="false"]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask_off]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="02.おやすみ！"]
+    [play_bgm_title storage="matenrou.mp3" title="摩天楼を見下ろして"]
+    [sleepORnextday]
+    [if exp="tf.lastdayFlg == true"]
+    #
+    きょうは、もう寝よう[p]
+    [else]
+    #
+    こんなの夢だ…………目が覚めたら。[p]
+    目が、[r]さめたら…………[p]
+    [endif]
 
-[hide_ev_name]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask time="500" color="black"]
-[return]
+    [hide_ev_name]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask time="500" color="black"]
+    [return]
 
 *ev_day1_2
-;就寝2（0.2）
-[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
-[bg storage="daylast.png" time="1000" wait="false"]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask_off]
-[refresh_ui config_visible="false"]
-[show_ev_name title="03.おやすみなさい…"]
-[play_bgm_title storage="matenrou.mp3" title="摩天楼を見下ろして"]
-[sleepORnextday]
-[if exp="tf.lastdayFlg == true"]
-#
-きょうは、もう寝よう[p]
-[else]
-#
-こんなの夢だ…………目が覚めたら。[p]
-目が、[r]さめたら…………[p]
-[endif]
+    ;就寝2（0.2）
+    [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
+    [bg storage="daylast.png" time="1000" wait="false"]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask_off]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="03.おやすみなさい…"]
+    [play_bgm_title storage="matenrou.mp3" title="摩天楼を見下ろして"]
+    [sleepORnextday]
+    [if exp="tf.lastdayFlg == true"]
+    #
+    きょうは、もう寝よう[p]
+    [else]
+    #
+    こんなの夢だ…………目が覚めたら。[p]
+    目が、[r]さめたら…………[p]
+    [endif]
 
-[hide_ev_name]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask time="500" color="black"]
-[return]
+    [hide_ev_name]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask time="500" color="black"]
+    [return]
 
 *ev_day1_3
-;空腹1
-[refresh_ui config_visible="false"]
-[show_ev_name title="04.おなかすいた"]
-#
-ぐう。[p]
-同居人の腹が鳴った。[p]
-#同居人
-やべ、腹減ってきたかも…………[l][r]
-ヤナギ、ごは
-[cm]
-#ヤナギ
-ご飯は3日前に食べたでしょう。[p]
-#同居人
-おおそうじゃったかのぉ…………じゃなくて！[p]
-いいの！？オレ死んじゃうよ[p]
-＜＜途中＞＞[p]
-#
-[hide_ev_name]
-[return]
+    ;空腹1
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="04.おなかすいた"]
+    #
+    ぐう。[p]
+    同居人の腹が鳴った。[p]
+    #同居人
+    やべ、腹減ってきたかも…………[l][r]
+    ヤナギ、ごは
+    [cm]
+    #ヤナギ
+    ご飯は3日前に食べたでしょう。[p]
+    #同居人
+    おおそうじゃったかのぉ…………じゃなくて！[p]
+    いいの！？オレ死んじゃうよ[p]
+    ＜＜途中＞＞[p]
+    #
+    [hide_ev_name]
+    [return]
 
 *ev_day1_4
-;電話1(0.00504)
-[refresh_ui config_visible="false"]
-[show_ev_name title="05.通信障害？"]
-[pushlog text="[se:着信音]"]
-[playse storage=tyakusin.mp3]
-[p]
-[stopse]
-[image storage="23.png" layer="0" name="ev_img" x=160 y=0 width=960 visible=true]
-#誠
-あ、よかった。[p]
-生きてるみたいですね。[p]
-[anim name="ev_img" left="+=240" time=100]
-[glink color="&f.currInfo.time+'_btn'" x=200 y=150 text="用事は？"    storage="main.ks" target="*ev_day1_4_1"]
-[glink color="&f.currInfo.time+'_btn'" x=200 y=250 text="いきなり何" storage="main.ks" target="*ev_day1_4_2"]
-[s]
-*ev_day1_4_1
-[anim name="ev_img" left="-=240" time=100]
-[if exp="Math.random() < 0.8"]
-[SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
-#誠
-先輩ちゃんと食べてますか？[p]
-死なれたりしたら夢見が悪いのでちゃんと食べてくださいね。[p]
-あ！それと、人魚はっ__
-[endif]
-@jump target="*ev_day1_4_else"
-*ev_day1_4_2
-[anim name="ev_img" left="-=240" time=100]
-[if exp="Math.random() < 0.3"]
-[SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
-#誠
-最近全然顔見てないから心配だったんですよ[p]
-そうだ！今度ご飯行きませんか[l][r]
-そんなところにずっと籠ってたら参っちゃうでしょ[p]
-あ！本題忘れてました[p]
-＿＿の事ですけど、人＿＿食＿＿と、人＿＿[p]
-[endif]
-*ev_day1_4_else
-#誠
-っあれ、聞こ＿な＿＿[p]
-なん＿＿＿う＿＿[p]
-ま＿＿＿＿＿＿＿＿＿！[p]
-[free name="ev_img" layer="0"]
-#
-…………結局、何を伝えたかったんだろう。[p]
-こんど調べてみよう[p]
-人魚？とか、言ってた気がする。[l][r]
-もしかして家で飼ってるあいつのことがバレたのだろうか[p]
-だとしたら…………[p]
-[hide_ev_name]
-[return]
+    ;電話1(0.00504)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="05.通信障害？"]
+    [pushlog text="[se:着信音]"]
+    [playse storage=tyakusin.mp3]
+    [p]
+    [stopse]
+    [image storage="23.png" layer="0" name="ev_img" x=160 y=0 width=960 visible=true]
+    #誠
+    あ、よかった。[p]
+    生きてるみたいですね。[p]
+    [anim name="ev_img" left="+=240" time=100]
+    [glink color="&f.currInfo.time+'_btn'" x=200 y=150 text="用事は？"    storage="main.ks" target="*ev_day1_4_1"]
+    [glink color="&f.currInfo.time+'_btn'" x=200 y=250 text="いきなり何" storage="main.ks" target="*ev_day1_4_2"]
+    [s]
+    *ev_day1_4_1
+        [anim name="ev_img" left="-=240" time=100]
+        [if exp="Math.random() < 0.8"]
+        [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
+        #誠
+        先輩ちゃんと食べてますか？[p]
+        死なれたりしたら夢見が悪いのでちゃんと食べてくださいね。[p]
+        あ！それと、人魚はっ__
+        [endif]
+        @jump target="*ev_day1_4_else"
+    *ev_day1_4_2
+        [anim name="ev_img" left="-=240" time=100]
+        [if exp="Math.random() < 0.3"]
+        [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
+        #誠
+        最近全然顔見てないから心配だったんですよ[p]
+        そうだ！今度ご飯行きませんか[l][r]
+        そんなところにずっと籠ってたら参っちゃうでしょ[p]
+        あ！本題忘れてました[p]
+        ＿＿の事ですけど、人＿＿食＿＿と、人＿＿[p]
+        [endif]
+    *ev_day1_4_else
+        #誠
+        っあれ、聞こ＿な＿＿[p]
+        なん＿＿＿う＿＿[p]
+        ま＿＿＿＿＿＿＿＿＿！[p]
+        [free name="ev_img" layer="0"]
+        #
+        …………結局、何を伝えたかったんだろう。[p]
+        こんど調べてみよう[p]
+        人魚？とか、言ってた気がする。[l][r]
+        もしかして家で飼ってるあいつのことがバレたのだろうか[p]
+        だとしたら…………[p]
+        [hide_ev_name]
+        [return]
 
 *ev_day1_5
-;ニュース1
-[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=3]
-[refresh_ui config_visible="false"]
-[SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
-[show_ev_name title="06.ニュースだ"]
-#
-テレビのリモコンはどこにいったんだろう…………。[p]
-@bg storage ="&'ev_day1_5_' + f.currInfo.time + '.png'" time=0
-#ニュースキャスター
-『……続いてのニュースです。先月、■■市■■海岸で発生した大学生の水難事故について、専門家にお話を伺います』[p]
-『スタジオには、海難事故の調査に詳しい水難救助専門家の＿＿さんにお越しいただきました』[p]
-#専門家
-『よろしくお願いします。……ええ、今回の現場ですが、非常に潮の流れが複雑な場所です。一度引き込まれると、自力での浮上はまず困難でしょう』[p]
-『特にこの時期の海水温は、人間の体温を奪うには十分すぎるほど低いです。……数分もすれば意識を失い、呼吸器系に致命的なダメージを受けます』[p]
-『……最悪の場合、遺体は岩場に打ち付けられ……あるいは、海洋生物による欠損が激しく、発見が遅れるケースも珍しくありません』[p]
-#ニュースキャスター
-『依然として行方不明となっている……■■さんの捜索は、今日も難航しているとのことですが……』[p]
-@bg storage ="&f.currInfo.time + '_living2.png'" time=0
-#
-……胸が、ムカムカする。[p]
-[iscript]
-    if(f.topicFlg[0][3]<1){
-        f.topicFlg[0][3] = 1; // 海について1
-    }
-[endscript]
-[hide_ev_name]
-[return]
+    ;ニュース1
+    [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=3]
+    [refresh_ui config_visible="false"]
+    [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
+    [show_ev_name title="06.ニュースだ"]
+    #
+    テレビのリモコンはどこにいったんだろう…………。[p]
+    @bg storage ="&'ev_day1_5_' + f.currInfo.time + '.png'" time=0
+    #ニュースキャスター
+    『……続いてのニュースです。先月、■■市■■海岸で発生した大学生の水難事故について、専門家にお話を伺います』[p]
+    『スタジオには、海難事故の調査に詳しい水難救助専門家の＿＿さんにお越しいただきました』[p]
+    #専門家
+    『よろしくお願いします。……ええ、今回の現場ですが、非常に潮の流れが複雑な場所です。一度引き込まれると、自力での浮上はまず困難でしょう』[p]
+    『特にこの時期の海水温は、人間の体温を奪うには十分すぎるほど低いです。……数分もすれば意識を失い、呼吸器系に致命的なダメージを受けます』[p]
+    『……最悪の場合、遺体は岩場に打ち付けられ……あるいは、海洋生物による欠損が激しく、発見が遅れるケースも珍しくありません』[p]
+    #ニュースキャスター
+    『依然として行方不明となっている……■■さんの捜索は、今日も難航しているとのことですが……』[p]
+    @bg storage ="&f.currInfo.time + '_living2.png'" time=0
+    #
+    ……胸が、ムカムカする。[p]
+    [iscript]
+        if(f.topicFlg[0][3]<1){
+            f.topicFlg[0][3] = 1; // 海について1
+        }
+    [endscript]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day1_6
-;調理1
-[refresh_ui config_visible="false"]
-[show_ev_name title="07.たまには自炊してね"]
-#
-<イベントテキスト未実装>[p]
-[hide_ev_name]
-[return]
+    ;調理1
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="07.たまには自炊してね"]
+    #
+    <イベントテキスト未実装>[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day1_7
-;冷蔵庫のおやつ1(0.1)
-[SANc sDCnt=1 sDSiz=2 fDCnt=1 fDSiz=6]
-[refresh_ui config_visible="false"]
-[show_ev_name title="08.おやつ発見！"]
-#
-冷蔵庫の底にプリンを発見した。[p]
-ケーキ屋に売ってるようなプチンとできないタイプ。[l][r]
-スプーンじゃうまく掬えなくて底の隅に残ってしまうのがかなり悔しい…………なんて彼が言っていたのを覚えている。[p]
-そもそもプリンのカラメルは型から外れやすくするためのものらしい。[p]
-…………カラメルのないプリンは、どうやってはがすんだろう。[p]
-#ヤナギ
-カラメル、後入れのタイプだコレ…………[p]
-#
-きっと一緒についてた小さなスプーンが庫内に落ちていた気がする。[p]
-…………いま食べる気はない。戻しておこう。[p]
-[hide_ev_name]
-[return]
+    ;冷蔵庫のおやつ1(0.1)
+    [SANc sDCnt=1 sDSiz=2 fDCnt=1 fDSiz=6]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="08.おやつ発見！"]
+    #
+    冷蔵庫の底にプリンを発見した。[p]
+    ケーキ屋に売ってるようなプチンとできないタイプ。[l][r]
+    スプーンじゃうまく掬えなくて底の隅に残ってしまうのがかなり悔しい…………なんて彼が言っていたのを覚えている。[p]
+    そもそもプリンのカラメルは型から外れやすくするためのものらしい。[p]
+    …………カラメルのないプリンは、どうやってはがすんだろう。[p]
+    #ヤナギ
+    カラメル、後入れのタイプだコレ…………[p]
+    #
+    きっと一緒についてた小さなスプーンが庫内に落ちていた気がする。[p]
+    …………いま食べる気はない。戻しておこう。[p]
+    [hide_ev_name]
+    [return]
 
 
 
@@ -899,152 +902,152 @@
 
 
 *ev_day2_0
-;回想2(0.8)
-[refresh_ui config_visible="false"]
-[show_ev_name title="09.雨の日"]
-#
-回想2[p]
+    ;回想2(0.8)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="09.雨の日"]
+    #
+    回想2[p]
 
-[hide_ev_name]
-[return]
+    [hide_ev_name]
+    [return]
 
 *ev_day2_1
-;回想3（0.49）
-[refresh_ui config_visible="false"]
-[show_ev_name title="10.テレビ出てるね"]
-#
-回想3[p]
-[hide_ev_name]
-[return]
+    ;回想3（0.49）
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="10.テレビ出てるね"]
+    #
+    回想3[p]
+    [hide_ev_name]
+    [return]
 
 *ev_day2_2
-;就寝3（0.9）
-[bg storage="daylast.png" time="1000" wait="false"]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask_off]
-[refresh_ui config_visible="false"]
-[show_ev_name title="11.おやすみ"]
-[sleepORnextday]
-[if exp="tf.lastdayFlg == true"]
-#
-きょうは、もう寝よう[p]
-[else]
-#
-こんなの夢だ…………目が覚めたら。[p]
-目が、[r]さめたら…………[p]
-[endif]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask time="500" color="black"]
-[hide_ev_name]
-[return]
+    ;就寝3（0.9）
+    [bg storage="daylast.png" time="1000" wait="false"]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask_off]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="11.おやすみ"]
+    [sleepORnextday]
+    [if exp="tf.lastdayFlg == true"]
+    #
+    きょうは、もう寝よう[p]
+    [else]
+    #
+    こんなの夢だ…………目が覚めたら。[p]
+    目が、[r]さめたら…………[p]
+    [endif]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask time="500" color="black"]
+    [hide_ev_name]
+    [return]
 
 *ev_day2_3
-;就寝4(0.1)
-[bg storage="daylast.png" time="1000" wait="false"]
-    [iscript]
-        TYRANO.kag.stat.is_skip = false;
-    [endscript]
-    [wait time="300"]
-[mask_off]
-[refresh_ui config_visible="false"]
-[show_ev_name title="12.いい夢みろよ"]
-[sleepORnextday]
-[if exp="tf.lastdayFlg == true"]
-#
-きょうは、もう寝よう[p]
-[else]
-#
-こんなの夢だ…………目が覚めたら。[p]
-目が、[r]さめたら…………[p]
-[endif]
-[mask time="500" color="black"]
-[hide_ev_name]
-[return]
+    ;就寝4(0.1)
+    [bg storage="daylast.png" time="1000" wait="false"]
+        [iscript]
+            TYRANO.kag.stat.is_skip = false;
+        [endscript]
+        [wait time="300"]
+    [mask_off]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="12.いい夢みろよ"]
+    [sleepORnextday]
+    [if exp="tf.lastdayFlg == true"]
+    #
+    きょうは、もう寝よう[p]
+    [else]
+    #
+    こんなの夢だ…………目が覚めたら。[p]
+    目が、[r]さめたら…………[p]
+    [endif]
+    [mask time="500" color="black"]
+    [hide_ev_name]
+    [return]
 
 *ev_day2_4
-;空腹2(0.1)
-[refresh_ui config_visible="false"]
-[show_ev_name title="13.お腹が鳴ってる"]
-#
-空腹2[p]
-[hide_ev_name]
-[return]
+    ;空腹2(0.1)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="13.お腹が鳴ってる"]
+    #
+    空腹2[p]
+    [hide_ev_name]
+    [return]
 
 *ev_day2_5
-;空腹3
-[refresh_ui config_visible="false"]
-[show_ev_name title="14.あじけない"]
-#
-空腹3[p]
-[hide_ev_name]
-[return]
+    ;空腹3
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="14.あじけない"]
+    #
+    空腹3[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day2_6
-;電話2(0.0504)
-[refresh_ui config_visible="false"]
-[show_ev_name title="15.お元気ですか"]
-#
-電話2[p]
-……無理しないでくださいね[p]
-[hide_ev_name]
-[return]
+    ;電話2(0.0504)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="15.お元気ですか"]
+    #
+    電話2[p]
+    ……無理しないでくださいね[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day2_7
-;セイレーン発症
-[refresh_ui config_visible="false"]
-[show_ev_name title="16.うたごえ"]
-#
-セイレーン発症[p]
-[hide_ev_name]
-[return]
+    ;セイレーン発症
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="16.うたごえ"]
+    #
+    セイレーン発症[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day2_8
-;ニュース2
-[refresh_ui config_visible="false"]
-[show_ev_name title="17.水難事故"]
-#
-ニュース2[p]
-[hide_ev_name]
-[return]
+    ;ニュース2
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="17.水難事故"]
+    #
+    ニュース2[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day2_9
-;調理2
-[refresh_ui config_visible="false"]
-[show_ev_name title="18.きみの得意料理は"]
-#
-君の得意料理は、なんだっけ[p]
-[hide_ev_name]
-[return]
+    ;調理2
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="18.きみの得意料理は"]
+    #
+    君の得意料理は、なんだっけ[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day2_10
-;夕立(0.5)
-[refresh_ui config_visible="false"]
-[show_ev_name title="19.洗濯物"]
-#
-夕立[p]
-[hide_ev_name]
-[return]
+    ;夕立(0.5)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="19.洗濯物"]
+    #
+    夕立[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day2_11
-;冷蔵庫のおやつ2(0.15)
-[refresh_ui config_visible="false"]
-[show_ev_name title="20.もう食べれないね"]
-#
-冷蔵庫のおやつ2[p]
-[hide_ev_name]
-[return]
+    ;冷蔵庫のおやつ2(0.15)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="20.もう食べれないね"]
+    #
+    冷蔵庫のおやつ2[p]
+    [hide_ev_name]
+    [return]
 
 
 ;==============
@@ -1056,91 +1059,91 @@
 
 
 *ev_day3_0
-;回想4(0.049)
-[refresh_ui config_visible="false"]
-[show_ev_name title="21.クッション戦争"]
-#
-回想4[p]
+    ;回想4(0.049)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="21.クッション戦争"]
+    #
+    回想4[p]
 
-[hide_ev_name]
-[return]
+    [hide_ev_name]
+    [return]
 
 *ev_day3_1
-;就寝5（0.95）
-[bg storage="daylast.png" time="1000" wait="false"]
-[mask_off]
-[refresh_ui config_visible="false"]
-[show_ev_name title="22.寝て忘れたい"]
-[sleepORnextday]
-[if exp="tf.lastdayFlg == true"]
-#
-きょうは、もう寝よう[p]
-[else]
-#
-こんなの夢だ…………目が覚めたら。[p]
-目が、[r]さめたら…………[p]
-[endif]
-[mask time="500" color="black"]
-[hide_ev_name]
-[return]
+    ;就寝5（0.95）
+    [bg storage="daylast.png" time="1000" wait="false"]
+    [mask_off]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="22.寝て忘れたい"]
+    [sleepORnextday]
+    [if exp="tf.lastdayFlg == true"]
+    #
+    きょうは、もう寝よう[p]
+    [else]
+    #
+    こんなの夢だ…………目が覚めたら。[p]
+    目が、[r]さめたら…………[p]
+    [endif]
+    [mask time="500" color="black"]
+    [hide_ev_name]
+    [return]
 
 *ev_day3_2
-;就寝6（0.05）
-[bg storage="daylast.png" time="1000" wait="false"]
-[mask_off]
-[refresh_ui config_visible="false"]
-[show_ev_name title="23.寝るのが怖い"]
-[sleepORnextday]
-[if exp="tf.lastdayFlg == true"]
-#
-きょうは、もう寝よう[p]
-[else]
-#
-こんなの夢だ…………目が覚めたら。[p]
-目が、[r]さめたら…………[p]
-[endif]
-[mask time="500" color="black"]
-[hide_ev_name]
-[return]
+    ;就寝6（0.05）
+    [bg storage="daylast.png" time="1000" wait="false"]
+    [mask_off]
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="23.寝るのが怖い"]
+    [sleepORnextday]
+    [if exp="tf.lastdayFlg == true"]
+    #
+    きょうは、もう寝よう[p]
+    [else]
+    #
+    こんなの夢だ…………目が覚めたら。[p]
+    目が、[r]さめたら…………[p]
+    [endif]
+    [mask time="500" color="black"]
+    [hide_ev_name]
+    [return]
 
 *ev_day3_3
-;空腹4(0.616)
-[refresh_ui config_visible="false"]
-[show_ev_name title="24.脳みその味"]
-#
-空腹4[p]
-[hide_ev_name]
-[return]
+    ;空腹4(0.616)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="24.脳みその味"]
+    #
+    空腹4[p]
+    [hide_ev_name]
+    [return]
 
 *ev_day3_4
-;空腹5
-[refresh_ui config_visible="false"]
-[show_ev_name title="25.吐き出してしまいそう"]
-#
-空腹5[p]
-[hide_ev_name]
-[return]
+    ;空腹5
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="25.吐き出してしまいそう"]
+    #
+    空腹5[p]
+    [hide_ev_name]
+    [return]
 
 *ev_day3_5
-;空腹6(0.0616)
-[refresh_ui config_visible="false"]
-[show_ev_name title="26.海水の味"]
-#
-空腹6[p]
-[hide_ev_name]
-[return]
+    ;空腹6(0.0616)
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="26.海水の味"]
+    #
+    空腹6[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day3_6
-;ニュース3
-[refresh_ui config_visible="false"]
-[show_ev_name title="27. 44.9%"]
-#
-水難事故の致死率[p]
-貴方が助かる確率も[p]
-蘇生率は５分を過ぎた途端に、急激に低下するらしい[p]
-[hide_ev_name]
-[return]
+    ;ニュース3
+    [refresh_ui config_visible="false"]
+    [show_ev_name title="27. 44.9%"]
+    #
+    水難事故の致死率[p]
+    貴方が助かる確率も[p]
+    蘇生率は５分を過ぎた途端に、急激に低下するらしい[p]
+    [hide_ev_name]
+    [return]
 
 
 *ev_day3_7
