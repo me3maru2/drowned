@@ -250,7 +250,7 @@ body {
 
 .area_save_list::-webkit-scrollbar-thumb {
     border-radius: 0;
-    background: #0f60ea;
+    background: #BB2626;
 }
 
 .area_save_list::-webkit-scrollbar-track {
@@ -336,7 +336,7 @@ body {
     padding: 0 0 0 20px;
     line-height: 1;
     font-family: "KH-Dot-Kagurazaka", sans-serif !important;
-    color: #337586;
+    color: #70C2C0;
     font-weight: bold;
     box-sizing: border-box;
 }
