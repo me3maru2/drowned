@@ -354,7 +354,7 @@
         [endif]
         #
         今は特に話すこともないな[p]
-        [call storage="main.ks" target="*refresh_room"]
+        [jump storage="main.ks" target="*refresh_room"]
         [s]
     [else]
         [jump storage="main.ks" target="*show_topics"]
