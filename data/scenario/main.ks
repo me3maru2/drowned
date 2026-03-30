@@ -354,10 +354,16 @@
         [endif]
         #
         今は特に話すこともないな[p]
-        [jump storage="main.ks" target="*refresh_room"]
+        [eval exp="f.searchCnt -= 1"]
+        [if exp="f.searchCnt <= 0"]
+            @jump storage="main.ks" target="*phase_end"
+        [else]
+            [jump storage="main.ks" target="*refresh_room"]
+        [endif]
         [s]
     [else]
         [jump storage="main.ks" target="*show_topics"]
+        [s]
     [endif]
 
 *talk_stop_return
