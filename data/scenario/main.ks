@@ -213,7 +213,7 @@
 ;==============================================================================
 ;       ===  探索パート開始 ===
 ;==============================================================================
-
+*tansakuPartStart
 
 [refresh_ui config_visible="true"]
 [layopt layer="message0" clickthrough=true]
@@ -697,7 +697,8 @@
     [endscript]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day1_1
     ;就寝1（0.8）
     [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=3]
@@ -719,7 +720,6 @@
     こんなの夢だ…………目が覚めたら。[p]
     目が、[r]さめたら…………[p]
     [endif]
-
     [hide_ev_name]
         [iscript]
             TYRANO.kag.stat.is_skip = false;
@@ -727,7 +727,8 @@
         [wait time="300"]
     [mask time="500" color="black"]
     [return]
-
+    [s]
+    
 *ev_day1_2
     ;就寝2（0.2）
     [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=6]
@@ -757,7 +758,8 @@
         [wait time="300"]
     [mask time="500" color="black"]
     [return]
-
+    [s]
+    
 *ev_day1_3
     ;空腹1
     [refresh_ui config_visible="false"]
@@ -778,7 +780,8 @@
     #
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day1_4
     ;電話1(0.00504)
     [refresh_ui config_visible="false"]
@@ -830,7 +833,8 @@
         だとしたら…………[p]
         [hide_ev_name]
         [return]
-
+    [s]
+    
 *ev_day1_5
     ;ニュース1
     [SANc sDCnt=1 sDSiz=1 fDCnt=1 fDSiz=3]
@@ -859,8 +863,8 @@
     [endscript]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day1_6
     ;調理1
     [refresh_ui config_visible="false"]
@@ -869,8 +873,8 @@
     <イベントテキスト未実装>[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day1_7
     ;冷蔵庫のおやつ1(0.1)
     [SANc sDCnt=1 sDSiz=2 fDCnt=1 fDSiz=6]
@@ -910,7 +914,8 @@
 
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day2_1
     ;回想3（0.49）
     [refresh_ui config_visible="false"]
@@ -919,7 +924,8 @@
     回想3[p]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day2_2
     ;就寝3（0.9）
     [bg storage="daylast.png" time="1000" wait="false"]
@@ -946,7 +952,8 @@
     [mask time="500" color="black"]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day2_3
     ;就寝4(0.1)
     [bg storage="daylast.png" time="1000" wait="false"]
@@ -969,7 +976,8 @@
     [mask time="500" color="black"]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day2_4
     ;空腹2(0.1)
     [refresh_ui config_visible="false"]
@@ -978,7 +986,8 @@
     空腹2[p]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day2_5
     ;空腹3
     [refresh_ui config_visible="false"]
@@ -987,8 +996,8 @@
     空腹3[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day2_6
     ;電話2(0.0504)
     [refresh_ui config_visible="false"]
@@ -998,8 +1007,8 @@
     ……無理しないでくださいね[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day2_7
     ;セイレーン発症
     [refresh_ui config_visible="false"]
@@ -1008,8 +1017,8 @@
     セイレーン発症[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day2_8
     ;ニュース2
     [refresh_ui config_visible="false"]
@@ -1018,8 +1027,8 @@
     ニュース2[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day2_9
     ;調理2
     [refresh_ui config_visible="false"]
@@ -1028,8 +1037,8 @@
     君の得意料理は、なんだっけ[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day2_10
     ;夕立(0.5)
     [refresh_ui config_visible="false"]
@@ -1038,8 +1047,8 @@
     夕立[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day2_11
     ;冷蔵庫のおやつ2(0.15)
     [refresh_ui config_visible="false"]
@@ -1067,7 +1076,8 @@
 
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day3_1
     ;就寝5（0.95）
     [bg storage="daylast.png" time="1000" wait="false"]
@@ -1086,7 +1096,8 @@
     [mask time="500" color="black"]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day3_2
     ;就寝6（0.05）
     [bg storage="daylast.png" time="1000" wait="false"]
@@ -1105,7 +1116,8 @@
     [mask time="500" color="black"]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day3_3
     ;空腹4(0.616)
     [refresh_ui config_visible="false"]
@@ -1114,7 +1126,8 @@
     空腹4[p]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day3_4
     ;空腹5
     [refresh_ui config_visible="false"]
@@ -1123,7 +1136,8 @@
     空腹5[p]
     [hide_ev_name]
     [return]
-
+    [s]
+    
 *ev_day3_5
     ;空腹6(0.0616)
     [refresh_ui config_visible="false"]
@@ -1132,8 +1146,8 @@
     空腹6[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day3_6
     ;ニュース3
     [refresh_ui config_visible="false"]
@@ -1144,8 +1158,8 @@
     蘇生率は５分を過ぎた途端に、急激に低下するらしい[p]
     [hide_ev_name]
     [return]
-
-
+    [s]
+    
 *ev_day3_7
     ;冷蔵庫のおやつ3(0.2)
     [refresh_ui config_visible="false"]
@@ -1174,6 +1188,7 @@
     [endscript]
     [if exp="f.searchCnt <= 0"]
             @jump target="*next_phase"
+            [s]
     [endif]
 
     [if exp="f.topicFlg[0][0] >= 1"]
@@ -1224,6 +1239,7 @@
         tf.hochi_target = (f.reiya.san > 30) ? "*hochi_high_san" : "*hochi_low_san";
     [endscript]
     @jump target="&tf.hochi_target"
+    [s]
 
     *hochi_high_san
         [if exp="tf.hochi_idx == 0"]
@@ -1278,6 +1294,7 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         @jump target="*hochi_end"
+        [s]
 
     *hochi_low_san
         [if exp="tf.hochi_idx == 0"]
@@ -1307,12 +1324,13 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         @jump target="*hochi_end"
+        [s]
 
     *hochi_end
         [eval exp="tf.is_waiting = false"]
         [refresh_ui config_visible="true"]
         @jump storage="main.ks" target="*show_topics"
-    [s]
+        [s]
 
 *talk_d1_0
     
