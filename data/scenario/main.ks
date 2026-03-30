@@ -1195,8 +1195,8 @@
         }
     [endscript]
     [if exp="f.searchCnt <= 0"]
-            @jump target="*next_phase"
-            [s]
+        @jump storage="main.ks" target="*phase_end"
+        [s]
     [endif]
 
     [if exp="f.topicFlg[0][0] >= 1"]
