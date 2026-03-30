@@ -1,6 +1,9 @@
 ; 探索回数のリセットマクロ
 [macro name="sCntReset"]
     [iscript]
+    if(f.searchCnt>0){
+        f.searchCnt=0;
+    }
     // SAN値に応じて回数を計算
     if (f.reiya.san > 40) {
         f.searchCnt += 30;
