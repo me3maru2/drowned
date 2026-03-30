@@ -347,10 +347,12 @@
     [endif]
     #
     [iscript]
-    tf.stop_talk = true;
+        tf.stop_talk = true;
     [endscript]
     [cm]
-    [return]
+    [refresh_room]
+    [call storage="main.ks" target=&tf.rpTarget]
+    [s]
 
 *do_talk
     [clearfix name="search_btn,move_btn"]
@@ -419,19 +421,16 @@
         [if exp="f.last_day_Flg==true"]
             @jump storage="main.ks" target="*phase_end"
         [endif]
-        [if exp="f.last_day_Flg==false"]
-            @jump storage="main.ks" target="*phase_end"
-        [endif]
 
         *back_from_event
         ; 戻ってきたらUI更新
         [trace exp="'残り回数:' + f.searchCnt"]
         [layopt layer="message0" visible="false"]
         [iscript]
-        // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
-        TYRANO.kag.stat.is_waiting_click = false;
-        $(".message0_fore").css("pointer-events", "none");
-        $("#event_layer").hide(); 
+            // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
+            TYRANO.kag.stat.is_waiting_click = false;
+            $(".message0_fore").css("pointer-events", "none");
+            $("#event_layer").hide(); 
         [endscript]
         [layopt layer="message0" visible="true"]
         [if exp="f.searchCnt <= 0"]
@@ -925,7 +924,7 @@
     [wait time="300"]
 [mask time="500" color="black"]
 [hide_ev_name]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_day2_3
 ;就寝4(0.1)
@@ -1084,7 +1083,7 @@
 [endif]
 [mask time="500" color="black"]
 [hide_ev_name]
-@jump storage="main.ks" target="*back_from_event"
+[return]
 
 *ev_day3_3
 ;空腹4(0.616)
@@ -1145,8 +1144,11 @@
     [clearfix name="search_btn,move_btn"]
     [iscript]
         if (f.wait_timer) {
-        clearTimeout(f.wait_timer);
-        f.wait_timer = null;
+            clearTimeout(f.wait_timer);
+            f.wait_timer = null;
+        }
+        if(TYRANO.kag.variable.tf.is_waiting == true && TYRANO.kag.stat.is_strong_stop != true){
+            TYRANO.kag.ftag.startTag("jump", {target: "*hochi_event", storage: "main.ks"});
         }
     [endscript]
     [if exp="f.searchCnt <= 0"]
