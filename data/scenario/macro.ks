@@ -149,34 +149,7 @@
     [endif]
 [endmacro]
 
-[macro name="refresh_room"]
-  [clearfix name="search_btn"]
-  [clearfix name="move_btn"]
-  [cm]
-  ;[freeimage layer="0"]
 
-  ; 背景変更 (例: room_noon.png)
-  [iscript]
-    tf.roomname = ['bath','foyer','kitchen','laundry','living1','living2','room'];
-    tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
-  [endscript]
-  [bg storage="&tf.bgfile" time="500" wait="true"]
-  [layopt layer="0" visible="true"]
-
-  ; 左右移動ボタン
-  [iscript]
-    tf.prev = (f.currInfo.room == 0) ? 6 : f.currInfo.room - 1;
-    tf.next = (f.currInfo.room == 6) ? 0 : f.currInfo.room + 1;
-  [endscript]
-  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_left.png'" enterimg="&'button/'+f.currInfo.time+'_left2.png'" zindex="999" fix="true" x=0 y=380 storage="main.ks" target="*change_room" exp="f.currInfo.room = tf.prev"]
-  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_right.png'" enterimg="&'button/'+f.currInfo.time+'_right2.png'" zindex="999" fix="true" x=1220 y=380 storage="main.ks" target="*change_room" exp="f.currInfo.room = tf.next"]
-  ; 探索ポイントの表示（roomごとに分岐）
-  [iscript]
-    tf.rpTarget = '*rp_d' + f.currInfo.day + '_r' + f.currInfo.room;
-  [endscript]
-  ; UI（ボタン系）の再表示
-  [refresh_ui config_visible="true"]
-[endmacro]
 
 [macro name="rand_flavor"]
     [iscript]
@@ -297,19 +270,20 @@
     
     [iscript]
     setTimeout(function(){
-        TYRANO.kag.ftag.startTag("anim", {
-            name: "bgm_cutin",
-            opacity: "0",
-            time: "1000"
-        });
-        // アニメーションが終わる頃にfreeを実行
-        setTimeout(function(){
-            TYRANO.kag.ftag.startTag("free", {
-                layer: "2",
+        // スキップ中でなければアニメーションを実行
+        if (TYRANO.kag.stat.is_skip != true) {
+            TYRANO.kag.ftag.startTag("anim", {
                 name: "bgm_cutin",
-                wait: "false"
+                opacity: "0",
+                time: "1000"
             });
-        }, 1100);
+            setTimeout(function(){
+                TYRANO.kag.ftag.startTag("free", { layer: "2", name: "bgm_cutin", wait: "false" });
+            }, 1100);
+        } else {
+            // スキップ中の場合は即座に消去
+            TYRANO.kag.ftag.startTag("free", { layer: "2", name: "bgm_cutin", wait: "false" });
+        }
     }, 3000);
     [endscript]
 [endmacro]

@@ -411,6 +411,8 @@
         [trace exp="'残り回数:' + f.searchCnt"]
         [layopt layer="message0" visible="false"]
         [iscript]
+            clearTimeout(f.wait_timer);
+            tf.is_waiting = false;
             // 画面全体のクリック待ちイベントを強制削除し、メッセージレイヤをマウス透過させる
             TYRANO.kag.stat.is_waiting_click = false;
             $(".message0_fore").css("pointer-events", "none");
