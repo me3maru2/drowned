@@ -376,7 +376,7 @@
     @jump target="*refresh_room"
 
 *do_search
-    [clearfix name="search_btn"]
+    [clearfix name="search_btn,move_btn"]
     [iscript]
     tf.cost = tf.cost || 3;
     tf.can_action = (f.searchCnt >= tf.cost);
@@ -436,7 +436,7 @@
 
 
 *refresh_room
-  [clearfix name="search_btn"]
+  [clearfix name="search_btn,move_btn"]
   [clearfix name="move_btn"]
   [cm]
   ;[freeimage layer="0"]
@@ -477,39 +477,39 @@
 *rp_d1_r0
     ; day1・風呂
     [if exp="f.currInfo.time== 'noon'"]
-        [button name="search_btn" graphic="button/noon_search.png"    x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/noon_search.png"    x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/noon_search.png"    x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'evening'"]
         [event_rnd day="1" idx="3"]
-        [button name="search_btn" graphic="button/evening_search.png" x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/evening_search.png" x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/evening_search.png" x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/evening_search.png" x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/evening_search.png" x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/evening_search.png" x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'night'"]
-        [button name="search_btn" graphic="button/night_search.png"   x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/night_search.png"   x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/night_search.png"   x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/night_search.png"   x=1100 y=102 storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/night_search.png"   x=852 y=339  storage="main.ks" target="*do_search" zindex="999" fix="true"      exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/night_search.png"   x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
-    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=270 y=322 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=270 y=322 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r1
     ; day1・玄関
     [event_rnd day="1" idx="4" prob="0.00504"]
     [if exp="f.currInfo.time== 'noon'"]
-        [button name="search_btn" graphic="button/noon_search.png"    x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'evening'"]
-        [button name="search_btn" graphic="button/evening_search.png" x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/evening_search.png" x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/evening_search.png" x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/evening_search.png" x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'night'"]
-        [button name="search_btn" graphic="button/night_search.png"   x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-        [button name="search_btn" graphic="button/night_search.png"   x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/night_search.png"   x=610 y=141 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+        [button name="search_btn,move_btn" graphic="button/night_search.png"   x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
-    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=821 y=248 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=821 y=248 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r2
@@ -522,39 +522,39 @@
     [if exp="tf.canCook"]
         [event_rnd day="1" idx="6"]
     [endif]
-    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=300 y=210 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=300 y=210 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r3
     ; day1・ランドリー
     [if exp="f.currInfo.time== 'noon'"]
     [event_rnd day="1" idx="4" prob="0.00504"]
-    [button name="search_btn" graphic="button/noon_search.png"    x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/noon_search.png"    x=500 y=95 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=500 y=95 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'evening'"]
-    [button name="search_btn" graphic="button/evening_search.png" x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/evening_search.png" x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
-    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=390 y=415 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=390 y=415 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r4
     ; day1・リビング1
     [event_rnd day="1" idx="4" prob="0.00504"]
-    [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=815 y=380 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=815 y=380 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r5
     ; day1・リビング2
     [event_rnd day="1" idx="4" prob="0.00504"]
     [if exp="f.currInfo.time== 'noon'"]
-    [button name="search_btn" graphic="button/noon_search.png"    x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'evening'"]
-    [button name="search_btn" graphic="button/evening_search.png" x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/evening_search.png" x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'night'"]
-    [button name="search_btn" graphic="button/night_search.png"   x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/night_search.png"   x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
@@ -562,19 +562,19 @@
     ; day1・寝室
     [event_rnd day="1" idx="4" prob="0.00504"]
     [if exp="f.currInfo.time== 'noon'"]
-    [button name="search_btn" graphic="button/noon_search.png"    x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/noon_search.png"    x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/noon_search.png"    x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/noon_search.png"    x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=6, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'evening'"]
-    [button name="search_btn" graphic="button/evening_search.png" x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/evening_search.png" x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/evening_search.png" x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/evening_search.png" x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/evening_search.png" x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=4, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/evening_search.png" x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=7, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [if exp="f.currInfo.time== 'night'"]
-    [button name="search_btn" graphic="button/night_search.png"   x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/night_search.png"   x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [button name="search_btn" graphic="button/night_search.png"   x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/night_search.png"   x=455 y=420  storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/night_search.png"   x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
+    [button name="search_btn,move_btn" graphic="button/night_search.png"   x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
       [jump storage="main.ks" target="*end_refresh_search_btn"]
 
