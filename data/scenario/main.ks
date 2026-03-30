@@ -219,8 +219,7 @@
 [layopt layer="message0" clickthrough=true]
 ; --- day1 ---
 [sCntReset]
-[refresh_room]
-[call storage="main.ks" target=&tf.rpTarget]
+[call storage="main.ks" target="*refresh_room]
 [s]
 
 *day1
@@ -239,7 +238,7 @@
     [refresh_ui config_visible="true"]
 [endif]
 
-[refresh_room]
+[call storage="main.ks" target="*refresh_room]
 
 [if exp="f.currInfo.time == 'evening'"]
     [pushlog text="---時間帯：夕---"]
@@ -278,14 +277,12 @@
 [disable_click_effect]
 @jump storage="title.ks"
 [s]
-;[refresh_room]
-;[call storage="main.ks" target=&tf.rpTarget]
+;[call storage="main.ks" target="*refresh_room]
 ;[s]
 
 ; --- day3 ---
 ;*day3
-;[refresh_room]
-;[call storage="main.ks" target=&tf.rpTarget]
+;[call storage="main.ks" target="*refresh_room]
 ;[s]
 
 *next_phase
@@ -357,8 +354,7 @@
         [endif]
         #
         今は特に話すこともないな[p]
-        [refresh_room]
-        [call storage="main.ks" target=&tf.rpTarget]
+        [call storage="main.ks" target="*refresh_room]
         [s]
     [else]
         [jump storage="main.ks" target="*show_topics"]
@@ -376,8 +372,7 @@
     [endif]
     #
     [cm]
-    [refresh_room]
-    [call storage="main.ks" target=&tf.rpTarget]
+    [call storage="main.ks" target="*refresh_room]
     [s]
 
 ; ======================================================
@@ -385,8 +380,7 @@
 ; ======================================================
 
 *change_room
-    [refresh_room]
-    [call storage="main.ks" target=&tf.rpTarget]
+    [call storage="main.ks" target="*refresh_room]
     [return]
 
 *do_search
@@ -423,8 +417,7 @@
         [if exp="f.searchCnt <= 0"]
             @jump storage="main.ks" target="*phase_end"
         [endif]
-        [refresh_room]
-        [call storage="main.ks" target=&tf.rpTarget]
+        [call storage="main.ks" target="*refresh_room]
         [s]
     [else]
         [cm]
@@ -449,6 +442,36 @@
         [jump storage="main.ks" target="*next_phase"]
     [s]
 
+
+*refresh_room
+  [clearfix name="search_btn"]
+  [clearfix name="move_btn"]
+  [cm]
+  ;[freeimage layer="0"]
+
+  ; 背景変更 (例: room_noon.png)
+  [iscript]
+    tf.roomname = ['bath','foyer','kitchen','laundry','living1','living2','room'];
+    tf.bgfile = f.currInfo.time + '_' + tf.roomname[f.currInfo.room] + '.png';
+  [endscript]
+  [bg storage="&tf.bgfile" time="500" wait="true"]
+  [layopt layer="0" visible="true"]
+
+  ; 左右移動ボタン
+  [iscript]
+    tf.prev = (f.currInfo.room == 0) ? 6 : f.currInfo.room - 1;
+    tf.next = (f.currInfo.room == 6) ? 0 : f.currInfo.room + 1;
+  [endscript]
+  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_left.png'" enterimg="&'button/'+f.currInfo.time+'_left2.png'" zindex="999" fix="true" x=0 y=380 storage="main.ks" target="*change_room" exp="f.currInfo.room = tf.prev"]
+  [button name="move_btn" graphic="&'button/'+f.currInfo.time+'_right.png'" enterimg="&'button/'+f.currInfo.time+'_right2.png'" zindex="999" fix="true" x=1220 y=380 storage="main.ks" target="*change_room" exp="f.currInfo.room = tf.next"]
+  ; 探索ポイントの表示（roomごとに分岐）
+  [iscript]
+    tf.rpTarget = '*rp_d' + f.currInfo.day + '_r' + f.currInfo.room;
+  [endscript]
+  [call storage="main.ks" target=&tf.rpTarget]
+  ; UI（ボタン系）の再表示
+  [refresh_ui config_visible="true"]
+[return]
 
 ; ======================================================
 ; 探索ポイントボタン（ラベル形式）
