@@ -420,6 +420,7 @@
         @call storage="event.ks" target="&tf.evTarget"
         [if exp="f.last_day_Flg==true"]
             @jump storage="main.ks" target="*phase_end"
+            [eval exp="f.last_day_Flg = false"]
         [endif]
 
         *back_from_event
