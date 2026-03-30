@@ -361,7 +361,9 @@
     [endif]
 
 *talk_stop_return
-    [return]
+    [cm]
+    @jump target="*refresh_room"
+    [s]
 
 ; ======================================================
 ; 探索ロジック
@@ -455,7 +457,8 @@
   [iscript]
     tf.rpTarget = '*rp_d' + f.currInfo.day + '_r' + f.currInfo.room;
   [endscript]
-  [call storage="main.ks" target=&tf.rpTarget]
+  [jump storage="main.ks" target="&tf.rpTarget"]
+  *end_refresh_search_btn
   ; UI（ボタン系）の再表示
   [refresh_ui config_visible="true"]
   [if exp="TYRANO.kag.stat.stack.call.length > 0"]
@@ -487,7 +490,7 @@
         [button name="search_btn" graphic="button/night_search.png"   x=1121 y=353 storage="main.ks" target="*talk_or_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=270 y=322 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=9, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r1
     ; day1・玄関
@@ -504,7 +507,7 @@
         [button name="search_btn" graphic="button/night_search.png"   x=975 y=100 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=821 y=248 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=3, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r2
     ; day1・キッチン
@@ -517,7 +520,7 @@
         [event_rnd day="1" idx="6"]
     [endif]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=300 y=210 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r3
     ; day1・ランドリー
@@ -530,13 +533,13 @@
     [button name="search_btn" graphic="button/evening_search.png" x=70 y=405 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=1, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=390 y=415 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r4
     ; day1・リビング1
     [event_rnd day="1" idx="4" prob="0.00504"]
     [button name="search_btn" graphic="&'button/'+f.currInfo.time+'_search.png'" x=815 y=380 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=0, tf.cost=2" clickse="sei_ge_bubble01.mp3"]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r5
     ; day1・リビング2
@@ -550,7 +553,7 @@
     [if exp="f.currInfo.time== 'night'"]
     [button name="search_btn" graphic="button/night_search.png"   x=600 y=140 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=2, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 *rp_d1_r6
     ; day1・寝室
@@ -570,7 +573,7 @@
     [button name="search_btn" graphic="button/night_search.png"   x=890  y=170 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=5, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [button name="search_btn" graphic="button/night_search.png"   x=1165 y=215 storage="main.ks" target="*do_search" zindex="999" fix="true" exp="tf.point=8, tf.cost=3" clickse="sei_ge_bubble01.mp3"]
     [endif]
-    [return]
+      [jump storage="main.ks" target="*end_refresh_search_btn"]
 
 
 ;==============================================================================
