@@ -1301,7 +1301,9 @@
     [s]
 
 *talk_d1_0
+    
     [iscript]
+        tf.is_waiting = false;
         f.searchCnt -= 1; 
         f.topicFlg[0][0] += 1;
         tf.sflg =f.topicFlg[0][0];
@@ -1360,7 +1362,9 @@
     [s]
 
 *talk_d1_1
+    
     [iscript]
+        tf.is_waiting = false;
         f.searchCnt -= 1;
         f.topicFlg[0][1] += 1;
         tf.sflg =f.topicFlg[0][1];
@@ -1417,6 +1421,7 @@
 
 *talk_d1_2
     [iscript]
+        tf.is_waiting = false;
         f.searchCnt -= 1; 
         f.topicFlg[0][2] += 1;
         tf.sflg =f.topicFlg[0][2];
@@ -1472,6 +1477,7 @@
 
 *talk_d1_3
     [iscript]
+        tf.is_waiting = false;
         f.searchCnt -= 1; 
         f.topicFlg[0][3] += 1;
         tf.sflg =f.topicFlg[0][3];
