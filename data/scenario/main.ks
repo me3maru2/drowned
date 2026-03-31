@@ -375,6 +375,11 @@
     [iscript]
         tf.is_waiting = false;
     [endscript]
+    [if exp="f.currInfo.time == 'night'"]
+        [play_bgm_title storage="yoruno.mp3" title="夜のとばりが下りるころ"]
+    [else]
+        [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
+    [endif]
     @jump target="*refresh_room"
     [s]
 
