@@ -1211,7 +1211,7 @@
         }
     [endscript]
     [if exp="f.searchCnt <= 0"]
-        @jump target="*refresh_room"
+        @jump target="*talk_stop_return"
         [s]
     [endif]
 
