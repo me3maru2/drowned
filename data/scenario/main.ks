@@ -1253,12 +1253,14 @@
 
     *hochi_high_san
         [if exp="tf.hochi_idx == 0"]
+        [bg storage="&'talk/'+f.currInfo.time+'_04.png'" time="100" wait="true"]
             #同居人
-            ………………おい。何ボーッとしてんだよ。[p]
+            ………………お～い。何ボーッとしてんだよ。[p]
             ……え？寝るのはないんじゃなーい？[p]
             あ。[l][r]起きてたよかった～。[p]
             #
-        [elsif exp="tf.hochi_idx == 1"]
+        [elsif exp="tf.hochi_idx == 1"]            
+            [bg storage="&'talk/'+f.currInfo.time+'_03.png'" time="100" wait="true"]
             #同居人
             なあ、さっきから、何見てんの。[l][r]
             ……オレなんか見て楽しい？[p]
@@ -1288,6 +1290,7 @@
             なあヤナギ。なんでそんな怖い顔してんの？[p]
             #
         [elsif exp="tf.hochi_idx == 7"]
+            [bg storage="&'talk/'+f.currInfo.time+'_05.png'" time="100" wait="true"]
             #同居人
             えいっ！[p]
             #
@@ -1360,6 +1363,7 @@
             わかんないか。何でもない。[p]
         [endif]
         [if exp="tf.sflg == 4"]
+            [bg storage="&'talk/'+f.currInfo.time+'_07.png'" time="100" wait="true"]
             #同居人
             いや悪かったって！[p]
             でもオレ食べてねーよ！？[p]
@@ -1368,12 +1372,15 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれ、いや何でもない…………[p]
         [endif]
-        [if exp="tf.sflg <=4 "]
+        [if exp="tf.sflg <=3 "]
+            [bg storage="&'talk/'+f.currInfo.time+'.png'" time="100" wait="true"]
             #同居人
-            初見のはんのう[p]
+            アイスな。いいじゃん。食べてきたら？[p]
+            あ、それとももう食べちゃった？[p]
         [endif]
     [else]
         [if exp="tf.sflg > 5"]
@@ -1390,12 +1397,13 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれ、いや何でもない…………[p]
         [endif]
         [if exp="tf.sflg <=4 "]
             #同居人
-            初見のはんのう[p]
+            アイス？そんなのあったんだなー[p]
         [endif]
     [endif]
     #
@@ -1426,12 +1434,19 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれいや何でもない…………[p]
         [endif]
         [if exp="tf.sflg <=4 "]
             #同居人
-            初見のはんのう[p]
+            俺の名前は、■■ ■■＿
+            [cm]
+            #ヤナギ
+            嘘をつくな。[p]
+            #同居人
+            嘘じゃないんだけどなぁ…………[p]
+            #
         [endif]
     [else]
         [if exp="tf.sflg > 5"]
@@ -1448,12 +1463,19 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれ、いや何でもない…………[p]
         [endif]
         [if exp="tf.sflg <=4 "]
             #同居人
-            初見のはんのう[p]
+            俺の名前は、■■ ■■＿
+            [cm]
+            #ヤナギ
+            嘘は良くない。[p]
+            #同居人
+            嘘じゃないんだけどなぁ…………[p]
+            #
         [endif]
     [endif]
     #
@@ -1483,12 +1505,16 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれいや何でもない…………[p]
         [endif]
         [if exp="tf.sflg <=4 "]
+            [bg storage="&'talk/'+f.currInfo.time+'_05.png'" time="100" wait="true"]
             #同居人
-            初見のはんのう[p]
+            ん。丁度良い～！[p]
+            あー………でももうちょっと冷たくてもいいかも。あと水が少なくな～い？[p]
+            #
         [endif]
     [else]
         [if exp="tf.sflg > 5"]
@@ -1497,19 +1523,23 @@
             わかんないか。何でもない。[p]
         [endif]
         [if exp="tf.sflg == 4"]
+            [bg storage="&'talk/'+f.currInfo.time+'_03.png'" time="100" wait="true"]
             #同居人
-            大丈夫だって！[p]
-            そんな簡単に死んだりなんか、しないからさ！[p]
-            あと、そんな心配するくらいなら俺にジュース奢ってよ[p]
+            そんなに気になる～？[p]
+            別に死んでないんだからそんなに温度なんか気にしなくていいんじゃない？[p]
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれ、いや何でもない…………[p]
         [endif]
         [if exp="tf.sflg <=4 "]
+            [bg storage="&'talk/'+f.currInfo.time+'_05.png'" time="100" wait="true"]
             #同居人
-            初見のはんのう[p]
+            ん。丁度良い～！[p]
+            あー………でももうちょっと冷たくてもいいかも。あと水が少なくな～い？[p]
+            #
         [endif]
     [endif]
     #
@@ -1534,6 +1564,7 @@
             わかんないか。何でもない。[p]
         [endif]
         [if exp="tf.sflg == 4"]
+            [bg storage="&'talk/'+f.currInfo.time+'_03.png'" time="100" wait="true"]
             #同居人
             大丈夫だって！[p]
             そんな簡単に死んだりなんか、しないからさ！[p]
@@ -1541,12 +1572,16 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれいや何でもない…………[p]
         [endif]
-        [if exp="tf.sflg <=4 "]
+        [if exp="tf.sflg <=3 "]
+            [bg storage="&'talk/'+f.currInfo.time+'.png'" time="100" wait="true"]
             #同居人
-            初見のはんのう[p]
+            嫌いじゃないけど………[p]
+            え？ああ、たしかに人魚って確かに海のイメージだよな～[p]
+            #
         [endif]
     [else]
         [if exp="tf.sflg > 5"]
@@ -1555,6 +1590,7 @@
             わかんないか。何でもない。[p]
         [endif]
         [if exp="tf.sflg == 4"]
+            [bg storage="&'talk/'+f.currInfo.time+'_03.png'" time="100" wait="true"]
             #同居人
             大丈夫だって！[p]
             そんな簡単に死んだりなんか、しないからさ！[p]
@@ -1562,12 +1598,16 @@
             [SANc sDCnt=0 sDSiz=1 fDCnt=1 fDSiz=2]
         [endif]
         [if exp="tf.sflg == 3"]
+            [bg storage="&'talk/'+f.currInfo.time+'_02.png'" time="100" wait="true"]
             #同居人
             あれ、いや何でもない…………[p]
         [endif]
-        [if exp="tf.sflg <=4 "]
+        [if exp="tf.sflg <=3 "]
+            [bg storage="&'talk/'+f.currInfo.time+'.png'" time="100" wait="true"]
             #同居人
-            初見のはんのう[p]
+            嫌いじゃないけど………[p]
+            え？ああ、たしかに人魚って確かに海のイメージだよな～[p]
+            #
         [endif]
     [endif]
     #
