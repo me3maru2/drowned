@@ -274,6 +274,10 @@
 
     [mask time="500" color="black"]
     [disable_click_effect]
+    [clearfix]
+    [freeimage layer="0"]
+    [freeimage layer="1"]
+    [freeimage layer="2"]
     @jump storage="title.ks"
     [s]
 ;[call storage="main.ks" target="*refresh_room"]
