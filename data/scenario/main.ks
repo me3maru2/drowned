@@ -192,17 +192,17 @@
 #同居人
 ひでー！[p]
 
-[bg storage="noon_laundry.png" time="1000" wait="true" method="slideInLeft"]
+[bg storage="noon_laundry.png" time="1000" wait="true"]
 [eval exp="f.currInfo.room = 3"]
 #
 これ以上相手をしてられない。[p]
 
-[bg storage="noon_living1.png" time="1000" wait="true" method="slideInLeft"]
+[bg storage="noon_living1.png" time="1000" wait="true"]
 [eval exp="f.currInfo.room = 4"]
 #
 妙に今日は頭が痛いんだ。[l][r]
 
-[bg storage="noon_room.png" time="1000" wait="true"method="slideInLeft"]
+[bg storage="noon_room.png" time="1000" wait="true"]
 [eval exp="f.currInfo.room = 6"]
 #
 早く寝よう…………[p]
@@ -1185,7 +1185,7 @@
 ;==============================================================================
 
 *show_topics
-
+    [bg storage="&'talk/'+f.currInfo.time+'.png'" time="100" wait="true"]
     [clearfix name="search_btn,move_btn"]
     [iscript]
         if (f.wait_timer) {
