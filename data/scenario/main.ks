@@ -681,17 +681,20 @@
     #ヤナギ
     俺は、あのとき何味を食べたんだっけ。[p]
 
+    [image storage="&'ev_img/ev_day1_0_1_'+f.currInfo.time+'.png'" layer="0" name="ev_img" x=0 y=0 width=1280 visible=true time="500"]
     #
     冷蔵庫の中にアイスが１本入っていた。[p]
     真ん中に溝があって、２本に割れるアイス。[l][r]
     あれを綺麗に折れる人間なんて要るんだろうか。[p]
     気付けばそれを手に取っていた。[l][r]
     手が冷えていく………[p]
+    [image storage="&'ev_img/ev_day1_0_2_'+f.currInfo.time+'.png'" layer="0" name="ev_img" x=0 y=0 width=1280 visible=true time="500"]
     #ヤナギ
     っあ…………[p]
     #
     二つに割ろうとしたそれは不格好に片方に偏って割れた。[p]
     分ける相手も居ないのに。何をしていたんだろう。[p]
+    [free name="ev_img" layer="0"]
     大して好きでもないアイスを口に含んだ。[p]
     #ヤナギ
     頭が、痛いな………[p]
