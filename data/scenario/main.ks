@@ -380,7 +380,11 @@
     [else]
         [play_bgm_title storage="natuodayaka.mp3" title="夏の穏やかな海辺で"]
     [endif]
-    @jump target="*refresh_room"
+    [if exp="f.searchCnt <= 0"]
+        @jump storage="main.ks" target="*phase_end"
+    [else]
+        @jump target="*refresh_room"
+    [endif]
     [s]
 
 ; ======================================================
@@ -1207,7 +1211,7 @@
         }
     [endscript]
     [if exp="f.searchCnt <= 0"]
-        @jump storage="main.ks" target="*phase_end"
+        @jump target="*talk_stop_return"
         [s]
     [endif]
 
